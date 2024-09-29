@@ -1,7 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 require('dotenv').config();
-const {Client, Collection, Events, IntentsBitField, Partials, EmbedBuilder, PermissionsBitField, userMention,} = require("discord.js");
+const { Client, Collection, Events, IntentsBitField, Partials, EmbedBuilder, PermissionsBitField, userMention, } = require("discord.js");
 import("mongoose");
 const mongoose = require('mongoose');
 
@@ -48,22 +48,22 @@ const client = new Client({
 });
 
 //Connects mongoDB
-(async function connect(){
-  mongoose.set('strictQuery', false);
-  try {
-    console.log(`🔄 Connecting database...`);
+(async function connect() {
+    mongoose.set('strictQuery', false);
+    try {
+        console.log(`🔄 Connecting database...`);
 
-      await mongoose.connect(process.env.MONGO_TOKEN,);
-  } catch (error) {
-      console.log(`Error ${error}`);
-      console.log("⚠️ Database did not connect!");
-  }
+        await mongoose.connect(process.env.MONGO_TOKEN,);
+    } catch (error) {
+        console.log(`Error ${error}`);
+        console.log("⚠️ Database did not connect!");
+    }
 })();
 
 //Logs mongoDB connect
-  mongoose.connection.once("open", () => {
-      console.log("✅ Database connected successfully!");
-  });
+mongoose.connection.once("open", () => {
+    console.log("✅ Database connected successfully!");
+});
 
 client.commands = new Collection();
 //Gets command files
@@ -71,18 +71,18 @@ const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
 
 for (const folder of commandFolders) {
-	const commandsPath = path.join(foldersPath, folder);
-	const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
-	for (const file of commandFiles) {
-		const filePath = path.join(commandsPath, file);
-		const command = require(filePath);
-		// Set a new item in the Collection with the key as the command name and the value as the exported module
-		if ('data' in command && 'execute' in command) {
-			client.commands.set(command.data.name, command);
-		} else {
-			console.log(`⚠️ The command at ${filePath} is missing a required "data" or "execute" property.`);
-		}
-	}
+    const commandsPath = path.join(foldersPath, folder);
+    const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+    for (const file of commandFiles) {
+        const filePath = path.join(commandsPath, file);
+        const command = require(filePath);
+        // Set a new item in the Collection with the key as the command name and the value as the exported module
+        if ('data' in command && 'execute' in command) {
+            client.commands.set(command.data.name, command);
+        } else {
+            console.log(`⚠️ The command at ${filePath} is missing a required "data" or "execute" property.`);
+        }
+    }
 }
 
 //Gets event files
@@ -90,18 +90,18 @@ const eventsPath = path.join(__dirname, 'events');
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
 
 for (const file of eventFiles) {
-	const filePath = path.join(eventsPath, file);
-	const event = require(filePath);
-	if (event.once) {
-		client.once(event.name, (...args) => event.execute(...args));
-	} else {
-		client.on(event.name, (...args) => event.execute(...args));
-	}
+    const filePath = path.join(eventsPath, file);
+    const event = require(filePath);
+    if (event.once) {
+        client.once(event.name, (...args) => event.execute(...args));
+    } else {
+        client.on(event.name, (...args) => event.execute(...args));
+    }
 }
 
 client.cooldowns = new Collection();
 
-client.login(process.env.TOKEN); 
+client.login(process.env.TOKEN);
 
 //counting
 const counting = require('./Schemas/countingSchema');
@@ -114,7 +114,7 @@ client.on(Events.MessageCreate, async message => {
     try {
         const data = await counting.findOne({ Guild: message.guild.id });
         if (!data) return;
-        
+
         if (message.channel.id !== data.Channel) return;
 
         // Check if message content is a number
@@ -126,7 +126,7 @@ client.on(Events.MessageCreate, async message => {
 
         const roleId = '1279589654055620719';
         const ROLE_DURATION = 12 * 60 * 60 * 1000
-        
+
 
         if (number !== data.Number) {
             // Reset count data and notify user
@@ -135,9 +135,9 @@ client.on(Events.MessageCreate, async message => {
             await data.save();
             await message.react('xdenied:1276188176238645300');
             const embed = new EmbedBuilder()
-            .setColor(0x8269c2)
-            .setDescription(`<:xtriangle_small:1276263767872770108> You ruined everything. Now we have to start from 1. Thanks.`)
-    
+                .setColor(0x8269c2)
+                .setDescription(`<:xtriangle_small:1276263767872770108> You ruined everything. Now we have to start from 1. Thanks.`)
+
             await message.reply({ embeds: [embed] });
 
             try {
@@ -149,7 +149,7 @@ client.on(Events.MessageCreate, async message => {
                     // Add user to roleAssigments
                     const filteredArray = data.RoleAssignments.filter(member => member.userId !== message.author.id)
                     filteredArray.push({ userId: message.author.id, assignedAt: Date.now() })
-                    
+
                     data.RoleAssignments = filteredArray;
 
                     await data.save();
@@ -165,9 +165,9 @@ client.on(Events.MessageCreate, async message => {
             await data.save();
             await message.react('xdenied:1276188176238645300');
             const embed = new EmbedBuilder()
-            .setColor(0x8269c2)
-            .setDescription(`<:xtriangle_small:1276263767872770108> You can't count twice in a row silly! Start from 1!`)
-    
+                .setColor(0x8269c2)
+                .setDescription(`<:xtriangle_small:1276263767872770108> You can't count twice in a row silly! Start from 1!`)
+
             await message.reply({ embeds: [embed] });
 
             try {
@@ -209,18 +209,18 @@ client.on(Events.MessageCreate, async message => {
 });
 
 //xpgain
-const levelSchema = require('./Schemas/level.js'); 
-const excludedRoles = new Set([
-    '1279589654055620719',
-]);
-const extraXPRoleId = ['1275906991511834688', '1289736392930361404'];
-const COOLDOWN_TIME = 5 * 1000; // 10 seconds
+const levelSchema = require('./Schemas/level.js');
+const excludedRoles = ['1279589654055620719'];
+const extraXPRoleId = ['1289736392930361404'];
+const boosterRole = ['1275906991511834688'];
+const COOLDOWN_TIME = 10 * 1000; // 10 seconds
 
 function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min};
+    return Math.floor(Math.random() * (max - min + 1)) + min
+};
 
 client.on(Events.MessageCreate, async (message) => {
-    const { guild, author, channel } = message;
+    const { guild, author, channel, member } = message;
     if (!guild || author.bot) return;
 
     try {
@@ -236,29 +236,29 @@ client.on(Events.MessageCreate, async (message) => {
             });
         }
 
-        const member = await guild.members.fetch(author.id);
-        const hasExcludedRole = member.roles.cache.some(role => excludedRoles.has(role.id));
-        const hasExtraXPRole = member.roles.cache.has(extraXPRoleId);
-        const levelRoles = {
-            5: { roleId: '1274157164054839346', moneyReward: 100 },
-            10: { roleId: '1274157637457412168', moneyReward: 300 },
-            20: { roleId: '1274158590122262650', moneyReward: 1000 },
-            30: { roleId: '1274159198971891865', moneyReward: 2000 },
-            40: { roleId: '1286878355530186812', moneyReward: 5000},
-            50: { roleId: '1274160177020665856', moneyReward: 10000 },
-            60: { roleId: '1286878507875700788', moneyReward: 15000},
-            70: { roleId: '1286878584031547494', moneyReward: 20000},
-            80: { roleId: '1286878638075281460', moneyReward: 25000},
-            90: { roleId: '1286878724154724404', moneyReward: 50000},
-            100: { roleId: '1274160360701694044', moneyReward: 100000 },
-        };
+        const hasExcludedRole = member.roles.cache.some(role => excludedRoles.includes(role.id));
+        const hasExtraXPRole = member.roles.cache.some(role => extraXPRoleId.includes(role.id));
+        const hasBoosterRole = member.roles.cache.some(role => boosterRole.includes(role.id));
+        const levelRoles = [
+            { level: 5, roleId: '1274157164054839346', moneyReward: 100 },
+            { level: 10, roleId: '1274157637457412168', moneyReward: 300 },
+            { level: 20, roleId: '1274158590122262650', moneyReward: 1000 },
+            { level: 30, roleId: '1274159198971891865', moneyReward: 2000 },
+            { level: 40, roleId: '1286878355530186812', moneyReward: 5000 },
+            { level: 50, roleId: '1274160177020665856', moneyReward: 10000 },
+            { level: 60, roleId: '1286878507875700788', moneyReward: 15000 },
+            { level: 70, roleId: '1286878584031547494', moneyReward: 20000 },
+            { level: 80, roleId: '1286878638075281460', moneyReward: 25000 },
+            { level: 90, roleId: '1286878724154724404', moneyReward: 50000 },
+            { level: 100, roleId: '1274160360701694044', moneyReward: 100000 }
+        ];
 
-        const levelUpChannelId = '1274481457053827092'; 
-        const levelUpChannel = guild.channels.cache.get(levelUpChannelId);
+        const levelUpChannelId = '1274481457053827092';
+        const levelUpChannel = await guild.channels.fetch(levelUpChannelId);
 
         if (hasExcludedRole) {
-            console.log(`User has excluded role`) 
-            return; 
+            console.log(`User has excluded role`)
+            return;
             // Skip XP awarding if the user has an excluded role
         }
 
@@ -277,62 +277,79 @@ client.on(Events.MessageCreate, async (message) => {
 
         const requiredXP = data.Level * data.Level * 30;
 
+        console.log(data.XP, give, data.XP + give, requiredXP)
+        // console.log(levelRoles[2])e
+
         if (data.XP + give >= requiredXP) {
             data.XP += give;
             data.Level += 1;
-            await data.save();         
-            
+            await data.save();
+
             // Assign the role and reward money when they reach a specified level
             const currentLevel = data.Level;
-            if (levelRoles[currentLevel]) {
-                const { roleId, moneyReward } = levelRoles[currentLevel];
-                const role = guild.roles.cache.get(roleId);
-                const roler = user.roles.cache.get(roleId);
-                
-                if (role) {
-                    await member.roles.add(role);
-                    await member.roles.remove(roler);
-                    console.log(`Assigned role ${role.name} to ${author.tag}`);
-                    
-                    // Update money schema
-                    let moneyData = await moneySchema.findOne({ Guild: guild.id, User: author.id });
-                    if (!moneyData) {
-                        moneyData = await moneySchema.create({
-                            Guild: guild.id,
-                            User: author.id,
-                            Money: 0,
-                        });
-                    }
-                    moneyData.Money += moneyReward;
-                    await moneyData.save();
-                    console.log(`Added ${moneyReward} money to ${author.tag}`);
-                    const embedrole = new EmbedBuilder()
+            // Checks if current level is a milestone
+            if (levelRoles.some(role => role.level === currentLevel)) {
+                // ID and money award of the role to be added to member
+                const { roleId, moneyReward, level } = levelRoles.find(role => role.level === currentLevel);
+                const rolesToBeRemoved = []
+
+                // Add roleids that are not the current milestone role id to rolesToBeRemoved
+                for (role of levelRoles) {
+                    if (role.roleId !== roleId) rolesToBeRemoved.push(role.roleId)
+                }
+
+                // Add milestone role to user
+                await member.roles.add(roleId);
+                console.log(`Assigned level ${level} milestone role to ${author.tag}`);
+
+                // Remove previous milestone roles from user
+                await member.roles.remove(rolesToBeRemoved);
+                console.log(`Removed previous milestone roles from ${author.tag}`)
+
+                // Get money schema. Create if doesnt exist for user.
+                let moneyData = await moneySchema.findOne({ Guild: guild.id, User: author.id });
+                if (!moneyData) {
+                    moneyData = await moneySchema.create({
+                        Guild: guild.id,
+                        User: author.id,
+                        Money: 0,
+                    });
+                }
+
+                // Add money reward to user and save to db
+                moneyData.Money += moneyReward;
+                await moneyData.save();
+                console.log(`Added ${moneyReward} money to ${author.tag}`);
+
+                // Send level up message with milestone notification
+                const embedrole = new EmbedBuilder()
                     .setColor(0x8269c2)
                     .setTitle('<:xannounce:1276188470250832014> LEVEL UP! <:xannounce:1276188470250832014>')
                     .setDescription(`<:xtriangle_small:1276263767872770108> ${author} has hit a level milestone! Here's ${moneyReward}<:xPix_Stars:1275118528844009563>!`);
 
-                    await levelUpChannel.send({ embeds: [embedrole] });
-                }
-            }            
-
-            if (channel) {
-                const embed = new EmbedBuilder()
-                    .setColor(0x8269c2)
-                    .setTitle('<:xannounce:1276188470250832014> LEVEL UP! <:xannounce:1276188470250832014>')
-                    .setDescription(`<:xtriangle_small:1276263767872770108> ${author} has reached level ${data.Level}!`);
-
-                await levelUpChannel.send({ embeds: [embed] });
+                await levelUpChannel.send({ embeds: [embedrole] });
             }
+
+            // Send level up message without milestone notification
+            const embed = new EmbedBuilder()
+                .setColor(0x8269c2)
+                .setTitle('<:xannounce:1276188470250832014> LEVEL UP! <:xannounce:1276188470250832014>')
+                .setDescription(`<:xtriangle_small:1276263767872770108> ${author} has reached level ${data.Level}!`);
+
+            await levelUpChannel.send({ embeds: [embed] });
         } else {
+            const extraXP = 10;
             data.XP += give;
             data.LastXPTime = Date.now();
-            if (hasExtraXPRole) {
-                // You might want to calculate the total XP given here
-                const extraXP = 10; // Define how much extra XP to give
+            if (hasExtraXPRole) { // Define how much extra XP to give
                 data.XP += extraXP; // Add extra XP to the total
             }
+            if (hasBoosterRole) { // Define how much extra XP to give
+                data.XP += extraXP; // Add extra XP to the total
+            }
+
             await data.save();
-            
+
 
         }
     } catch (err) {
@@ -411,23 +428,23 @@ client.on(Events.MessageCreate, async message => {
         const channelId = message.channel.id; // Get the channel ID
         const responseChannel = client.channels.cache.get(channelId);
 
-                // Save the current bump time
-                await Bump.findOneAndUpdate(
-                    { guildId, channelId },
-                    { lastBumpTime: new Date() },
-                    { upsert: true, new: true }
-                );
-        
+        // Save the current bump time
+        await Bump.findOneAndUpdate(
+            { guildId, channelId },
+            { lastBumpTime: new Date() },
+            { upsert: true, new: true }
+        );
+
 
         if (responseChannel) {
             const remind = new EmbedBuilder()
-            .setColor(0x8269c2)
-            .setTimestamp()
-            .setFooter({
-              text: `${message.guild.name}`, // Footer text
-              iconURL: message.guild.iconURL() // Optional: Server icon URL
-            })
-            .setDescription(`<:xtriangle_small:1276263767872770108> Thank you for bumping! I'll be back in 2 hours!`)
+                .setColor(0x8269c2)
+                .setTimestamp()
+                .setFooter({
+                    text: `${message.guild.name}`, // Footer text
+                    iconURL: message.guild.iconURL() // Optional: Server icon URL
+                })
+                .setDescription(`<:xtriangle_small:1276263767872770108> Thank you for bumping! I'll be back in 2 hours!`)
             await responseChannel.send({ embeds: [remind] });
 
             // Clear any existing timer
@@ -438,14 +455,14 @@ client.on(Events.MessageCreate, async message => {
                 const channel = client.channels.cache.get(channelId);
                 if (channel) {
                     const remind2 = new EmbedBuilder()
-                    .setColor(0x8269c2)
-                    .setTimestamp()
-                    .setFooter({
-                      text: `${message.guild.name}`, // Footer text
-                      iconURL: message.guild.iconURL() // Optional: Server icon URL
-                    })
-                    .setTitle(`<:xtriangle_small:1276263767872770108> It's time to bump!`)
-                    .setDescription(`<:xtriangle_small:1276263767872770108> Do /bump to bump 𝔸𝕕𝕖𝕡𝕥𝕦𝕤 𝔸𝕣𝕚𝕒⁺₊✧!`)
+                        .setColor(0x8269c2)
+                        .setTimestamp()
+                        .setFooter({
+                            text: `${message.guild.name}`, // Footer text
+                            iconURL: message.guild.iconURL() // Optional: Server icon URL
+                        })
+                        .setTitle(`<:xtriangle_small:1276263767872770108> It's time to bump!`)
+                        .setDescription(`<:xtriangle_small:1276263767872770108> Do /bump to bump 𝔸𝕕𝕖𝕡𝕥𝕦𝕤 𝔸𝕣𝕚𝕒⁺₊✧!`)
                     await responseChannel.send({ content: '<:xannounce:1276188470250832014> <@&1279272272087220276> <:xannounce:1276188470250832014>', embeds: [remind2] });
 
                 }

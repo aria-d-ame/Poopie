@@ -44,7 +44,7 @@ module.exports = {
           .limit(10);
 
         // Create an embed to send the leaderboard
-        const embed = new EmbedBuilder()
+        const xpEmbed = new EmbedBuilder()
           .setTitle(`<:announce:1276188470250832014> XP LEADERBOARD <:announce:1276188470250832014>`)
           .setColor(0x8269c2)
           .setFooter({
@@ -55,7 +55,7 @@ module.exports = {
 
         // If no leaderboard, inform user.
         if (!xpData.length) {
-          embed.setDescription('This server does not have a leaderboard yet!');
+          xpEmbed.setDescription('This server does not have a leaderboard yet!');
         } else {
           // Array consisting of name/level/xp details (string) for each user
           const userDescriptions = [];
@@ -69,83 +69,94 @@ module.exports = {
           };
 
           // Join elements in user descriptions array with \n (new line)
-          embed.setDescription(`\`\`\`${userDescriptions.join('\n')}\`\`\``);
+          xpEmbed.setDescription(`\`\`\`${userDescriptions.join('\n')}\`\`\``);
         }
 
         // Send the leaderboard embed
-        await interaction.editReply({ embeds: [embed] });
+        await interaction.editReply({ embeds: [xpEmbed] });
 
         break;
       case 'stars':
+
+      await interaction.deferReply();
 
         const starData = await moneySchema.find({ Guild: guild.id })
           .sort({
             Money: -1,
           })
           .limit(10)
-
-        const starembed = new EmbedBuilder()
+        
+        const starEmbed = new EmbedBuilder()
+          .setTitle(`<:announce:1276188470250832014> PIX-STARS LEADERBOARD <:announce:1276188470250832014>`)
           .setColor(0x8269c2)
-          .setDescription(`This server does not have a leaderboard yet!`)
+          .setFooter({
+            text: `${interaction.guild.name} • Members: ${interaction.guild.memberCount}`, // Footer text
+            iconURL: interaction.guild.iconURL()
+          })
+          .setTimestamp();
 
+        // If no leaderboard, inform user.
+        if (!starData.length) {
+          starEmbed.setDescription('This server does not have a leaderboard yet!');
+        } else {
+          // Array consisting of name/level/xp details (string) for each user
+          const userDescriptions = [];
 
-        if (!starData) return await interaction.reply({ embed: [starembed] });
+          // Iterates through each xpData document to create name/level/xp details for user and pushes them to
+          // to userDescriptions array
+          for (starDataDoc of starData) {
+            const { User, Money } = starDataDoc;
+            const member = await client.users.fetch(User);
+            userDescriptions.push(`${starData.indexOf(starDataDoc) + 1}. ${member.tag} | Pix-Stars: ${Money}`);
+          };
 
-        await interaction.deferReply();
-
-        for (let counter = 0; counter < starData.length; ++counter) {
-          let { User, Money } = starData[counter];
-          const value = await client.users.fetch(User) || 'Unknown member'
-          const member = value.tag;
-          text += `${counter + 1}. ${member} | Pix-Stars: ${Money} \n`
-
-          const starlbembed = new EmbedBuilder()
-            .setColor(0x8269c2)
-            .setTitle(`<:announce:1276188470250832014> PIX-STARS LEADERBOARD <:announce:1276188470250832014>`)
-            .setDescription(`\`\`\`${text}\`\`\``)
-            .setTimestamp()
-            .setFooter({
-              text: `${interaction.guild.name} • Members: ${interaction.guild.memberCount}`, // Footer text
-              iconURL: interaction.guild.iconURL() // Optional: Server icon URL
-            })
-
-          interaction.editReply({ embeds: [starlbembed] })
+          // Join elements in user descriptions array with \n (new line)
+          starEmbed.setDescription(`\`\`\`${userDescriptions.join('\n')}\`\`\``);
         }
 
+        // Send the leaderboard embed
+        await interaction.editReply({ embeds: [starEmbed] });
+
+        break;
       case 'crime':
+
+      await interaction.deferReply();
 
         const crimeData = await crimeSchema.find({ Guild: guild.id })
           .sort({
             Crime: -1,
           })
 
-        const crimeembed = new EmbedBuilder()
+          const crimeEmbed = new EmbedBuilder()
+          .setTitle(`<:announce:1276188470250832014> CRIME LEADERBOARD <:announce:1276188470250832014>`)
           .setColor(0x8269c2)
-          .setDescription(`This server does not have a leaderboard yet!`)
+          .setFooter({
+            text: `${interaction.guild.name} • Members: ${interaction.guild.memberCount}`, // Footer text
+            iconURL: interaction.guild.iconURL()
+          })
+          .setTimestamp();
 
+        // If no leaderboard, inform user.
+        if (!crimeData.length) {
+          crimeEmbed.setDescription('This server does not have a leaderboard yet!');
+        } else {
+          // Array consisting of name/level/xp details (string) for each user
+          const userDescriptions = [];
 
-        if (!starData) return await interaction.reply({ embed: [crimeembed] });
+          // Iterates through each xpData document to create name/level/xp details for user and pushes them to
+          // to userDescriptions array
+          for (crimeDataDoc of crimeData) {
+            const { User, Crime } = crimeDataDoc;
+            const member = await client.users.fetch(User);
+            userDescriptions.push(`${crimeData.indexOf(crimeDataDoc) + 1}. ${member.tag} | Crimes: ${Crime}`);
+          };
 
-        await interaction.deferReply();
-
-        for (let counter = 0; counter < crimeData.length; ++counter) {
-          let { User, Crime } = crimeData[counter];
-          const value = await client.users.fetch(User) || 'Unknown member'
-          const member = value.tag;
-          text += `${counter + 1}. ${member} | Crimes: ${Crime} \n`
-
-          const crimelbembed = new EmbedBuilder()
-            .setColor(0x8269c2)
-            .setTitle(`<:announce:1276188470250832014> CRIME LEADERBOARD <:announce:1276188470250832014>`)
-            .setDescription(`\`\`\`${text}\`\`\``)
-            .setTimestamp()
-            .setFooter({
-              text: `${interaction.guild.name} • Members: ${interaction.guild.memberCount}`, // Footer text
-              iconURL: interaction.guild.iconURL() // Optional: Server icon URL
-            })
-
-          interaction.editReply({ embeds: [crimelbembed] })
+          // Join elements in user descriptions array with \n (new line)
+          crimeEmbed.setDescription(`\`\`\`${userDescriptions.join('\n')}\`\`\``);
         }
+
+        // Send the leaderboard embed
+        await interaction.editReply({ embeds: [crimeEmbed] });
 
     }
   }

@@ -63,7 +63,7 @@ module.exports = {
             return interaction.reply({content: "⚠️ You cannot be timed out as the server owner.", ephemeral: true});
           }
         try{
-        interaction.member.timeout(10 * 60 * 1000);
+        interaction.member.timeout(5 * 60 * 1000);
         } catch (error) {
           console.log(error);
           throw (error)
