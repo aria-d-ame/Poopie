@@ -253,7 +253,7 @@ client.on(Events.MessageCreate, async (message) => {
             100: { roleId: '1274160360701694044', moneyReward: 100000 },
         };
 
-        const levelUpChannelId = '1274481457053827092'; // Replace with your channel ID
+        const levelUpChannelId = '1274481457053827092'; 
         const levelUpChannel = guild.channels.cache.get(levelUpChannelId);
 
         if (hasExcludedRole) {
