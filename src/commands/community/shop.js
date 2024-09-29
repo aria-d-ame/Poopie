@@ -15,6 +15,7 @@ const shopButtons = (customId, label, emojiId) => {
 const shopEmbeds = (interaction, title, description, fields) => {
   const embed = new EmbedBuilder()
     .setColor(0x8269c2)
+    .setThumbnail('https://i.ibb.co/5K7Qnwf/image-15-scaled-16x-pngcrushed-1.png')
     .setTitle(`<:announce:1276188470250832014> ${title} <:announce:1276188470250832014>`)
     .setDescription(
       '**«═══✧ ✦ ✧ ✦ ✧═══»**\n\n' +
