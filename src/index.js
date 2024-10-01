@@ -240,6 +240,7 @@ client.on(Events.MessageCreate, async (message) => {
         const hasExtraXPRole = member.roles.cache.some(role => extraXPRoleId.includes(role.id));
         const hasBoosterRole = member.roles.cache.some(role => boosterRole.includes(role.id));
         const levelRoles = [
+            { level: 0, roleId: '1269693621536423949', moneyReward: 0 },
             { level: 5, roleId: '1274157164054839346', moneyReward: 100 },
             { level: 10, roleId: '1274157637457412168', moneyReward: 300 },
             { level: 20, roleId: '1274158590122262650', moneyReward: 1000 },
