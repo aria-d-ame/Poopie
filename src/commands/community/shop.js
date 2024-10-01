@@ -61,7 +61,7 @@ module.exports = {
     const buyMenuButtons = new ActionRowBuilder()
       .addComponents(buyButton, returnButton);
 
-    const shopEmbed = shopEmbeds(interaction, 'STARS SHOP',
+    const shopEmbed = shopEmbeds(interaction, '𝚂𝚃𝙰𝚁𝚂 𝚂𝙷𝙾𝙿',
       '<:xtriangle_large:1276185605268832277> **Welcome to Adeptus Aria\'s shop!**',
       [{ name: 'Millionaire', value: '<:xPix_Stars:1275118528844009563>1,000,000', inline: true },
       { name: 'Billionaire', value: '<:xPix_Stars:1275118528844009563>1,000,000,000', inline: true },
@@ -70,7 +70,7 @@ module.exports = {
       { name: 'Stars Boost', value: '<:xPix_Stars:1275118528844009563>50,000', inline: true }],
     )
 
-    const millEmbed = shopEmbeds(interaction, 'MILLIONAIRE',
+    const millEmbed = shopEmbeds(interaction, '𝙼𝙸𝙻𝙻𝙸𝙾𝙽𝙰𝙸𝚁𝙴',
       '<:xtriangle_large:1276185605268832277> **Buying this will give you the <:xmill_role:1275118643637915722>Millionaire Role!**\n' +
       '<:xtriangle_small:1276263767872770108> Cost: <:xPix_Stars:1275118528844009563>1,000,000\n' +
       '<:xtriangle_small:1276263767872770108> Purely Cosmetic, placed above all leveled roles.\n\n' +
@@ -78,7 +78,7 @@ module.exports = {
       '...or return to the shop!'
     )
 
-    const billEmbed = shopEmbeds(interaction, 'BILLIONAIRE',
+    const billEmbed = shopEmbeds(interaction, '𝙱𝙸𝙻𝙻𝙸𝙾𝙽𝙰𝙸𝚁𝙴',
       '<:xtriangle_large:1276185605268832277> **Buying this will give you the <:xbill_role:1275118681902546987>Billionaire Role!**\n' +
       '<:xtriangle_small:1276263767872770108> Cost: <:xPix_Stars:1275118528844009563>1,000,000,000\n' +
       '<:xtriangle_small:1276263767872770108> Purely Cosmetic, placed above all leveled roles.\n\n' +
@@ -86,7 +86,7 @@ module.exports = {
       '...or return to the shop!'
     )
 
-    const xpboostEmbed = shopEmbeds(interaction, 'XP BOOST',
+    const xpboostEmbed = shopEmbeds(interaction, '𝚇𝙿 𝙱𝙾𝙾𝚂𝚃',
       '<:xtriangle_large:1276185605268832277> **Buying this will give you a temporary XP Boost of 10<:xXP:1275118499793998006> per message!**\n' +
       '<:xtriangle_small:1276263767872770108> Cost: <:xPix_Stars:1275118528844009563>20,000\n' +
       '<:xtriangle_small:1276263767872770108> Time: 6 Hours\n\n' +
@@ -94,7 +94,7 @@ module.exports = {
       '...or return to the shop!'
     )
 
-    const starboostEmbed = shopEmbeds(interaction, 'STARS BOOST',
+    const starboostEmbed = shopEmbeds(interaction, '𝚂𝚃𝙰𝚁𝚂 𝙱𝙾𝙾𝚂𝚃',
       '<:xtriangle_large:1276185605268832277> Buying this will give you a temporary Stars Boost of 10<:xPix_Stars:1275118528844009563> per message!\n' +
       '<:xtriangle_small:1276263767872770108> Cost: <:xPix_Stars:1275118528844009563>50,000\n' +
       '<:xtriangle_small:1276263767872770108> Time: 6 Hours\n\n' +
@@ -102,7 +102,7 @@ module.exports = {
       '...or return to the shop!'
     )
 
-    const poorEmbed = shopEmbeds(interaction, 'POOR ROLE',
+    const poorEmbed = shopEmbeds(interaction, '𝙿𝙾𝙾𝚁 𝚁𝙾𝙻𝙴',
       '<:xtriangle_large:1276185605268832277> Buying this will give you the Homeless role!\n' +
       '<:xtriangle_small:1276263767872770108> Cost: <:xPix_Stars:1275118528844009563>1\n' +
       '<:xtriangle_small:1276263767872770108> Purely cosmetic, placed below all other roles.\n\n' +
@@ -182,7 +182,7 @@ module.exports = {
         // Send confirmation message
         const buyEmbed = new EmbedBuilder()
           .setColor(0x8269c2)
-          .setTitle(`<:announce:1276188470250832014> ITEM BOUGHT <:announce:1276188470250832014>`)
+          .setTitle(`<:announce:1276188470250832014> 𝙸𝚃𝙴𝙼 𝙱𝙾𝚄𝙶𝙷𝚃 <:announce:1276188470250832014>`)
           .setDescription(`Successfully purchased ${chosenItem.name} for <:xPix_Stars:1275118528844009563>${chosenItem.cost}! You now have <:xPix_Stars:1275118528844009563>${moneyData.Money} Pix-Stars!`);
 
         await confirmation.update({ embeds: [buyEmbed], components: [] });

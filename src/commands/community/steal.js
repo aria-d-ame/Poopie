@@ -57,7 +57,7 @@ module.exports = {
         // Create and send the embed
         const stealEmbed = new EmbedBuilder()
             .setColor(0x8269c2)
-            .setTitle(`<:announce:1276188470250832014> STEAL <:announce:1276188470250832014>`)
+            .setTitle(`<:announce:1276188470250832014> 𝚂𝚃𝙴𝙰𝙻 <:announce:1276188470250832014>`)
             .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n Successfully stole <:xPix_Stars:1275118528844009563> ${stealAmount} from ${target.tag}!`);
 
         await interaction.reply({ embeds: [stealEmbed] });

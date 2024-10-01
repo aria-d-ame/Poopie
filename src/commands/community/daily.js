@@ -40,7 +40,7 @@ module.exports = {
         data.Money += extraCash;// Add extra money to the total
         const dailybooster = new EmbedBuilder()
         .setColor(0x8269c2)
-        .setTitle(`<:announce:1276188470250832014> DAILY <:announce:1276188470250832014>`)
+        .setTitle(`<:announce:1276188470250832014> 𝙳𝙰𝙸𝙻𝚈 <:announce:1276188470250832014>`)
         .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n You have claimed your daily for <:xPix_Stars:1275118528844009563>${baseAmount}, and you have recieved an additional <:xPix_Stars:1275118528844009563>500 for boosting! Come back in 24 hours!`)
         await interaction.reply({ embeds: [dailybooster] });
     }
@@ -50,7 +50,7 @@ module.exports = {
     if (!hasExtraCashRole) {
     const daily = new EmbedBuilder()
     .setColor(0x8269c2)
-    .setTitle(`<:announce:1276188470250832014> DAILY <:announce:1276188470250832014>`)
+    .setTitle(`<:announce:1276188470250832014> 𝙳𝙰𝙸𝙻𝚈 <:announce:1276188470250832014>`)
     .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n You have claimed your daily for <:xPix_Stars:1275118528844009563>${baseAmount}! Come back in 24 hours!`)
 
     await interaction.reply({ embeds: [daily] });

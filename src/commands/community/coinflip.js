@@ -56,7 +56,7 @@ module.exports = {
 
     const coinEmbed = new EmbedBuilder()
     .setColor(0x8269c2)
-    .setTitle(`<:announce:1276188470250832014> COINFLIP <:announce:1276188470250832014>`)
+    .setTitle(`<:announce:1276188470250832014> 𝙲𝙾𝙸𝙽𝙵𝙻𝙸𝙿 <:announce:1276188470250832014>`)
     .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n${outcome}`)
 
     await interaction.reply({ embeds: [coinEmbed] });

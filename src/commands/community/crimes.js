@@ -75,7 +75,7 @@ module.exports = {
   
       const embed = new EmbedBuilder()
       .setColor(0x8269c2)
-      .setTitle(`<:announce:1276188470250832014> CRIME <:announce:1276188470250832014>`)
+      .setTitle(`<:announce:1276188470250832014> 𝙲𝚁𝙸𝙼𝙴 <:announce:1276188470250832014>`)
       .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n${choice[crime]} Crime Counter: ${userCrimes.Crime}`)
   
       await interaction.reply({ embeds: [embed] });

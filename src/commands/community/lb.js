@@ -45,7 +45,7 @@ module.exports = {
 
         // Create an embed to send the leaderboard
         const xpEmbed = new EmbedBuilder()
-          .setTitle(`<:announce:1276188470250832014> XP LEADERBOARD <:announce:1276188470250832014>`)
+          .setTitle(`<:announce:1276188470250832014> 𝚇𝙿 𝙻𝙴𝙰𝙳𝙴𝚁𝙱𝙾𝙰𝚁𝙳 <:announce:1276188470250832014>`)
           .setColor(0x8269c2)
           .setFooter({
             text: `${interaction.guild.name} • Members: ${interaction.guild.memberCount}`, // Footer text
@@ -87,7 +87,7 @@ module.exports = {
           .limit(10)
         
         const starEmbed = new EmbedBuilder()
-          .setTitle(`<:announce:1276188470250832014> PIX-STARS LEADERBOARD <:announce:1276188470250832014>`)
+          .setTitle(`<:announce:1276188470250832014> 𝙿𝙸𝚇-𝚂𝚃𝙰𝚁𝚂 𝙻𝙴𝙰𝙳𝙴𝚁𝙱𝙾𝙰𝚁𝙳 <:announce:1276188470250832014>`)
           .setColor(0x8269c2)
           .setFooter({
             text: `${interaction.guild.name} • Members: ${interaction.guild.memberCount}`, // Footer text
@@ -128,7 +128,7 @@ module.exports = {
           })
 
           const crimeEmbed = new EmbedBuilder()
-          .setTitle(`<:announce:1276188470250832014> CRIME LEADERBOARD <:announce:1276188470250832014>`)
+          .setTitle(`<:announce:1276188470250832014> 𝙲𝚁𝙸𝙼𝙴 𝙻𝙴𝙰𝙳𝙴𝚁𝙱𝙾𝙰𝚁𝙳 <:announce:1276188470250832014>`)
           .setColor(0x8269c2)
           .setFooter({
             text: `${interaction.guild.name} • Members: ${interaction.guild.memberCount}`, // Footer text

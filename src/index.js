@@ -325,7 +325,7 @@ client.on(Events.MessageCreate, async (message) => {
                 // Send level up message with milestone notification
                 const embedrole = new EmbedBuilder()
                     .setColor(0x8269c2)
-                    .setTitle('<:xannounce:1276188470250832014> LEVEL UP! <:xannounce:1276188470250832014>')
+                    .setTitle(`<:xannounce:1276188470250832014> <@&${roleId}>! <:xannounce:1276188470250832014>`)
                     .setDescription(`<:xtriangle_small:1276263767872770108> ${author} has hit a level milestone! Here's ${moneyReward}<:xPix_Stars:1275118528844009563>!`);
 
                 await levelUpChannel.send({ embeds: [embedrole] });
@@ -334,7 +334,7 @@ client.on(Events.MessageCreate, async (message) => {
             // Send level up message without milestone notification
             const embed = new EmbedBuilder()
                 .setColor(0x8269c2)
-                .setTitle('<:xannounce:1276188470250832014> LEVEL UP! <:xannounce:1276188470250832014>')
+                .setTitle('<:xannounce:1276188470250832014> 𝙻𝙴𝚅𝙴𝙻 𝚄𝙿! <:xannounce:1276188470250832014>')
                 .setDescription(`<:xtriangle_small:1276263767872770108> ${author} has reached level ${data.Level}!`);
 
             await levelUpChannel.send({ embeds: [embed] });
@@ -360,7 +360,7 @@ client.on(Events.MessageCreate, async (message) => {
 
 //cash gain 
 
-const extraCashRoleId = ['1275906991511834688', '1289736549675565117'];
+const extraCashRoleId = ['1289736549675565117'];
 const COOLDOWN_TIME_CASH = 5 * 1000; // 10 seconds
 
 function getRandomInt(min, max) {
@@ -384,6 +384,7 @@ client.on(Events.MessageCreate, async (message) => {
 
         const member = await guild.members.fetch(author.id);
         const hasExtraCashRole = member.roles.cache.has(extraCashRoleId);
+        const hasBoosterRole = member.roles.cache.some(role => boosterRole.includes(role.id));
 
         const currentTime = Date.now();
         const timeSinceLastMoney = currentTime - data.LastMoneyTime;
@@ -405,6 +406,10 @@ client.on(Events.MessageCreate, async (message) => {
         // If the user has the extra cash role, give an additional bonus
         if (hasExtraCashRole) {
             const extraCash = 10; // Define how much extra money to give
+            data.Money += extraCash; // Add extra money to the total
+        }
+        if (hasBoosterRole) {
+            const extraCash = 8; // Define how much extra money to give
             data.Money += extraCash; // Add extra money to the total
         }
 
@@ -445,7 +450,7 @@ client.on(Events.MessageCreate, async message => {
                     text: `${message.guild.name}`, // Footer text
                     iconURL: message.guild.iconURL() // Optional: Server icon URL
                 })
-                .setDescription(`<:xtriangle_small:1276263767872770108> Thank you for bumping! I'll be back in 2 hours!`)
+                .setDescription(`<:xtriangle_small:1276263767872770108> 𝚃𝚑𝚊𝚗𝚔 𝚢𝚘𝚞 𝚏𝚘𝚛 𝚋𝚞𝚖𝚙𝚒𝚗𝚐!\nI'll be back in 2 hours!`)
             await responseChannel.send({ embeds: [remind] });
 
             // Clear any existing timer
@@ -462,7 +467,7 @@ client.on(Events.MessageCreate, async message => {
                             text: `${message.guild.name}`, // Footer text
                             iconURL: message.guild.iconURL() // Optional: Server icon URL
                         })
-                        .setTitle(`<:xtriangle_small:1276263767872770108> It's time to bump!`)
+                        .setTitle(`<:xtriangle_small:1276263767872770108> 𝙸𝚝'𝚜 𝚝𝚒𝚖𝚎 𝚝𝚘 𝚋𝚞𝚖𝚙!`)
                         .setDescription(`<:xtriangle_small:1276263767872770108> Do /bump to bump 𝔸𝕕𝕖𝕡𝕥𝕦𝕤 𝔸𝕣𝕚𝕒⁺₊✧!`)
                     await responseChannel.send({ content: '<:xannounce:1276188470250832014> <@&1279272272087220276> <:xannounce:1276188470250832014>', embeds: [remind2] });
 

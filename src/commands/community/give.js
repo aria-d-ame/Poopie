@@ -53,7 +53,7 @@ module.exports = {
         // Create and send the embed
         const giveEmbed = new EmbedBuilder()
             .setColor(0x8269c2)
-            .setTitle(`<:announce:1276188470250832014> GIVE <:announce:1276188470250832014>`)
+            .setTitle(`<:announce:1276188470250832014> 𝙶𝙸𝚅𝙴 <:announce:1276188470250832014>`)
             .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n Successfully gave <:xPix_Stars:1275118528844009563> ${stars} to ${target.tag}!`);
 
         await interaction.reply({ embeds: [giveEmbed] });

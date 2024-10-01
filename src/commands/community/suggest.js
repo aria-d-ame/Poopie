@@ -16,7 +16,7 @@ module.exports = {
 
       const suggestEmbed = new EmbedBuilder()
       .setColor(0x8269c2)
-      .setTitle(`<:xannounce:1276188470250832014> SUGGESTION <:xannounce:1276188470250832014>`)
+      .setTitle(`<:xannounce:1276188470250832014> 𝚂𝚄𝙶𝙶𝙴𝚂𝚃𝙸𝙾𝙽 <:xannounce:1276188470250832014>`)
       .setAuthor({ name: user.displayName, iconURL: icon })
       .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n <:xtriangle_small:1276263767872770108> **${suggestion}**`)
       .setTimestamp()

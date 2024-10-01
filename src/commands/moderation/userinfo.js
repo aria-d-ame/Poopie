@@ -77,7 +77,7 @@ module.exports = {
 
       const embed = new EmbedBuilder()
       .setColor(0x8269c2)
-      .setTitle(`<:xannounce:1276188470250832014> USER INFO <:xannounce:1276188470250832014>`)
+      .setTitle(`<:xannounce:1276188470250832014> 𝚄𝚂𝙴𝚁 𝙸𝙽𝙵𝙾 <:xannounce:1276188470250832014>`)
       .setAuthor({ name: user.displayName })
       .setDescription('**«═══✧ ✦ ✧ ✦ ✧═══»**')
       .setThumbnail(icon)

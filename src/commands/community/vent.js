@@ -23,7 +23,7 @@ module.exports = {
 
       const ventEmbed = new EmbedBuilder()
       .setColor(0x8269c2)
-      .setTitle(`<:xannounce:1276188470250832014> VENT <:xannounce:1276188470250832014>`)
+      .setTitle(`<:xannounce:1276188470250832014> 𝚅𝙴𝙽𝚃 <:xannounce:1276188470250832014>`)
       .setAuthor({ name: 'Anonymous', iconURL: interaction.guild.iconURL() })
       .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n <:xtriangle_small:1276263767872770108> **${content}**`)
       .setTimestamp()

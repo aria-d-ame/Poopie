@@ -41,7 +41,7 @@ module.exports = {
   
       const rankxp = new EmbedBuilder()
       .setColor(0x8269c2)
-      .setTitle(`<:announce:1276188470250832014> RANK: XP <:announce:1276188470250832014>`)
+      .setTitle(`<:announce:1276188470250832014> 𝚁𝙰𝙽𝙺: 𝚇𝙿 <:announce:1276188470250832014>`)
       .setAuthor({ name: user.displayName })
       .setThumbnail(icon)
       .setFooter({
@@ -68,7 +68,7 @@ module.exports = {
   
       const embed3 = new EmbedBuilder()
       .setColor(0x8269c2)
-      .setTitle(`<:announce:1276188470250832014> RANK: PIX-STARS <:announce:1276188470250832014>`)
+      .setTitle(`<:announce:1276188470250832014> 𝚁𝙰𝙽𝙺: 𝙿𝙸𝚇-𝚂𝚃𝙰𝚁𝚂 <:announce:1276188470250832014>`)
       .setAuthor({ name: user.displayName })
       .setThumbnail(icon)
       .setFooter({

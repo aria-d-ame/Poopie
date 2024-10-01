@@ -16,7 +16,7 @@ module.exports = {
 
       if (embed && message.author.id === interaction.client.user.id) {
         const suggestionAcceptedEmbed = new EmbedBuilder(embed)
-          .setTitle(`<:xapproved:1276185812257738823> APPROVED <:xapproved:1276185812257738823>`)
+          .setTitle(`<:xapproved:1276185812257738823> 𝙰𝙿𝙿𝚁𝙾𝚅𝙴𝙳 <:xapproved:1276185812257738823>`)
           .setFooter({
             text: `This suggestion was approved.`, 
             iconURL: interaction.guild.iconURL() 

@@ -14,7 +14,7 @@ module.exports = {
 
       const avatarembed = new EmbedBuilder()
       .setColor(0x8269c2)
-      .setTitle(`<:xannounce:1276188470250832014> USER AVATAR <:xannounce:1276188470250832014>`)
+      .setTitle(`<:xannounce:1276188470250832014> 𝚄𝚂𝙴𝚁 𝙰𝚅𝙰𝚃𝙰𝚁 <:xannounce:1276188470250832014>`)
       .setAuthor({ name: user.displayName })
       .setDescription('**«═══✧ ✦ ✧ ✦ ✧═══»**')
       .setImage(icon)

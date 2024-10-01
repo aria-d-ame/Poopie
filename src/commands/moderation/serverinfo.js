@@ -22,7 +22,7 @@ module.exports = {
       .setAuthor({name: name})
       .setFooter({ text: `ID: ${id}`})
       .setTimestamp()
-      .setTitle(`<:xannounce:1276188470250832014> SERVER INFO <:xannounce:1276188470250832014>`)
+      .setTitle(`<:xannounce:1276188470250832014> 𝚂𝙴𝚁𝚅𝙴𝚁 𝙸𝙽𝙵𝙾 <:xannounce:1276188470250832014>`)
       .setDescription(`«═══✧ ✦ ✧ ✦ ✧═══»`)
       .addFields([
         { name: '<:xtriangle_medium:1276262944836947999> Server Owner:', value: `<:xtriangle_small:1276263767872770108> <@${ownerId}>`, inline: false },

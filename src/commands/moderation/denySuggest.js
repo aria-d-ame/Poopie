@@ -24,7 +24,7 @@ module.exports = {
               const currentDescription = embed.description || '';
               const suggestionDeniedEmbed = new EmbedBuilder(embed)
                 .setDescription(`${currentDescription}\n\n<:xtriangle_small:1276263767872770108> **Denial Reason:** ${reason}`)
-                .setTitle(`<:xdenied:1276188176238645300> DENIED <:xdenied:1276188176238645300>`)
+                .setTitle(`<:xdenied:1276188176238645300> 𝙳𝙴𝙽𝙸𝙴𝙳 <:xdenied:1276188176238645300>`)
                 .setFooter({
                   text: `This suggestion was denied.`, 
                   iconURL: interaction.guild.iconURL() 
