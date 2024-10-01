@@ -59,7 +59,7 @@ const client = new Client({
         console.log("⚠️ Database did not connect!");
     }
 })();
-
+ 
 //Logs mongoDB connect
 mongoose.connection.once("open", () => {
     console.log("✅ Database connected successfully!");
