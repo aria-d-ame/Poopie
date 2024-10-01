@@ -118,7 +118,7 @@ module.exports = {
     });
 
     const collectorFilter = i => i.user.id === interaction.user.id;
-    const collector = interaction.channel.createMessageComponentCollector({ filter: collectorFilter, time: 600_000 });
+    const collector = interaction.channel.createMessageComponentCollector({ time: 600_000 });
 
     let chosenItem;
 
