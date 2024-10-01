@@ -1,7 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js');
 
-//!THIS IS NOT ANONYMOUS!
-//!FIND WAY TO SEND NEW MESSAGE INSTEAD!
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('vent')
