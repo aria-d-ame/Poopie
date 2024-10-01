@@ -18,7 +18,7 @@ module.exports = {
       .setColor(0x8269c2)
       .setTitle(`<:xannounce:1276188470250832014> SUGGESTION <:xannounce:1276188470250832014>`)
       .setAuthor({ name: user.displayName, iconURL: icon })
-      .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n\n <:xtriangle_small:1276263767872770108> **${suggestion}**`)
+      .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n <:xtriangle_small:1276263767872770108> **${suggestion}**`)
       .setTimestamp()
       .setFooter({
         text: `Vote using the emojis below!`, 
