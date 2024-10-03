@@ -8,30 +8,21 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName('leaderboard')
     .setDescription(`See the server leaderboards!`)
-    .addSubcommand(
-      command => command
-        .setName('xp')
-        .setDescription(`See the server's XP leaderboard!`)
-    )
-    .addSubcommand(
-      command => command
-        .setName('stars')
-        .setDescription(`See the server's Pix-Stars leaderboard!`)
-    )
-    .addSubcommand(
-      command => command
-        .setName('crime')
-        .setDescription(`See the server's crime leaderboard!`)
-    ),
+    .addStringOption(option =>
+      option.setName('type')
+        .setDescription('Type of leaderboard.')
+        .setRequired(true)
+        .addChoices(
+          { name: 'XP', value: 'xp' },
+          { name: 'Pix-Stars', value: 'stars' },
+          { name: 'Crime', value: 'crime' }
+        )),
 
   async execute(interaction) {
     const { guild, client } = interaction;
-    const sub = interaction.options.getSubcommand()
+    const rankType = interaction.options.getString('type');
 
-
-    switch (sub) {
-      case 'xp':
-
+    if (rankType === 'xp') {
         // Tell discord api to fuck off
         await interaction.deferReply();
 
@@ -74,10 +65,9 @@ module.exports = {
 
         // Send the leaderboard embed
         await interaction.editReply({ embeds: [xpEmbed] });
+      }
 
-        break;
-      case 'stars':
-
+      if (rankType === 'stars') {
       await interaction.deferReply();
 
         const starData = await moneySchema.find({ Guild: guild.id })
@@ -116,10 +106,9 @@ module.exports = {
 
         // Send the leaderboard embed
         await interaction.editReply({ embeds: [starEmbed] });
+      }
 
-        break;
-      case 'crime':
-
+      if (rankType === 'crime') {
       await interaction.deferReply();
 
         const crimeData = await crimeSchema.find({ Guild: guild.id })
@@ -157,7 +146,6 @@ module.exports = {
 
         // Send the leaderboard embed
         await interaction.editReply({ embeds: [crimeEmbed] });
-
     }
   }
 };

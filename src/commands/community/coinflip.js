@@ -30,7 +30,7 @@ module.exports = {
     }
 
     if (userMoney.Money < betAmount) {
-      return interaction.reply(`You don't have enough Pix-Stars to bet! You only have ${userMoney.Money}!`);
+      return interaction.reply({ content:`You don't have enough Pix-Stars to bet! You only have ${userMoney.Money}!`, ephemeral: true});
     }
 
 		const choice = [
