@@ -247,11 +247,11 @@ client.on(Events.MessageCreate, async (message) => {
             { level: 30, roleId: '1274159198971891865', moneyReward: 2000 },
             { level: 40, roleId: '1286878355530186812', moneyReward: 5000 },
             { level: 50, roleId: '1274160177020665856', moneyReward: 10000 },
-            { level: 60, roleId: '1286878507875700788', moneyReward: 15000 },
-            { level: 70, roleId: '1286878584031547494', moneyReward: 20000 },
-            { level: 80, roleId: '1286878638075281460', moneyReward: 25000 },
-            { level: 90, roleId: '1286878724154724404', moneyReward: 50000 },
-            { level: 100, roleId: '1274160360701694044', moneyReward: 100000 }
+            { level: 60, roleId: '1286878507875700788', moneyReward: 20000 },
+            { level: 70, roleId: '1286878584031547494', moneyReward: 40000 },
+            { level: 80, roleId: '1286878638075281460', moneyReward: 60000 },
+            { level: 90, roleId: '1286878724154724404', moneyReward: 100000 },
+            { level: 100, roleId: '1274160360701694044', moneyReward: 150000 }
         ];
 
         const levelUpChannelId = '1274481457053827092';
