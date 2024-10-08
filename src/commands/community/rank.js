@@ -34,7 +34,7 @@ module.exports = {
         text: `${interaction.guild.name} • Members: ${interaction.guild.memberCount}`,
         iconURL: interaction.guild.iconURL()
       })
-      .setDescription('**«═══✧ ✦ ✧ ✦ ✧═══»**')
+      .setDescription(' ')
       .addFields(
         { name: '𝚇𝙿', value: '«═══✧ ✦ ✧═══»', inline: false },
         { name: '<:triangle_medium:1276262944836947999> Level:', value: `<:triangle_small:1276263767872770108> ${xpData.Level}`, inline: true },
