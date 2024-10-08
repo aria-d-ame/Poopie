@@ -62,7 +62,7 @@ module.exports = {
                     const Guild = await client.guilds.fetch(data.Guild);
                     const member = await Guild.members.fetch(userId);
                     const roleId = '1279589654055620719';
-                    await member.roles.remove(roleId);
+                    if (member) await member.roles.remove(roleId);
 
                     data.RoleAssignments = data.RoleAssignments.filter(member => member.userId !== userId)
                     await data.save()
