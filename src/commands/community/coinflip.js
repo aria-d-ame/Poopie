@@ -24,6 +24,10 @@ module.exports = {
     const guildId = interaction.guild.id;
     let userMoney = await Money.findOne({ Guild: guildId, User: userId });
     
+    if (betAmount <= 0) {
+      return interaction.reply({ content: 'Please enter a valid amount (Above 0).', 
+      ephemeral: true });
+    }
 
     if (!userMoney) {
       return interaction.reply({ content: "You don't have any Pix-Stars yet!", ephemeral: true });
