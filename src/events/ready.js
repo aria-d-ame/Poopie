@@ -60,12 +60,16 @@ module.exports = {
                 const timeElapsed = Date.now() - assignedAt;
                 if (timeElapsed > ROLE_DURATION) {
                     const Guild = await client.guilds.fetch(data.Guild);
-                    const member = await Guild.members.fetch(userId);
                     const roleId = '1279589654055620719';
-
+                    
                     // Only remove the role if user is still in the server. Else it will give an (Unknown Member) error 
                     // as we are trying to modify a-non existent member
-                    if (member) await member.roles.remove(roleId);
+                    try {
+                        const member = await Guild.members.fetch(userId);
+                        if (member) await member.roles.remove(roleId);
+                    } catch (error) {
+                        console.log(`Failed to remove role from ${userId} in ${data.Guild}`);
+                    }
 
                     data.RoleAssignments = data.RoleAssignments.filter(member => member.userId !== userId)
                     await data.save()
