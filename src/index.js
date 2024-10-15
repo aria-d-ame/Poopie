@@ -361,7 +361,7 @@ client.on(Events.MessageCreate, async (message) => {
 //cash gain 
 
 const extraCashRoleId = ['1289736549675565117'];
-const COOLDOWN_TIME_CASH = 5 * 1000; // 10 seconds
+const COOLDOWN_TIME_CASH = 60 * 1000; // 10 seconds
 
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -422,9 +422,69 @@ client.on(Events.MessageCreate, async (message) => {
     }
 });
 
+//tournament points gain
+const pointSchema = require('./Schemas/activityTournament.js');
+const COOLDOWN_TIME_POINT = 60 * 1000;
+const tournamentStatus = require('./tournamentStatus.js');
+
+client.on(Events.MessageCreate, async (message) => {
+    const { guild, author } = message;
+    if (!guild || author.bot) return;
+    console.log("Tournament status: " + await tournamentStatus());
+    if (await tournamentStatus() === false) return;
+    //!its still counting points, even when the tournament is not running
+    // lets check the status of the tournament
+    try {
+        // Find or create a points record for the user
+        let data = await pointSchema.findOne({ Guild: guild.id, User: author.id });
+        if (!data) {
+            data = await pointSchema.create({
+                Guild: guild.id,
+                User: author.id,
+                Points: 0,
+                LastPointTime: Date.now(),
+            });
+        }
+        
+        try {
+            const member = await guild.members.fetch(author.id);
+        } catch (error) {
+            console.log(`Failed to fetch member with ID: ${userId} in ${data.Guild}`);
+        }
+
+        // ALRIGHT MOVING ON
+        //lmao
+
+        const currentTime = Date.now();
+        const timeSinceLastPoint = currentTime - data.LastPointTime;
+
+        if (timeSinceLastPoint < COOLDOWN_TIME_POINT) {
+            console.log(`User ${author.id} is still in cooldown.`);
+            // Skip XP awarding if the cooldown period has not passed
+            return;
+        }
+
+        // Determine the amount of money to give
+        const baseAmount = 1;
+
+        // Add the base amount to the user's money
+        data.Points += baseAmount;
+
+        data.LastPointTime = Date.now();
+
+        // Save the updated money data to the database
+        console.log(data.Points)
+
+        await data.save();
+    } catch (err) {
+        console.error('Error handling message:', err);
+    }
+});
+
 //bump reminder
 const TIMER_DURATION = 2 * 60 * 60 * 1000; // 2 hours in milliseconds
 const Bump = require('./Schemas/bumpSchema.js');
+const activityTournament = require('./Schemas/activityTournament.js');
 let timer;
 
 client.on(Events.MessageCreate, async message => {

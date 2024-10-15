@@ -2,6 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField, ChannelType } = 
 const levelSchema = require('../../Schemas/level.js');
 const moneySchema = require('../../Schemas/money.js');
 const crimeSchema = require('../../Schemas/crimeSchema.js');
+const pointSchema = require('../../Schemas/activityTournament.js');
 
 
 module.exports = {
@@ -15,7 +16,8 @@ module.exports = {
         .addChoices(
           { name: 'XP', value: 'xp' },
           { name: 'Pix-Stars', value: 'stars' },
-          { name: 'Crime', value: 'crime' }
+          { name: 'Crime', value: 'crime' },
+          { name: 'Points', value: 'points'}
         )),
 
   async execute(interaction) {
@@ -146,6 +148,47 @@ module.exports = {
 
         // Send the leaderboard embed
         await interaction.editReply({ embeds: [crimeEmbed] });
+    }
+
+    if (rankType === 'points') {
+      await interaction.deferReply();
+
+        const pointData = await pointSchema.find({ Guild: guild.id })
+          .sort({
+            Points: -1,
+          })
+          .limit(5)
+
+          const pointEmbed = new EmbedBuilder()
+          .setTitle(`<:announce:1276188470250832014> 𝙿𝙾𝙸𝙽𝚃 𝙻𝙴𝙰𝙳𝙴𝚁𝙱𝙾𝙰𝚁𝙳 <:announce:1276188470250832014>`)
+          .setColor(0x8269c2)
+          .setFooter({
+            text: `${interaction.guild.name} • Members: ${interaction.guild.memberCount}`, // Footer text
+            iconURL: interaction.guild.iconURL()
+          })
+          .setTimestamp();
+
+        // If no leaderboard, inform user.
+        if (!pointData.length) {
+          pointEmbed.setDescription('This server does not have a leaderboard yet!');
+        } else {
+          // Array consisting of name/level/xp details (string) for each user
+          const userDescriptions = [];
+
+          // Iterates through each xpData document to create name/level/xp details for user and pushes them to
+          // to userDescriptions array
+          for (pointDataDoc of pointData) {
+            const { User, Points } = pointDataDoc;
+            const member = await client.users.fetch(User);
+            userDescriptions.push(`${pointData.indexOf(pointDataDoc) + 1}. ${member.tag} | Points: ${Points}`);
+          };
+
+          // Join elements in user descriptions array with \n (new line)
+          pointEmbed.setDescription(`\`\`\`${userDescriptions.join('\n')}\`\`\``);
+        }
+
+        // Send the leaderboard embed
+        await interaction.editReply({ embeds: [pointEmbed] });
     }
   }
 };
