@@ -127,7 +127,6 @@ client.on(Events.MessageCreate, async message => {
         const roleId = '1279589654055620719';
         const ROLE_DURATION = 12 * 60 * 60 * 1000
 
-
         if (number !== data.Number) {
             // Reset count data and notify user
             data.Number = 1; // Reset to initial value
@@ -203,6 +202,15 @@ client.on(Events.MessageCreate, async message => {
             data.Number++;
             await data.save();
         }
+
+        if (number === 69) {
+            await message.react(':ok_hand:');
+        }
+
+        if (number === 100 || 200 || 300 ) {
+            await message.react(':100:')
+        }
+
     } catch (error) {
         console.error('Error handling message:', error);
     }
