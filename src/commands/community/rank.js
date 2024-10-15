@@ -3,6 +3,8 @@ const levelSchema = require('../../Schemas/level.js')
 const moneySchema = require('../../Schemas/money.js')
 const xpRankPosition = require('../../xpRankPosition.js')
 const starRankPosition = require('../../starRankPosition.js');
+const crimeSchema = require('../../Schemas/crimeSchema.js');
+const crimeRankPosition = require('../../crimeRankPosition.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -19,6 +21,8 @@ module.exports = {
     const icon = user.displayAvatarURL({ format: 'gif' || 'png', size: 512 });
     const xpRank = await xpRankPosition(user.id, interaction.guild.id);
     const starRank = await starRankPosition(user.id, interaction.guild.id);
+    const crimeData = await crimeSchema.findOne({ Guild: guild.id, User: member.id });
+    const crimeRank = await crimeRankPosition(user.id, interaction.guild.id);
   
       if (!xpData) return await interaction.reply({ });
       if (!starData) return await interaction.reply({ content: 'This user does not have any data yet!', ephemeral: true });
@@ -46,6 +50,14 @@ module.exports = {
         { name: '<:triangle_medium:1276262944836947999> Pix-Stars:', value: `<:triangle_small:1276263767872770108> ${starData.Money}`, inline: true },
         { name: '<:triangle_medium:1276262944836947999> Rank:', value: `<:triangle_small:1276263767872770108> ${starRank}`, inline: true },
       );
+
+      if (crimeData) {
+        rankEmbed.addFields(
+          { name: '𝙲𝚁𝙸𝙼𝙴', value: '«═══✧ ✦ ✧═══»', inline: false },
+          { name: '<:triangle_medium:1276262944836947999> Crimes:', value: `<:triangle_small:1276263767872770108> ${crimeData.Crime}`, inline: true },
+          { name: '<:triangle_medium:1276262944836947999> Rank:', value: `<:triangle_small:1276263767872770108> ${crimeRank}`, inline: true },
+        )
+      }
   
       await interaction.reply({embeds: [rankEmbed]})
 	}
