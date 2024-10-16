@@ -37,7 +37,7 @@ module.exports = {
 
     const initialEmbed = new EmbedBuilder()
       .setTitle("𝚂𝙻𝙾𝚃𝚂")
-      .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n🔄|${interaction.user} bets ${betAmount} on slots...\n\n• 🔄  🔄  🔄 •`) 
+      .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n🔄|${interaction.user} bets <:xPix_Stars:1275118528844009563>${betAmount} on slots...\n\n• 🔄  🔄  🔄 •`) 
       .setColor(0x8269c2);
 
     const spinnerMessage = await interaction.reply({ embeds: [initialEmbed], fetchReply: true });
@@ -45,7 +45,7 @@ module.exports = {
     setTimeout(() => {
       const firstEmbed = new EmbedBuilder()
         .setTitle("𝚂𝙻𝙾𝚃𝚂")
-        .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n🔄|${interaction.user} bets ${betAmount} on slots...\n\n• ${results[0]}  🔄  🔄 •`)
+        .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n🔄|${interaction.user} bets <:xPix_Stars:1275118528844009563>${betAmount} on slots...\n\n• ${results[0]}  🔄  🔄 •`)
         .setColor(0x8269c2);
       spinnerMessage.edit({ embeds: [firstEmbed] });
     }, 600);
@@ -53,7 +53,7 @@ module.exports = {
     setTimeout(() => {
       const secondEmbed = new EmbedBuilder()
         .setTitle("𝚂𝙻𝙾𝚃𝚂")
-        .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n🔄|${interaction.user} bets ${betAmount} on slots...\n\n• ${results[0]}  ${results[1]}  🔄 •`)
+        .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n🔄|${interaction.user} bets <:xPix_Stars:1275118528844009563>${betAmount} on slots...\n\n• ${results[0]}  ${results[1]}  🔄 •`)
         .setColor(0x8269c2);
       spinnerMessage.edit({ embeds: [secondEmbed] });
     }, 1200);
@@ -61,7 +61,7 @@ module.exports = {
     setTimeout(async () => {
       const finalEmbed = new EmbedBuilder()
         .setTitle("𝚂𝙻𝙾𝚃𝚂")
-        .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n🔄|${interaction.user} bets ${betAmount} on slots...\n\n• ${results.join('  ')} •`)
+        .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n🔄|${interaction.user} bets <:xPix_Stars:1275118528844009563>${betAmount} on slots...\n\n• ${results.join('  ')} •`)
         .setColor(0x8269c2);
 
       let outcome;
