@@ -79,7 +79,7 @@ module.exports = {
       }
 
       await userMoney.save();
-      finalEmbed.setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n🔄|${interaction.user} bets ${betAmount} on slots...\n\n• ${results.join('  ')} •\n\n${outcome}`);
+      finalEmbed.setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n🔄|${interaction.user} bets <:xPix_Stars:1275118528844009563>${betAmount} on slots...\n\n• ${results.join('  ')} •\n\n${outcome}`);
       await spinnerMessage.edit({ embeds: [finalEmbed] });
 
     }, 1800);
