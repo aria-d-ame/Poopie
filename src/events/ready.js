@@ -4,6 +4,13 @@ const Bump = require('../Schemas/bumpSchema.js');
 const counting = require('../Schemas/countingSchema.js'); // Ensure this import is correct
 const ROLE_DURATION = 43200000; // 16 hours in milliseconds
 //43200000
+const mostActiveRole = '1288605699064205424';
+const richestRole = '1288865814874689567';
+const crimeLordRole = '1288600551382319115';
+const levelSchema = require('../Schemas/level.js');
+const moneySchema = require('../Schemas/money.js');
+const crimeSchema = require('../Schemas/crimeSchema.js');
+
 module.exports = {
     name: Events.ClientReady,
     once: true,
@@ -84,6 +91,52 @@ module.exports = {
 
     //TODO: make rank roles automatic! 
     async rankingRoles(client) {
-        
-    }
+        const guilds = client.guilds.cache;
+
+        for (const guild of guilds.values()) {
+            const ownerId = guild.ownerId;
+
+            // Get the top user excluding the server owner
+            const topXPUser = await levelSchema.findOne({ Guild: guild.id, User: { $ne: ownerId } })
+                .sort({ XP: -1 });
+            const topStarsUser = await moneySchema.findOne({ Guild: guild.id, User: { $ne: ownerId } })
+                .sort({ Money: -1 });
+            const topCrimeUser = await crimeSchema.findOne({ Guild: guild.id, User: { $ne: ownerId } })
+             .sort({ Crime: -1 });
+
+            if (topXPUser) {
+                const { User } = topXPUser;
+                try {
+                    const member = await guild.members.fetch(User);
+                    // Assign the leaderboard role
+                    await member.roles.add(mostActiveRole);
+                    console.log(`Assigned Most Active role to ${member.user.tag}`);
+                } catch (error) {
+                    console.log(`Failed to assign role to user ${User} in guild ${guild.id}:`, error);
+                }
+            }
+
+            if (topStarsUser) {
+                const { User } = topStarsUser;
+                try{
+                    const member = await guild.members.fetch(User);
+                    await member.roles.add(richestRole);
+                    console.log(`Assigned Richest role to ${member.user.tag}`);
+                } catch (error) {
+                    console.log(`Failed to assign role to user ${User} in guild ${guild.id}:`, error);
+                }
+            }
+
+            if (topCrimeUser) {
+                const { User } = topCrimeUser;
+                try{
+                    const member = await guild.members.fetch(User);
+                    await member.roles.add(crimeLordRole);
+                    console.log(`Assigned Crime Lord role to ${member.user.tag}`);
+                } catch (error) {
+                    console.log(`Failed to assign role to user ${User} in guild ${guild.id}:`, error);
+                }
+            }
+        }
+    },
 };
