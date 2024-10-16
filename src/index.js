@@ -204,7 +204,7 @@ client.on(Events.MessageCreate, async message => {
         }
 
         if (number === 69) {
-            await message.react(':ok_hand:');
+            await message.react('👌');
         }
 
         if (number % 100 === 0) {
