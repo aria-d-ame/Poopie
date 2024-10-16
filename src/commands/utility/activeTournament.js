@@ -58,8 +58,10 @@ module.exports = {
           return interaction.editReply({ content: 'Tournament has not started yet!' });
         }
 
+        const owner = interaction.guild.ownerId
+
         // Get single user with the highest Points.
-        const pointData = await activityTournament.find({ Guild: guild.id })
+        const pointData = await activityTournament.find({ Guild: guild.id, User: { $ne: owner } })
           .sort({
             Points: -1,
           })

@@ -17,7 +17,7 @@ module.exports = {
           { name: 'XP', value: 'xp' },
           { name: 'Pix-Stars', value: 'stars' },
           { name: 'Crime', value: 'crime' },
-          { name: 'Points', value: 'points'}
+          { name: 'Tournament Points', value: 'points'}
         )),
 
   async execute(interaction) {
