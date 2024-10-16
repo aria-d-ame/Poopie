@@ -207,7 +207,7 @@ client.on(Events.MessageCreate, async message => {
             await message.react(':ok_hand:');
         }
 
-        if (number === 100 || number === 200 || number === 300) {
+        if (number % 100 === 0) {
             await message.react('💯'); // Use the Unicode emoji
         }
 

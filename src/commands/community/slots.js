@@ -67,14 +67,14 @@ module.exports = {
       let outcome;
       if (results[0] === results[1] && results[1] === results[2]) {
         userMoney.Money += moneyAmount;
-        outcome = `Impressive! You won ${moneyAmount}`;
+        outcome = `Impressive! You won <:xPix_Stars:1275118528844009563>${moneyAmount}`;
       } else if (results[0] === results[1] || results[1] === results[2] || results[0] === results[2]) {
         userMoney.Money -= moneyAmount;
-        outcome = `Better luck next time! You lost ${moneyAmount}`;
+        outcome = `Better luck next time! You lost <:xPix_Stars:1275118528844009563>${moneyAmount}`;
         if (userMoney.Money < 0) userMoney.Money = 0;
       } else {
         userMoney.Money -= moneyAmount;
-        outcome = `Better luck next time! You lost ${moneyAmount}`;
+        outcome = `Better luck next time! You lost <:xPix_Stars:1275118528844009563>${moneyAmount}`;
         if (userMoney.Money < 0) userMoney.Money = 0;
       }
 
