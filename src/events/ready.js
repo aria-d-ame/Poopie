@@ -16,7 +16,11 @@ module.exports = {
 
         setInterval( async () => {
             await this.setupRoleAssignments(client);
-        }, 10000);
+        }, 600000);
+
+        setInterval( async () => {
+            await this.rankingRoles(client);
+        }, 600000);
 
         // Fetch bumps and set reminders
         await this.setupBumpReminders(client);
@@ -76,5 +80,10 @@ module.exports = {
                 }
             });
         });
+    },
+
+    //TODO: make rank roles automatic! 
+    async rankingRoles(client) {
+        
     }
 };
