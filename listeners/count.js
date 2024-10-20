@@ -1,5 +1,6 @@
 const { Listener } = require('gcommands');
 const counting = require('../schemas/countingSchema.js');
+const { EmbedBuilder } = require('discordjs');
 
 new Listener({
   name: 'Counting',
