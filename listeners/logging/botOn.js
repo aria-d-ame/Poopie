@@ -51,8 +51,6 @@ const setupRoleAssignments = async (ctx) => {
                 const Guild = await ctx.guilds.fetch(data.Guild);
                 const roleId = '1279589654055620719';
                 
-                // Only remove the role if user is still in the server. Else it will give an (Unknown Member) error 
-                // as we are trying to modify a-non existent member
                 try {
                     const member = await Guild.members.fetch(userId);
                     if (member) await member.roles.remove(roleId);
@@ -91,19 +89,24 @@ const rankingRoles = async (ctx) => {
             if (User !== lastAssignedUsers.mostActive) {
                 try {
                     const member = await guild.members.fetch(User);
-                    const oldMember = await guild.members.fetch(lastAssignedUsers.mostActive);
+                    const oldMemberId = lastAssignedUsers.mostActive;
                     // Assign the leaderboard role
                     await member.roles.add(mostActiveRole);
                     console.log(`Assigned Most Active role to ${member.user.tag}`);
-                    if (oldMember) {
-                        await oldMember.roles.remove(mostActiveRole);
-                        console.log(`Removed Most Active role from ${oldMember.user.tag}`);
+                    if (oldMemberId) {
+                        try {
+                            const oldMember = await guild.members.fetch(oldMemberId);
+                            await oldMember.roles.remove(mostActiveRole);
+                            console.log(`Removed Most Active role from ${oldMember.user.tag}`);
+                        } catch (oldMemberError) {
+                            console.log(`Failed to remove Most Active role from old member (ID: ${oldMemberId}):`, oldMemberError);
+                        }
                     } else {
                         console.log(`No old member found for removal in guild ${guild.id}`);
                     }
                     lastAssignedUsers.mostActive = User;
                 } catch (error) {
-                    console.log(`Failed to assign ${mostActiveRole} to user ${User} in guild ${guild.id}:`, error);
+                    console.log(`Failed to assign ${mostActiveRole} to user ${User}`, error);
                 }
             }
         }
@@ -113,18 +116,23 @@ const rankingRoles = async (ctx) => {
             if (User !== lastAssignedUsers.richest) {
                 try{
                     const member = await guild.members.fetch(User);
-                    const oldMember = await guild.members.fetch(lastAssignedUsers.richest);
+                    const oldMemberId = lastAssignedUsers.richest;
                     await member.roles.add(richestRole);
                     console.log(`Assigned Richest role to ${member.user.tag}`);
-                    if (oldMember) {
-                        await oldMember.roles.remove(richestRole);
-                        console.log(`Removed Richest role from ${oldMember.user.tag}`);
+                    if (oldMemberId) {
+                        try {
+                            const oldMember = await guild.members.fetch(oldMemberId);
+                            await oldMember.roles.remove(richestRole);
+                            console.log(`Removed Richest role from ${oldMember.user.tag}`);
+                        } catch (oldMemberError) {
+                            console.log(`Failed to remove Richest role from old member (ID: ${oldMemberId}):`, oldMemberError);
+                        }
                     } else {
                         console.log(`No old member found for removal in guild ${guild.id}`);
                     }
                     lastAssignedUsers.richest = User;
                 } catch (error) {
-                    console.log(`Failed to assign ${richestRole} to user ${User} in guild ${guild.id}:`, error);
+                    console.log(`Failed to assign ${richestRole} to user ${User}`, error);
                 }
             }
         }
@@ -134,18 +142,23 @@ const rankingRoles = async (ctx) => {
             if (User !== lastAssignedUsers.crimeLord) {
                 try{
                     const member = await guild.members.fetch(User);
-                    const oldMember = await guild.members.fetch(lastAssignedUsers.crimeLord);
+                    const oldMemberId = lastAssignedUsers.crimeLord;
                     await member.roles.add(crimeLordRole);
                     console.log(`Assigned Crime Lord role to ${member.user.tag}`);
-                    if (oldMember) {
-                        await oldMember.roles.remove(crimeLordRole);
-                        console.log(`Removed Crime Lord role from ${oldMember.user.tag}`);
+                    if (oldMemberId) {
+                        try {
+                            const oldMember = await guild.members.fetch(oldMemberId);
+                            await oldMember.roles.remove(crimeLordRole);
+                            console.log(`Removed Crime Lord role from ${oldMember.user.tag}`);
+                        } catch (oldMemberError) {
+                            console.log(`Failed to remove Crime Lord role from old member (ID: ${oldMemberId}):`, oldMemberError);
+                        }
                     } else {
                         console.log(`No old member found for removal in guild ${guild.id}`);
                     }
                     lastAssignedUsers.crimeLord = User;
                 } catch (error) {
-                    console.log(`Failed to assign ${crimeLordRole} to user ${User} in guild ${guild.id}:`, error);
+                    console.log(`Failed to assign ${crimeLordRole} to user ${User}`, error);
                 }
             }
         }
