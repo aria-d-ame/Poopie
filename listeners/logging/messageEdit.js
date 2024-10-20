@@ -7,11 +7,11 @@ new Listener({
   name: 'Message Edit',
   event: 'messageUpdate',
 
-  run: async (ctx) => {
+  run: async (oldMessage, ctx) => {
     if (!ctx.guild) return;
     if (ctx.author.bot) return;
 
-    const originalMessage = getMessage(ctx.id);
+    const originalMessage = getMessage(oldMessage.id);
     if (!originalMessage) {
       console.log(`Original message data timed out for message ID ${ctx.message.id} (${ctx.channel.id}, ${ctx.author.id}).`);
       return; 
@@ -19,7 +19,7 @@ new Listener({
 
     const editEmbed = new EmbedBuilder()
       .setColor('Yellow')
-      .setTitle('[ 🗑️ ] Message Edited')
+      .setTitle('[ ✏️ ] Message Edited')
       .addFields(
         { name: '📬 | Channel:', value: `<#${ctx.channel.id}>`, inline: true },
         { name: '😐 | Author:', value: `<@${ctx.author.id}>`, inline: true },
