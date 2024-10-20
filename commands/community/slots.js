@@ -43,7 +43,7 @@ new Command({
 
     const initialEmbed = new EmbedBuilder()
       .setTitle("𝚂𝙻𝙾𝚃𝚂")
-      .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n🔄|${interaction.user} bets <:xPix_Stars:1275118528844009563>${betAmount} on slots...\n\n• 🔄  🔄  🔄 •`) 
+      .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n🔄|${ctx.user} bets <:xPix_Stars:1275118528844009563>${betAmount} on slots...\n\n• 🔄  🔄  🔄 •`) 
       .setColor(0x8269c2);
 
     const spinnerMessage = await ctx.interaction.reply({ embeds: [initialEmbed], fetchReply: true });
@@ -51,7 +51,7 @@ new Command({
     setTimeout(() => {
       const firstEmbed = new EmbedBuilder()
         .setTitle("𝚂𝙻𝙾𝚃𝚂")
-        .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n🔄|${interaction.user} bets <:xPix_Stars:1275118528844009563>${betAmount} on slots...\n\n• ${results[0]}  🔄  🔄 •`)
+        .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n🔄|${ctx.user} bets <:xPix_Stars:1275118528844009563>${betAmount} on slots...\n\n• ${results[0]}  🔄  🔄 •`)
         .setColor(0x8269c2);
       spinnerMessage.edit({ embeds: [firstEmbed] });
     }, 600);
@@ -59,7 +59,7 @@ new Command({
     setTimeout(() => {
       const secondEmbed = new EmbedBuilder()
         .setTitle("𝚂𝙻𝙾𝚃𝚂")
-        .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n🔄|${interaction.user} bets <:xPix_Stars:1275118528844009563>${betAmount} on slots...\n\n• ${results[0]}  ${results[1]}  🔄 •`)
+        .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n🔄|${ctx.user} bets <:xPix_Stars:1275118528844009563>${betAmount} on slots...\n\n• ${results[0]}  ${results[1]}  🔄 •`)
         .setColor(0x8269c2);
       spinnerMessage.edit({ embeds: [secondEmbed] });
     }, 1200);
@@ -67,7 +67,7 @@ new Command({
     setTimeout(async () => {
       const finalEmbed = new EmbedBuilder()
         .setTitle("𝚂𝙻𝙾𝚃𝚂")
-        .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n🔄|${interaction.user} bets <:xPix_Stars:1275118528844009563>${betAmount} on slots...\n\n• ${results.join('  ')} •`)
+        .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n🔄|${ctx.user} bets <:xPix_Stars:1275118528844009563>${betAmount} on slots...\n\n• ${results.join('  ')} •`)
         .setColor(0x8269c2);
 
       let outcome;
@@ -85,7 +85,7 @@ new Command({
       }
 
       await userMoney.save();
-      finalEmbed.setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n🔄|${interaction.user} bets <:xPix_Stars:1275118528844009563>${betAmount} on slots...\n\n• ${results.join('  ')} •\n\n${outcome}`);
+      finalEmbed.setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n🔄|${ctx.user} bets <:xPix_Stars:1275118528844009563>${betAmount} on slots...\n\n• ${results.join('  ')} •\n\n${outcome}`);
       await spinnerMessage.edit({ embeds: [finalEmbed] });
 
     }, 1800);
