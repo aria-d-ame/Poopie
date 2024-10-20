@@ -1,5 +1,6 @@
 const { Listener } = require("gcommands");
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
+const level = require("../../schemas/level");
 
 // Listener to check if user joined the server and send a welcome message with png attachment
 new Listener({
@@ -9,7 +10,8 @@ new Listener({
 		if (ctx.user.bot) return;
 
 		try {
-			const welcomeChannel = await ctx.guild.channels.fetch('1269434806874411089')
+			const welcomeChannel = await ctx.guild.channels.fetch('1269434806874411089');
+			const levelZeroRole = ctx.guild.roles.cache.get('1269693621536423949');
 
 			const joinEmbed = new EmbedBuilder()
 				.setTitle(`<:xtriangle_medium:1276262944836947999> <@${ctx.user.id}> 𝚑𝚊𝚜 𝚋𝚘𝚘𝚝𝚎𝚍 𝚞𝚙 ${ctx.guild.name}!`)
@@ -40,6 +42,13 @@ new Listener({
 				embeds: [joinEmbed],
 				components: [row],
 			});
+
+			if (levelZeroRole) {
+				await ctx.member.roles.add(levelZeroRole);
+				console.log(`Assigned level zero role to ${ctx.user.tag}`);
+			} else {
+				console.log(`Level zero role not found in guild ${ctx.guild.id}`);
+			}
 		} catch (error) {
 			console.log(error);
 		}

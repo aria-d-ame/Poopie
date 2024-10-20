@@ -20,7 +20,7 @@ new Command({
     const { guild } = ctx;
     const target = ctx.arguments.getUser('user');
     const member = await ctx.guild.members.fetch(target.id);
-    const stealer = await ctx.guild.members.fetch(interaction.user.id);
+    const stealer = await ctx.guild.members.fetch(ctx.user.id);
     const minSteal = 10;
     const maxSteal = 700;
     const stealAmount = getRandomInt(minSteal, maxSteal);
