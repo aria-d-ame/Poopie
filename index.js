@@ -55,4 +55,4 @@ mongoose.connection.once("open", () => {
 });
 
 // Login to the discord API
-client.login(process.env.BOT_TOKEN,);
+client.login(process.env.BOT_TOKEN,).catch(console.error);
