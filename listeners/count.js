@@ -16,7 +16,7 @@ new Listener({
         if (ctx.channel.id !== data.Channel) return;
 
         // Check if message content is a number
-        const number = Number(message.content);
+        const number = Number(ctx.content);
         if (isNaN(number)) {
             // Optionally react or notify user for invalid input
             return;
