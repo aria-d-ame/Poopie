@@ -11,7 +11,7 @@ new Listener({
     if (!ctx.guild) return;
     if (ctx.author.bot) return;
 
-    const originalMessage = getMessage(ctx.message.id);
+    const originalMessage = getMessage(ctx.id);
     if (!originalMessage) {
       console.log(`Original message data timed out for message ID ${ctx.message.id}.`);
       return; 
@@ -19,17 +19,17 @@ new Listener({
 
     const deleteEmbed = new EmbedBuilder()
       .setColor('Red')
-      .setTitle('[🗑️] Message Deleted')
+      .setTitle('[ 🗑️ ] Message Deleted')
       .addFields(
         { name: '📬 | Channel:', value: `<#${ctx.channel.id}>`, inline: true },
-        { name: '😐 | Author:', value: `<@${originalMessage.author.id}>`, inline: true },
-        { name: '📝 | Content:', value: `"${originalMessage.content}"`, inline: false }
+        { name: '😐 | Author:', value: `<@${ctx.author.id}>`, inline: true },
+        { name: '\n', value: '\n', inline: false },
+        { name: '📝 | Content:', value: `"${originalMessage.content}"`, inline: false },
+        { name: '\n', value: '\n', inline: false },
+        { name: ' ', value: `Created: <t:${Math.floor(originalMessage.timestamp / 1000)}:t>`, inline: true },
+        { name: ' ', value: `Deleted: <t:${Math.floor(Date.now() / 1000)}:t>`, inline: true }
       )
-      .setTimestamp()
       .setThumbnail(ctx.author.displayAvatarURL())
-      .setFooter({
-        text: `Created: <t:${Math.floor(originalMessage.timestamp / 1000)}:F> | Deleted: <t:${Math.floor(Date.now() / 1000)}:F>`, 
-      });
 
     const logChannel = ctx.guild.channels.cache.get(logChannelId);
     if (logChannel) {
