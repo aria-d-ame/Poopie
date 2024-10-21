@@ -5,7 +5,7 @@ let marrySchema = new Schema({
   UserOne: String,
   UserTwo: String,
   Ring: Number,
-  RingID: Integer,
+  RingID: Number,
 })
 
 module.exports = model('marry', marrySchema);
