@@ -12,7 +12,7 @@ new Listener({
     if (ctx.author.id === '302050872383242240') {
         const guildId = ctx.guild.id;
         const channelId = ctx.channel.id; // Get the channel ID
-        const responseChannel = ctx.channels.fetch(channelId);
+        const responseChannel = ctx.guild.channels.cache.get(channelId);
 
         // Save the current bump time
         await bumpSchema.findOneAndUpdate(
