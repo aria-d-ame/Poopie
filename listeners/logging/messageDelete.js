@@ -22,7 +22,7 @@ new Listener({
       .setTitle('[ 🗑️ ] Message Deleted')
       .addFields(
         { name: '📬 | Channel:', value: `<#${ctx.channel.id}>`, inline: true },
-        { name: '😐 | Author:', value: `<@${ctx.author.id}>`, inline: true },
+        { name: '👤 | Author:', value: `<@${ctx.author.id}>`, inline: true },
         { name: '\n', value: '\n', inline: false },
         { name: '📝 | Content:', value: `"${originalMessage.content}"`, inline: false },
         { name: '\n', value: '\n', inline: false },

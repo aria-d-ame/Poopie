@@ -1,6 +1,5 @@
 const { Listener } = require("gcommands");
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
-const level = require("../../schemas/level");
 
 // Listener to check if user joined the server and send a welcome message with png attachment
 new Listener({
@@ -12,6 +11,7 @@ new Listener({
 		try {
 			const welcomeChannel = await ctx.guild.channels.fetch('1269434806874411089');
 			const levelZeroRole = ctx.guild.roles.cache.get('1269693621536423949');
+			const logChannel = ctx.guild.channels.fetch('1278877530635374675');
 
 			const joinEmbed = new EmbedBuilder()
 				.setTitle(`<:xtriangle_medium:1276262944836947999> ${ctx.user.username} 𝚑𝚊𝚜 𝚋𝚘𝚘𝚝𝚎𝚍 𝚞𝚙 ${ctx.guild.name}!`)
@@ -49,6 +49,25 @@ new Listener({
 			} else {
 				console.log(`Level zero role not found in guild ${ctx.guild.id}`);
 			}
+
+			const logEmbed = new EmbedBuilder()
+				.setColor('Green')
+				.setTitle('[ 🛬 ] User Joined')
+				.setTimestamp()
+				.setFooter({
+					text: `${ctx.guild.memberCount} Members`, // Footer text
+					iconURL: ctx.guild.iconURL() // Optional: Server icon URL
+				})
+				.addFields(
+					{ name: '👤 | User:', value: `<@${ctx.user.id}> (${ctx.user.username})`, inline: false },
+					{ name: '🪪 | ID:', value: `${ctx.user.id}`, inline: false },
+					{ name: '\n', value: '\n', inline: false },
+					{ name: '📆 | Created:', value: `<t:${ctx.user.createdAt}:R>`, inline: true },
+					{ name: '🔑 | Joined:', value: `<t:${ctx.joinedAt}:R>`, inline: true },
+				);
+			
+			await logChannel.send({ embeds: [logEmbed] });
+
 		} catch (error) {
 			console.log(error);
 		}
