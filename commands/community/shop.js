@@ -118,13 +118,13 @@ new Command({
       fetchReply: true
     });
 
-    const collectorFilter = i => i.user.id === interaction.user.id;
-    const collector = interaction.channel.createMessageComponentCollector({ time: 600_000 });
+    // const collectorFilter = i => i.user.id === ctx.user.id; 
+    const collector = ctx.channel.createMessageComponentCollector({ time: 600_000 });
 
     let chosenItem;
 
     collector.on('collect', async (confirmation) => {
-      if (confirmation.user.id !== interaction.user.id) {
+      if (confirmation.user.id !== ctx.user.id) {
         return confirmation.reply({ content: "This shop isn't for you! Get your own!", ephemeral: true });
       }
 
