@@ -12,7 +12,7 @@ new Listener({
     if (ctx.author.id === '302050872383242240') {
         const guildId = ctx.guild.id;
         const channelId = ctx.channel.id; // Get the channel ID
-        const responseChannel = client.channels.cache.get(channelId);
+        const responseChannel = ctx.channels.cache.get(channelId);
 
         // Save the current bump time
         await bumpSchema.findOneAndUpdate(
@@ -38,7 +38,7 @@ new Listener({
 
             // Set a new timer
             timer = setTimeout(async () => {
-                const channel = client.channels.cache.get(channelId);
+                const channel = ctx.channels.cache.get(channelId);
                 if (channel) {
                     const remind2 = new EmbedBuilder()
                         .setColor(0x8269c2)
