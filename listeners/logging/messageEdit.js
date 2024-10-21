@@ -17,6 +17,8 @@ new Listener({
       return; 
     }
 
+    if (orginalMessage.content === ctx.content) return;
+
     const editEmbed = new EmbedBuilder()
       .setColor('Yellow')
       .setTitle('[ ✏️ ] Message Edited')
