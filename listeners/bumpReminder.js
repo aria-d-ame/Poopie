@@ -1,4 +1,5 @@
 const { Listener } = require('gcommands');
+const { EmbedBuilder } = require('discord.js');
 
 new Listener({
   name: 'Bump Reminder',
