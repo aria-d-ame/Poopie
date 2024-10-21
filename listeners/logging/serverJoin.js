@@ -14,7 +14,7 @@ new Listener({
 			const levelZeroRole = ctx.guild.roles.cache.get('1269693621536423949');
 
 			const joinEmbed = new EmbedBuilder()
-				.setTitle(`<:xtriangle_medium:1276262944836947999> <@${ctx.user.id}> 𝚑𝚊𝚜 𝚋𝚘𝚘𝚝𝚎𝚍 𝚞𝚙 ${ctx.guild.name}!`)
+				.setTitle(`<:xtriangle_medium:1276262944836947999> ${ctx.user.username} 𝚑𝚊𝚜 𝚋𝚘𝚘𝚝𝚎𝚍 𝚞𝚙 ${ctx.guild.name}!`)
 				.setDescription(`«════✧ ✦ ✧ ✦ ✧════»`)
 				.setColor(0x8269c2)
 				.setThumbnail(ctx.displayAvatarURL())
