@@ -39,7 +39,7 @@ new Listener({
 
             // Set a new timer
             timer = setTimeout(async () => {
-                const channel = ctx.channels.cache.get(channelId);
+                const channel = ctx.guild.channels.cache.get(channelId);
                 if (channel) {
                     const remind2 = new EmbedBuilder()
                         .setColor(0x8269c2)
