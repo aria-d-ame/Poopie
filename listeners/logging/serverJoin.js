@@ -10,8 +10,8 @@ new Listener({
 
 		try {
 			const welcomeChannel = await ctx.guild.channels.fetch('1269434806874411089');
-			const levelZeroRole = ctx.guild.roles.cache.get('1269693621536423949');
-			const logChannel = ctx.guild.channels.fetch('1278877530635374675');
+			const levelZeroRole = await ctx.guild.roles.cache.get('1269693621536423949');
+			const logChannel = await ctx.guild.channels.fetch('1278877530635374675');
 
 			const joinEmbed = new EmbedBuilder()
 				.setTitle(`<:xtriangle_medium:1276262944836947999> ${ctx.user.username} 𝚑𝚊𝚜 𝚋𝚘𝚘𝚝𝚎𝚍 𝚞𝚙 ${ctx.guild.name}!`)
@@ -28,13 +28,15 @@ new Listener({
 				const row = new ActionRowBuilder()
 				.addComponents(
 					new ButtonBuilder()
-						.setLabel('✏️ Write your intro!')
+						.setLabel('Write your intro!')
 						.setStyle(ButtonStyle.Link)
-						.setURL('https://discord.com/channels/1269419817811709952/1269445235239424010'),
+						.setURL('https://discord.com/channels/1269419817811709952/1269445235239424010')
+						.setEmoji('✏️'),
 					new ButtonBuilder()
-						.setLabel('🍭 Get colors!')
+						.setLabel('Get colors!')
 						.setStyle(ButtonStyle.Link)
-						.setURL('https://discord.com/channels/1269419817811709952/1269445113227251765'), 
+						.setURL('https://discord.com/channels/1269419817811709952/1269445113227251765')
+						.setEmoji('🍭'),
 				);
 
 			await welcomeChannel.send({

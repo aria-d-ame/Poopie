@@ -1,4 +1,5 @@
 const { Listener } = require('gcommands');
+const { EmbedBuilder } = require('discord.js')
 const levelSchema = require('../schemas/level.js');
 
 new Listener({

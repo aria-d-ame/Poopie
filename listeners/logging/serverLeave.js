@@ -10,7 +10,7 @@ new Listener({
 
 		try {
 			const goodbyeChannel = await ctx.guild.channels.fetch('1269438676119846953');
-			const logChannel = ctx.guild.channels.fetch('1278877530635374675');
+			const logChannel = await ctx.guild.channels.fetch('1278877530635374675');
 
 			const leaveEmbed = new EmbedBuilder()
 				.setTitle(`<:xtriangle_medium:1276262944836947999> ${ctx.user.username} 𝚑𝚊𝚜 𝚚𝚞𝚒𝚝 ${ctx.guild.name}!`)
