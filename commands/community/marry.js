@@ -76,7 +76,7 @@ new Command({
         await confirmation.update({ embeds: [rejectEmbed], components: [] });
       } else if (confirmation.customId === 'accept') {
 
-        console.log(`${ctx.user.username} marrying ${confimation.user.username}`)
+        console.log(`${ctx.user.username} marrying ${confirmation.user.username}`)
 
         dataProposer = await marrySchema.create({
           Guild: guild.id,
