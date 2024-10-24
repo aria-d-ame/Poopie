@@ -18,6 +18,7 @@ new Command({
   run: async (ctx) => {
     const proposingUser = ctx.user;
     const marryingUser = ctx.arguments.getUser('user');
+    const {guild} = ctx;
 
     let marryDataSpouse = await marrySchema.findOne({ Guild: guild.id, User: marryingUser });
     if (marryDataSpouse && marryDataSpouse.Spouse !== null) {
