@@ -34,7 +34,7 @@ new Command({
       .setAuthor({ name: proposingUser.displayName, iconURL: proposingUser.displayAvatarURL({ format: 'gif' || 'png', size: 512 }) })
       .setColor(0x8269c2)
       .setTitle(`<:xannounce:1276188470250832014> 𝙼𝙰𝚁𝚁𝚈 <:xannounce:1276188470250832014>`)
-      .setDescription(`\n<@${marryingUser}>, <@${proposingUser}> would like to marry you!`)
+      .setDescription(`\n${marryingUser}, ${proposingUser} would like to marry you!`)
       .setFooter({ text: marryingUser.displayName, iconURL: marryingUser.displayAvatarURL({ format: 'gif' || 'png', size: 512 })});
 
     const acceptButton = new ButtonBuilder()
@@ -61,7 +61,7 @@ new Command({
     const collector = ctx.channel.createMessageComponentCollector({ time: 600_000 });
 
     collector.on('collect', async (confirmation) => {
-      if (confirmation.user.id !== marryingUser) {
+      if (confirmation.user.id !== marryingUser.id) {
         return confirmation.reply({ content: "You can't accept this proposal!", ephemeral: true });
       }
 
@@ -69,7 +69,7 @@ new Command({
         const rejectEmbed = new EmbedBuilder()
           .setColor('Red')
           .setTitle(`<:xannounce:1276188470250832014> 𝙼𝙰𝚁𝚁𝚈 <:xannounce:1276188470250832014>`)
-          .setDescription(`<@${proposingUser}>, <@${marryingUser}> has rejected your proposal!`)      
+          .setDescription(`${proposingUser}, ${marryingUser} has rejected your proposal!`)      
           .setAuthor({ name: proposingUser.displayName, iconURL: proposingUser.displayAvatarURL({ format: 'gif' || 'png', size: 512 }) })
           .setFooter({ text: marryingUser.displayName, iconURL: marryingUser.displayAvatarURL({ format: 'gif' || 'png', size: 512 })});
 
@@ -96,7 +96,7 @@ new Command({
         const marriedEmbed = new EmbedBuilder()
           .setColor('Green')
           .setTitle(`<:xannounce:1276188470250832014> 𝙼𝙰𝚁𝚁𝚈 <:xannounce:1276188470250832014>`)
-          .setDescription(`<@${proposingUser}>, <@${marryingUser}> has accepted your proposal! You're now married!`)
+          .setDescription(`${proposingUser}, ${marryingUser} has accepted your proposal! You're now married!`)
           .setAuthor({ name: proposingUser.displayName, iconURL: proposingUser.displayAvatarURL({ format: 'gif' || 'png', size: 512 }) })
           .setFooter({ text: marryingUser.displayName, iconURL: marryingUser.displayAvatarURL({ format: 'gif' || 'png', size: 512 })});
 
