@@ -20,11 +20,12 @@ new Command({
     const marryingUser = ctx.arguments.getUser('user');
 
     let marryDataSpouse = await marrySchema.findOne({ Guild: guild.id, User: marryingUser });
-    if (marryDataSpouse.Spouse !== null) {
-      return ctx.reply({ content: `<@${marryingUser}> is already married!`, ehpemeral: true });
-    } 
+    if (marryDataSpouse && marryDataSpouse.Spouse !== null) {
+      return ctx.reply({ content: `<@${marryingUser}> is already married!`, ephemeral: true });
+    }
+    
     let marryDataUser = await marrySchema.findOne({ Guild: guild.id, User: author.id });
-    if (marryDataUser.Spouse !== null) {
+    if (marryDataUser && marryDataUser.Spouse !== null) {
       return ctx.reply({ content: `You're already married to <@${marryDataUser.Spouse}>!`, ephemeral: true });
     }
 
