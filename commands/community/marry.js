@@ -73,7 +73,7 @@ new Command({
           .setAuthor({ name: proposingUser.displayName, iconURL: proposingUser.displayAvatarURL({ format: 'gif' || 'png', size: 512 }) })
           .setFooter({ text: marryingUser.displayName, iconURL: marryingUser.displayAvatarURL({ format: 'gif' || 'png', size: 512 })});
 
-        await confirmation.update({ embeds: [rejectEmbed], components: [] });
+        await confirmation.reply({ embeds: [rejectEmbed], components: [] });
       } else if (confirmation.customId === 'accept') {
 
         console.log(`${ctx.user.username} marrying ${confirmation.user.username}`)
@@ -100,7 +100,7 @@ new Command({
           .setAuthor({ name: proposingUser.displayName, iconURL: proposingUser.displayAvatarURL({ format: 'gif' || 'png', size: 512 }) })
           .setFooter({ text: marryingUser.displayName, iconURL: marryingUser.displayAvatarURL({ format: 'gif' || 'png', size: 512 })});
 
-        await confirmation.update({ embeds: [marriedEmbed], components: [] });
+        await confirmation.reply({ embeds: [marriedEmbed], components: [] });
       }
     });
   }
