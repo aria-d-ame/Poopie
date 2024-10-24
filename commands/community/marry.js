@@ -29,10 +29,11 @@ new Command({
     }
 
     const marryEmbed = new EmbedBuilder()
-      .setAuthor({ name: user.displayName, iconURL: user.displayAvatarURL({ format: 'gif' || 'png', size: 512 }) })
+      .setAuthor({ name: proposingUser.displayName, iconURL: proposingUser.displayAvatarURL({ format: 'gif' || 'png', size: 512 }) })
       .setColor(0x8269c2)
-      .setTitle(``)
+      .setTitle(`<:xannounce:1276188470250832014> 𝙼𝙰𝚁𝚁𝚈 <:xannounce:1276188470250832014>`)
       .setDescription(`\n<@${marryingUser}>, <@${proposingUser}> would like to marry you!`)
+      .setFooter({ text: marryingUser.displayName, iconURL: marryingUser.displayAvatarURL({ format: 'gif' || 'png', size: 512 })});
 
     const acceptButton = new ButtonBuilder()
       .setCustomId('accept')
@@ -57,29 +58,45 @@ new Command({
 
     const collector = ctx.channel.createMessageComponentCollector({ time: 600_000 });
 
-    let chosenItem;
-
     collector.on('collect', async (confirmation) => {
       if (confirmation.user.id !== marryingUser) {
         return confirmation.reply({ content: "You can't accept this proposal!", ephemeral: true });
       }
 
       if (confirmation.customId === 'reject') {
-        await confirmation.update({ embeds: [rejectEmbed] });
-        chosenItem = {  };
+        const rejectEmbed = new EmbedBuilder()
+          .setColor('Red')
+          .setTitle(`<:xannounce:1276188470250832014> 𝙼𝙰𝚁𝚁𝚈 <:xannounce:1276188470250832014>`)
+          .setDescription(`<@${proposingUser}>, <@${marryingUser}> has rejected your proposal!`)      
+          .setAuthor({ name: proposingUser.displayName, iconURL: proposingUser.displayAvatarURL({ format: 'gif' || 'png', size: 512 }) })
+          .setFooter({ text: marryingUser.displayName, iconURL: marryingUser.displayAvatarURL({ format: 'gif' || 'png', size: 512 })});
+
+        await confirmation.update({ embeds: [rejectEmbed], components: [] });
       } else if (confirmation.customId === 'accept') {
 
-        console.log(`Button pressed: ${confirmation.customId}, buying: ${chosenItem.name}`)
+        console.log(`${ctx.user.username} marrying ${confimation.user.username}`)
 
-        const role = guild.roles.cache.get(chosenItem.roleId);
-        if (role) {
-          await user.roles.add(role);
-        }
+        dataProposer = await marrySchema.create({
+          Guild: guild.id,
+          User: proposingUser.id,
+          Spouse: marryingUser.id
+        });
+        await dataProposer.save();
+
+        dataMarrying = await marrySchema.create({
+          Guild: guild.id,
+          User: marryingUser.id,
+          Spouse: proposingUser.id
+        });
+        await dataMarrying.save();
+
         // Send confirmation message
         const marriedEmbed = new EmbedBuilder()
-          .setColor(0x8269c2)
-          .setTitle(`<:announce:1276188470250832014>  <:announce:1276188470250832014>`)
-          .setDescription(``);
+          .setColor('Green')
+          .setTitle(`<:xannounce:1276188470250832014> 𝙼𝙰𝚁𝚁𝚈 <:xannounce:1276188470250832014>`)
+          .setDescription(`<@${proposingUser}>, <@${marryingUser}> has accepted your proposal! You're now married!`)
+          .setAuthor({ name: proposingUser.displayName, iconURL: proposingUser.displayAvatarURL({ format: 'gif' || 'png', size: 512 }) })
+          .setFooter({ text: marryingUser.displayName, iconURL: marryingUser.displayAvatarURL({ format: 'gif' || 'png', size: 512 })});
 
         await confirmation.update({ embeds: [marriedEmbed], components: [] });
       }

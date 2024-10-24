@@ -30,6 +30,7 @@ new Command({
       if (embed && message.author.id === ctx.client.user.id) {
         const currentDescription = embed.description || '';
         const suggestionDeniedEmbed = new EmbedBuilder(embed)
+          .setColor('Red')
           .setDescription(`${currentDescription}\n\n<:xtriangle_small:1276263767872770108> **Denial Reason:** ${reason}`)
           .setTitle(`<:xdenied:1276188176238645300> 𝙳𝙴𝙽𝙸𝙴𝙳 <:xdenied:1276188176238645300>`)
           .setFooter({

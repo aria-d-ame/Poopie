@@ -22,6 +22,7 @@ new Command({
 
       if (embed && message.author.id === ctx.client.user.id) {
         const suggestionAcceptedEmbed = new EmbedBuilder(embed)
+          .setColor('Green')
           .setTitle(`<:xapproved:1276185812257738823> 𝙰𝙿𝙿𝚁𝙾𝚅𝙴𝙳 <:xapproved:1276185812257738823>`)
           .setFooter({
             text: `This suggestion was approved.`, 

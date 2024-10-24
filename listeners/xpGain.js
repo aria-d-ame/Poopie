@@ -1,6 +1,7 @@
 const { Listener } = require('gcommands');
 const { EmbedBuilder } = require('discord.js')
 const levelSchema = require('../schemas/level.js');
+const moneySchema = require('../schemas/money.js');
 
 new Listener({
   name: 'XP Gain',
