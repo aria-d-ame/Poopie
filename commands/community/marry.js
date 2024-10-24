@@ -1,6 +1,6 @@
 const { Command, CommandType, Argument, ArgumentType } = require('gcommands');
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
-const { marrySchema } = require('../../schemas/marrySchema.js');
+const marrySchema = require('../../schemas/marrySchema.js');
 
 new Command({
   name: 'marry',
