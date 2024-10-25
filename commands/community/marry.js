@@ -23,13 +23,13 @@ new Command({
 
     // Check is marryingUser is already married
     let marryDataSpouse = await relationshipsSchema.findOne({ Guild: guild.id, User: marryingUser });
-    if (marryDataSpouse && marryDataSpouse.Spouse !== null) {
+    if (marryDataSpouse?.Spouse) {
       return ctx.reply({ content: `<@${marryingUser}> is already married!`, ephemeral: true });
     }
 
     // Check if proposingUser is already married
     let marryDataUser = await relationshipsSchema.findOne({ Guild: guild.id, User: ctx.user.id });
-    if (marryDataUser && marryDataUser.Spouse !== null) {
+    if (marryDataUser?.Spouse) {
       return ctx.reply({ content: `You're already married to <@${marryDataUser.Spouse}>!`, ephemeral: true });
     }
 
@@ -45,7 +45,7 @@ new Command({
       .setFooter({ text: marryingUser.displayName, iconURL: marryingUser.displayAvatarURL({ format: 'gif' || 'png', size: 512 }) });
 
     // Unix timestamp at which the components will expire
-    const componentsExpiryTime = Date.now() + 10000;
+    const componentsExpiryTime = Date.now() + 60000;
 
     const acceptButton = new ButtonBuilder()
       .setCustomId(customId('acceptProposal', proposingUser.id, marryingUser.id, componentsExpiryTime))
