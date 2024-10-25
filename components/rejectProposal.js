@@ -16,7 +16,7 @@ new Component({
         if (Date.now() >= componentExpiryTime) return ctx.reply({ content: "This proposal has expired!", ephemeral: true });
 
         // Check if user that clicked reject button is anyone except the user being proposed to
-        if (ctx.user.id !== marryingUser) return ctx.reply({ content: "You can't reject this proposal!", ephemeral: true })
+        if (ctx.user.id !== marryingUser) return ctx.reply({ content: "This proposal isn't for you!", ephemeral: true })
 
         // ? REJECT THE PROPOSAL
 
@@ -29,7 +29,7 @@ new Component({
             const rejectedProposalEmbed = new EmbedBuilder()
                 .setColor('Red')
                 .setTitle(`<:xannounce:1276188470250832014> 𝙼𝙰𝚁𝚁𝚈 <:xannounce:1276188470250832014>`)
-                .setDescription(`${proposerProfile}, ${marryingUserProfile} has rejected your proposal!`)
+                .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n${proposerProfile}, ${marryingUserProfile} has rejected your proposal!`)
                 .setAuthor({ name: proposerProfile.displayName, iconURL: proposerProfile.displayAvatarURL({ format: 'gif' || 'png', size: 512 }) })
                 .setFooter({ text: marryingUserProfile.displayName, iconURL: marryingUserProfile.displayAvatarURL({ format: 'gif' || 'png', size: 512 }) })
 

@@ -6,6 +6,7 @@ new Command({
     name: 'divorce',
     description: 'Divorce your current spouse!',
     type: [CommandType.SLASH],
+
     run: async (ctx) => {
         try {
             // Get command executors relationship doc and create if doesnt exist
@@ -39,8 +40,8 @@ new Command({
             const divorceEmbed = new EmbedBuilder()
                 .setAuthor({ name: ctx.user.displayName, iconURL: ctx.user.displayAvatarURL({ format: 'gif' || 'png', size: 512 }) })
                 .setColor(0x8269c2)
-                .setTitle(`<:xannounce:1276188470250832014> 𝙼𝙰𝚁𝚁𝚈 <:xannounce:1276188470250832014>`)
-                .setDescription(`\nYou have successfully divorced ${spouseDiscordProfile}.`)
+                .setTitle(`<:xannounce:1276188470250832014> 𝙳𝙸𝚅𝙾𝚁𝙲𝙴 <:xannounce:1276188470250832014>`)
+                .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n${ctx.user} ${spouseDiscordProfile}.`)
                 .setFooter({ text: spouseDiscordProfile.displayName, iconURL: spouseDiscordProfile.displayAvatarURL({ format: 'gif' || 'png', size: 512 }) });
 
             ctx.reply({ embeds: [divorceEmbed] });

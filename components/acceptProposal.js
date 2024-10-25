@@ -71,7 +71,7 @@ new Component({
             const marriedEmbed = new EmbedBuilder()
                 .setColor('Green')
                 .setTitle(`<:xannounce:1276188470250832014> 𝙼𝙰𝚁𝚁𝚈 <:xannounce:1276188470250832014>`)
-                .setDescription(`${proposerProfile}, ${marryingUserProfile} has accepted your proposal! You're now married!`)
+                .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n${proposerProfile}, ${marryingUserProfile} has accepted your proposal! You're now married!`)
                 .setAuthor({ name: proposerProfile.displayName, iconURL: proposerProfile.displayAvatarURL({ format: 'gif' || 'png', size: 512 }) })
                 .setFooter({ text: marryingUserProfile.displayName, iconURL: marryingUserProfile.displayAvatarURL({ format: 'gif' || 'png', size: 512 }) })
 

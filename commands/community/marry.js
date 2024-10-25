@@ -34,14 +34,14 @@ new Command({
     }
 
     // Check if user is proposing to themself
-    if (proposingUser.id === marryingUser.id) return ctx.reply("You can't marry yourself dummy")
+    if (proposingUser.id === marryingUser.id) return ctx.reply({ content: `You can't marry yourself dummy`, ephemeral: true });
 
     // Send proposal embed
     const marryEmbed = new EmbedBuilder()
       .setAuthor({ name: proposingUser.displayName, iconURL: proposingUser.displayAvatarURL({ format: 'gif' || 'png', size: 512 }) })
       .setColor(0x8269c2)
       .setTitle(`<:xannounce:1276188470250832014> 𝙼𝙰𝚁𝚁𝚈 <:xannounce:1276188470250832014>`)
-      .setDescription(`\n${marryingUser}, ${proposingUser} would like to marry you!`)
+      .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n${marryingUser}, ${proposingUser} would like to marry you!`)
       .setFooter({ text: marryingUser.displayName, iconURL: marryingUser.displayAvatarURL({ format: 'gif' || 'png', size: 512 }) });
 
     // Unix timestamp at which the components will expire
