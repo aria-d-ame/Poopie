@@ -21,7 +21,7 @@ const setupBumpReminders = async (ctx) => {
 
         if (timeUntilNextBump > 0) {
             setTimeout(async () => {
-                const channel = ctx.channels.cache.get(bump.channelId);
+                const channel = await ctx.channels.cache.get(bump.channelId);
                 
                 if (channel) {
                     const remindEmbed = new EmbedBuilder()

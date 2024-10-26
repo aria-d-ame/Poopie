@@ -45,8 +45,10 @@ new Listener({
 				components: [row],
 			});
 
+			const member = await ctx.guild.members.fetch(ctx.user.id);
+
 			if (levelZeroRole) {
-				await ctx.member.roles.add(levelZeroRole);
+				await member.roles.add(levelZeroRole);
 				console.log(`Assigned level zero role to ${ctx.user.tag}`);
 			} else {
 				console.log(`Level zero role not found in guild ${ctx.guild.id}`);
