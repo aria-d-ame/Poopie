@@ -34,6 +34,14 @@ new Listener({
     const hasAboutTriggerRole = aboutTriggerRoles.some(role => member.roles.cache.has(role.id));
     const hasPingsTriggerRole = pingsTriggerRoles.some(role => member.roles.cache.has(role.id));
 
+    if (!hasAboutTriggerRole) {
+      await member.roles.remove(aboutRole);
+    }
+
+    if (!hasPingsTriggerRole) {
+      await member.roles.remove(aboutRole);
+    }
+
     if (hasAboutTriggerRole) {
       await member.roles.add(aboutRole);
     }
