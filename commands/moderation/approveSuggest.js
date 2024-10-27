@@ -11,7 +11,7 @@ new Command({
       description: 'Message ID of the suggestion.',
       type: ArgumentType.STRING,
       required: true
-    })
+    }),
   ],
 
   run: async (ctx) => {
@@ -29,7 +29,7 @@ new Command({
             iconURL: ctx.guild.iconURL() 
           });
 
-        message.edit({ embeds: [suggestionAcceptedEmbed] })
+        await message.edit({ embeds: [suggestionAcceptedEmbed] })
         .then(async () => {
             await ctx.reply({ content: 'Suggestion accepted', ephemeral: true });
         })
@@ -39,7 +39,7 @@ new Command({
     } catch (error) {
       // Handle any errors that occur
       console.error('⚠️ Error handling document:', error);
-      await ctx.reply('⚠️ Error occurred during suggestion.');
+      await ctx.reply({ content: '⚠️ Error occurred during suggestion.', ephemeral: true });
     }
   }
 })

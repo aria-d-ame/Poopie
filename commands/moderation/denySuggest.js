@@ -38,7 +38,7 @@ new Command({
             iconURL: ctx.guild.iconURL() 
           });
 
-        message.edit({ embeds: [suggestionDeniedEmbed] })
+        await message.edit({ embeds: [suggestionDeniedEmbed] })
         .then(async () => {
             await ctx.reply({ content: 'Suggestion denied', ephemeral: true });
         })
