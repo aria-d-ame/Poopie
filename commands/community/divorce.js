@@ -19,7 +19,7 @@ new Command({
             }
 
             // Check if command executor is married
-            if (!divorcerRelationshipDoc.Spouse) return ctx.reply("You are not married!")
+            if (!divorcerRelationshipDoc.Spouse) return ctx.reply({ content: "You are not married!", ephemeral: true })
 
             // ? DIVORCE THE COUPLE
 
@@ -41,7 +41,7 @@ new Command({
                 .setAuthor({ name: ctx.user.displayName, iconURL: ctx.user.displayAvatarURL({ format: 'gif' || 'png', size: 512 }) })
                 .setColor(0x8269c2)
                 .setTitle(`<:xannounce:1276188470250832014> 𝙳𝙸𝚅𝙾𝚁𝙲𝙴 <:xannounce:1276188470250832014>`)
-                .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n${ctx.user} ${spouseDiscordProfile}.`)
+                .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n${ctx.user} has divorced ${spouseDiscordProfile}.`)
                 .setFooter({ text: spouseDiscordProfile.displayName, iconURL: spouseDiscordProfile.displayAvatarURL({ format: 'gif' || 'png', size: 512 }) });
 
             ctx.reply({ embeds: [divorceEmbed] });

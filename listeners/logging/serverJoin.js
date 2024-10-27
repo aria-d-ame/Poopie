@@ -66,8 +66,8 @@ new Listener({
 					{ name: '👤 | User:', value: `<@${ctx.user.id}> (${ctx.user.username})`, inline: false },
 					{ name: '🪪 | ID:', value: `${ctx.user.id}`, inline: false },
 					{ name: '\n', value: '\n', inline: false },
-					{ name: '📆 | Created:', value: `<t:${ctx.user.createdAt}:R>`, inline: true },
-					{ name: '🔑 | Joined:', value: `<t:${ctx.joinedAt}:R>`, inline: true },
+					{ name: '📆 | Created:', value: `<t:${Math.floor(ctx.user.createdAt / 1000)}:R>`, inline: true },
+					{ name: '🔑 | Joined:', value: `<t:${Math.floor(ctx.joinedAt / 1000)}:R>`, inline: true },
 				);
 			
 			await logChannel.send({ embeds: [logEmbed] });
