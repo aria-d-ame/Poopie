@@ -36,7 +36,7 @@ new Command({
           .setFooter({
             text: `This suggestion was denied.`, 
             iconURL: ctx.guild.iconURL() 
-          });;
+          });
 
         message.edit({ embeds: [suggestionDeniedEmbed] })
         .then(async () => {

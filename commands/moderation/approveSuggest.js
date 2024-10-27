@@ -29,7 +29,7 @@ new Command({
             iconURL: ctx.guild.iconURL() 
           });
 
-        await message.edit({ embeds: [suggestionAcceptedEmbed] })
+        message.edit({ embeds: [suggestionAcceptedEmbed] })
         .then(async () => {
             await ctx.reply({ content: 'Suggestion accepted', ephemeral: true });
         })
