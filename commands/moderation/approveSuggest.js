@@ -26,7 +26,7 @@ new Command({
           .setTitle(`<:xapproved:1276185812257738823> 𝙰𝙿𝙿𝚁𝙾𝚅𝙴𝙳 <:xapproved:1276185812257738823>`)
           .setFooter({
             text: `This suggestion was approved.`, 
-            iconURL: interaction.guild.iconURL() 
+            iconURL: ctx.guild.iconURL() 
           });
 
         await message.edit({ embeds: [suggestionAcceptedEmbed] })
