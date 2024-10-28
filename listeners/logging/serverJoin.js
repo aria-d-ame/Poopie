@@ -11,6 +11,7 @@ new Listener({
 		try {
 			const welcomeChannel = await ctx.guild.channels.fetch('1269434806874411089');
 			const levelZeroRole = await ctx.guild.roles.cache.get('1269693621536423949');
+			const aboutRole = await ctx.guild.roles.cache.get('1281722705959456798');
 			const logChannel = await ctx.guild.channels.fetch('1278877530635374675');
 
 			const joinEmbed = new EmbedBuilder()
@@ -46,6 +47,13 @@ new Listener({
 			});
 
 			const member = await ctx.guild.members.fetch(ctx.user.id);
+
+			if (aboutRole) {
+				await member.roles.add(aboutRole);
+				console.log(`Assigned about role to ${ctx.user.tag}`);
+			} else {
+				console.log(`About role not found in guild ${ctx.guild.id}`);
+			}
 
 			if (levelZeroRole) {
 				await member.roles.add(levelZeroRole);
