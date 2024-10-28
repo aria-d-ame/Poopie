@@ -34,22 +34,35 @@ new Listener({
     const hasAboutTriggerRole = aboutTriggerRoles.some(role => member.roles.cache.has(role.id));
     const hasPingsTriggerRole = pingsTriggerRoles.some(role => member.roles.cache.has(role.id));
 
+    const hasAboutRole = aboutRole.some(role => member.roles.cache.has(role.id));
+    const hasPingsRole = aboutRole.some(role => member.roles.cache.has(role.id));
+
+    if (hasAboutRole) {
+      return console.log(`Role updated user already has about role.`);
+    }
+    if (hasPingsRole) {
+      return console.log(`Role updated user already has pings role.`)
+    }
+
     if (!hasAboutTriggerRole) {
       await member.roles.remove(aboutRole);
+      await logChannel.send(`Automatic about role removed from ${member.user.tag}.`);
     }
 
     if (!hasPingsTriggerRole) {
       await member.roles.remove(aboutRole);
+      await logChannel.send(`Automatic pings role removed from ${member.user.tag}.`);
     }
 
     if (hasAboutTriggerRole) {
       await member.roles.add(aboutRole);
+      await logChannel.send(`Automatic about role added to ${member.user.tag}.`);
     }
 
     if (hasPingsTriggerRole) {
       await member.roles.add(pingsRole);
+      await logChannel.send(`Automatic pings role added to ${member.user.tag}.`);
     }
 
-    await logChannel.send(`Automatic about and ping roles successfully added to ${member.user.tag}.`);
   }
 })
