@@ -12,6 +12,16 @@ new Listener({
     const pingsRole = await ctx.guild.roles.cache.get('1281722400253411338');
     const logChannel = await ctx.guild.channels.fetch('1278877530635374675');
 
+    const hasAboutRole = aboutRole.some(role => member.roles.cache.has(role.id));
+    const hasPingsRole = aboutRole.some(role => member.roles.cache.has(role.id));
+
+    if (hasAboutRole) {
+      return console.log(`Role updated user already has about role.`);
+    }
+    if (hasPingsRole) {
+      return console.log(`Role updated user already has pings role.`)
+    }
+
     const sheRole = await ctx.guild.roles.cache.get('1269679504280916064');
     const theyRole = await ctx.guild.roles.cache.get('1269679631901130832');
     const heRole = await ctx.guild.roles.cache.get('1269679823194820609');
@@ -33,16 +43,6 @@ new Listener({
 
     const hasAboutTriggerRole = aboutTriggerRoles.some(role => member.roles.cache.has(role.id));
     const hasPingsTriggerRole = pingsTriggerRoles.some(role => member.roles.cache.has(role.id));
-
-    const hasAboutRole = aboutRole.some(role => member.roles.cache.has(role.id));
-    const hasPingsRole = aboutRole.some(role => member.roles.cache.has(role.id));
-
-    if (hasAboutRole) {
-      return console.log(`Role updated user already has about role.`);
-    }
-    if (hasPingsRole) {
-      return console.log(`Role updated user already has pings role.`)
-    }
 
     if (!hasAboutTriggerRole) {
       await member.roles.remove(aboutRole);

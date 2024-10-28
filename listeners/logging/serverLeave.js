@@ -15,7 +15,7 @@ new Listener({
 			const leaveEmbed = new EmbedBuilder()
 				.setTitle(`<:xtriangle_medium:1276262944836947999> ${ctx.user.username} 𝚑𝚊𝚜 𝚚𝚞𝚒𝚝 ${ctx.guild.name}!`)
 				.setColor(0x8269c2)
-				.setThumbnail(ctx.displayAvatarURL())
+				.setAuthor({iconURL: ctx.displayAvatarURL()})
 				.setTimestamp()
 				.setFooter({
 					text: `${ctx.guild.name} • Members: ${ctx.guild.memberCount}`, // Footer text

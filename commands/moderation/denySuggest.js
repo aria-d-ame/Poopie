@@ -1,9 +1,9 @@
 const { Command, CommandType, Argument, ArgumentType } = require('gcommands');
 const { EmbedBuilder } = require('discord.js');
 
-new Command({
-  name: 'approve',
-  description: 'Approve a suggestion!',
+new Command({//omfg
+  name: 'deny',
+  description: 'Reject a suggestion!',
   type: [CommandType.SLASH],
   arguments: [
     new Argument({
