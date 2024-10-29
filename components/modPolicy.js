@@ -6,18 +6,23 @@ new Component({
   type: [ComponentType.BUTTON],
   // The function thats called when the button is pressed
   run: async (ctx) => {
-    const rulesChannel = await ctx.guild.channels.fetch('1269443795368284273');
-
     const modPolicyEmbed = new EmbedBuilder()
       .setColor(0x8269c2)
       .setTitle(`<:announce_red:1276188522478436393> 𝙼𝙾𝙳𝙴𝚁𝙰𝚃𝙸𝙾𝙽 𝙿𝙾𝙻𝙸𝙲𝚈 <:announce_red:1276188522478436393>`)
-
-    if (moderationChannel) {
-      await moderationChannel.send(`<@&1269757597301604423> Report for vent:\nMessage ID: ${ctx.interaction.message.id}\nCase: ${venterID}`);
-    } else {
-      console.log('Moderation channel not found!');
-    }
-
-    await ctx.reply({ content: 'Report sent to moderation.', ephemeral: true });
+      .setDescription(`«════✧ ✦ ✧ ✦ ✧════»
+        \n**Our server has a four-warn policy for rule violations.**
+        \nAll warnings will be communicated to the offending member by **<@678344927997853742>** via DM.
+        \n\n<:triangle_large:1276185605268832277> Punishments based on Warns
+        \n<:triangle_small:1276263767872770108> 1st Warn ➝ **Verbal Warning**
+        \n<:triangle_small:1276263767872770108> 2nd Warn ➝ **12 Hour Mute**
+        \n<:triangle_small:1276263767872770108> 3rd Warn ➝ **3 Day Mute**
+        \n<:triangle_small:1276263767872770108> 4th Warn ➝ **Ban**
+        \n\n<:triangle_medium:1276262944836947999> You may communicate directly with server moderators to appeal punishment. An appeal will require screenshots and/or an appeal reason.
+        \n\n<:triangle_medium:1276262944836947999> **Some actions may be punished by an immediate ban without prior warning.**`)
+      .setFooter({
+        text: `${ctx.guild.name}`,
+        iconURL: ctx.guild.iconURL()
+      });
+    await ctx.reply({ embeds: [modPolicyEmbed], ephemeral: true });
   }
 })

@@ -10,7 +10,6 @@ new Listener({
       const member = await ctx.guild.members.fetch(ctx.user.id);
       const guild = ctx.guild;
 
-      // it should work
       const pingsRole = await guild.roles.cache.get('1281722400253411338');
       if (member.roles.cache.has(pingsRole.id)) {
         return console.log(`Role update: User already has the 'pings' role.`);
