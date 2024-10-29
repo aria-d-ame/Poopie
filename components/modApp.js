@@ -1,5 +1,5 @@
 const { Component, ComponentType } = require('gcommands');
-const { EmbedBuilder } = require('discord.js');
+const { EmbedBuilder, PermissionsBitField } = require('discord.js');
 
 new Component({
   name: 'modApp',
