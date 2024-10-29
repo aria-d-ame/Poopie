@@ -1,5 +1,5 @@
 const { Listener, customId } = require('gcommands');
-const { EmbedBuilder, ButtonBuilder, ActionRowBuilder } = require('discord.js');
+const { EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js');
 const stickySchema = require('../../schemas/stickyMessages')
 
 new Listener({
@@ -7,6 +7,7 @@ new Listener({
   event: 'messageCreate',
 
   run: async (ctx) => {
+    if (ctx.author.bot) return;
     const rulesChannel = await ctx.guild.channels.fetch('1269443795368284273');
 
     if (ctx.channel.id !== rulesChannel.id) return;
@@ -37,8 +38,8 @@ new Listener({
       .setEmoji('1276188522478436393');
 
     const modAppButton = new ButtonBuilder()
-      .setCustomId(custionId('modApp'))
-      .setLabel('Open a Mod Application')
+      .setCustomId(customId('modApp'))
+      .setLabel('Open Mod Application')
       .setStyle(ButtonStyle.Secondary)
       .setEmoji('1276188470250832014');
 
