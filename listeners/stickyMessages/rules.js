@@ -1,4 +1,4 @@
-const { Listener } = require('gcommands');
+const { Listener, customId } = require('gcommands');
 const { EmbedBuilder, ButtonBuilder, ActionRowBuilder } = require('discord.js');
 const stickySchema = require('../../schemas/stickyMessages')
 
