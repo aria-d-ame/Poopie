@@ -24,7 +24,7 @@ new Listener({
 
     const eventsStickyEmbed = new EmbedBuilder()
       .setColor(0x8269c2)
-      .setTitle(`<:triangle_large:1276185605268832277> Click below to view our moderation policy!`)
+      .setTitle(`<:triangle_large:1276185605268832277> Click below to view addition information!`)
       .setDescription(`«════✧ ✦ ✧ ✦ ✧════»`)
       .setFooter({
         text: `${ctx.guild.name}`,
