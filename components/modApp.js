@@ -6,14 +6,14 @@ new Component({
   type: [ComponentType.BUTTON],
 
   run: async (ctx) => {
-    ctx.reply({ content: `A mod application is being created for you!`, ephemeral: true });
+    ctx.reply({ content: `A ticket is being created for you!`, ephemeral: true });
     const applicationChannel = await ctx.guild.channels.create({
       name: `modapp-${ctx.user.username}`,
       type: 0, // 0 for text channel
       permissionOverwrites: [
           {
               id: ctx.user.id, 
-              allow: [PermissionsBitField.Flags.ViewChannel, PermissionsBitField.Flags.SendMessages], // Permissions to allow
+              allow: [PermissionsBitField.Flags.ViewChannel, PermissionsBitField.Flags.SendMessages, PermissionsBitField.Flags.ReadMessageHistory], // Permissions to allow
               deny: [PermissionsBitField.Flags.ManageMessages], // Permissions to deny
           },
           {
