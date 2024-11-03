@@ -27,7 +27,7 @@ new Listener({
       .setTitle(`<:triangle_large:1276185605268832277> Open a ticket with any of the buttons below!`)
       .setDescription(`«════✧ ✦ ✧ ✦ ✧════»
         \n<:triangle_small:1276263767872770108> Please use a report ticket if you'd like to report a user!
-        <:triangle_small:1276263767872770108> More about mod application and partner tickets ban be found in their respective channels.
+        <:triangle_small:1276263767872770108> More about mod application and partner tickets can be found in their respective channels.
         <:triangle_small:1276263767872770108> If your ticket does not fit the any criteria please use a general ticket!`)
       .setFooter({
         text: `${ctx.guild.name}`,
