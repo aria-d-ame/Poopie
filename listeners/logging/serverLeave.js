@@ -17,7 +17,10 @@ new Listener({
       const leaveEmbed = new EmbedBuilder()
         .setTitle(`<:xtriangle_medium:1276262944836947999> ${ctx.user.username} 𝚑𝚊𝚜 𝚚𝚞𝚒𝚝 ${ctx.guild.name}!`)
         .setColor(0x8269c2)
-        .setAuthor({ iconURL: ctx.user.displayAvatarURL() })
+				.setAuthor({
+					name: ' ',
+					iconURL: ctx.user.displayAvatarURL() || ''
+				})
         .setTimestamp()
         .setFooter({
           text: `${ctx.guild.name} • Members: ${ctx.guild.memberCount}`,
@@ -30,6 +33,7 @@ new Listener({
         .setColor('Red')
         .setTitle('[ 🛫 ] User Left')
         .setTimestamp()
+				.setThumbnail(ctx.displayAvatarURL())
         .setFooter({
           text: `${ctx.guild.memberCount} Members`,
           iconURL: ctx.guild.iconURL()

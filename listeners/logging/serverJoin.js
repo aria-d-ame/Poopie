@@ -66,6 +66,7 @@ new Listener({
 				.setColor('Green')
 				.setTitle('[ 🛬 ] User Joined')
 				.setTimestamp()
+				.setThumbnail(ctx.displayAvatarURL())
 				.setFooter({
 					text: `${ctx.guild.memberCount} Members`, // Footer text
 					iconURL: ctx.guild.iconURL() // Optional: Server icon URL
