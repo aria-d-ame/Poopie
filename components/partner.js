@@ -29,7 +29,7 @@ new Component({
       iconURL: ctx.user.displayAvatarURL({ format: 'gif' || 'png', size: 512 })
     })
     .setColor(0x8269c2)
-    .setTitle(`<:xannounce:1276188470250832014> 𝙼𝙾𝙳 𝙰𝙿𝙿 <:xannounce:1276188470250832014>`)
+    .setTitle(`<:xannounce:1276188470250832014> 𝙿𝙰𝚁𝚃𝙽𝙴𝚁 𝙰𝙿𝙿 <:xannounce:1276188470250832014>`)
     .setDescription(`«════✧ ✦ ✧ ✦ ✧════» 
       <:triangle_small:1276263767872770108> **By submitting your application, you are confirming that your server follows all partnership <#1283931220887076874> and Discord's TOS.**
       <:triangle_small:1276263767872770108> **To finish your application, answer the questions below!**
