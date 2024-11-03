@@ -33,6 +33,10 @@ new Listener({
   
       // Check if the member has any of the roles that should trigger 'pingsRole'
       const hasPingsTriggerRole = pingsTriggerRoles.some((role) => member.roles.cache.has(role.id));
+
+      if (!hasPingsTriggerRole) {
+        return console.log(`User ${ctx.user.username} does not meet criteria.`);
+      }
   
       // If the member has any of the 'pingsRole' trigger roles, add the 'pingsRole'
       if (hasPingsTriggerRole) {

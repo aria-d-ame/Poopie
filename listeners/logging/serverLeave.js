@@ -8,42 +8,44 @@ new Listener({
   run: async (ctx) => {
     if (ctx.user.bot) return;
 
-		try {
-			const goodbyeChannel = await ctx.guild.channels.fetch('1269438676119846953');
-			const logChannel = await ctx.guild.channels.fetch('1278877530635374675');
+    console.log(`${ctx.user.username} has left the server.`); // Debug log
 
-			const leaveEmbed = new EmbedBuilder()
-				.setTitle(`<:xtriangle_medium:1276262944836947999> ${ctx.user.username} 𝚑𝚊𝚜 𝚚𝚞𝚒𝚝 ${ctx.guild.name}!`)
-				.setColor(0x8269c2)
-				.setAuthor({iconURL: ctx.displayAvatarURL()})
-				.setTimestamp()
-				.setFooter({
-					text: `${ctx.guild.name} • Members: ${ctx.guild.memberCount}`, // Footer text
-					iconURL: ctx.guild.iconURL() // Optional: Server icon URL
-				})
+    try {
+      const goodbyeChannel = await ctx.guild.channels.fetch('1269438676119846953');
+      const logChannel = await ctx.guild.channels.fetch('1278877530635374675');
 
-			await goodbyeChannel.send({	embeds: [leaveEmbed] });
+      const leaveEmbed = new EmbedBuilder()
+        .setTitle(`<:xtriangle_medium:1276262944836947999> ${ctx.user.username} 𝚑𝚊𝚜 𝚚𝚞𝚒𝚝 ${ctx.guild.name}!`)
+        .setColor(0x8269c2)
+        .setAuthor({ iconURL: ctx.user.displayAvatarURL() })
+        .setTimestamp()
+        .setFooter({
+          text: `${ctx.guild.name} • Members: ${ctx.guild.memberCount}`,
+          iconURL: ctx.guild.iconURL()
+        });
 
-			const logEmbed = new EmbedBuilder()
-			.setColor('Red')
-			.setTitle('[ 🛫 ] User Left')
-			.setTimestamp()
-			.setFooter({
-				text: `${ctx.guild.memberCount} Members`, // Footer text
-				iconURL: ctx.guild.iconURL() // Optional: Server icon URL
-			})
-			.addFields(
-				{ name: '👤 | User:', value: `<@${ctx.user.id}> (${ctx.user.username})`, inline: false },
-				{ name: '🪪 | ID:', value: `${ctx.user.id}`, inline: false },
-				{ name: '\n', value: '\n', inline: false },
-				{ name: '🔑 | Joined:', value: `<t:${Math.floor(ctx.joinedAt / 1000)}:R>`, inline: true },
-				{ name: '🛑 | Left:', value: `<t:${Math.floor(Date.now() / 1000)}:R>`, inline: true },
-			);
-		
-		await logChannel.send({ embeds: [logEmbed] });
+      await goodbyeChannel.send({ embeds: [leaveEmbed] });
 
-		} catch (error) {
-			console.log(error);
-		}
+      const logEmbed = new EmbedBuilder()
+        .setColor('Red')
+        .setTitle('[ 🛫 ] User Left')
+        .setTimestamp()
+        .setFooter({
+          text: `${ctx.guild.memberCount} Members`,
+          iconURL: ctx.guild.iconURL()
+        })
+        .addFields(
+          { name: '👤 | User:', value: `<@${ctx.user.id}> (${ctx.user.username})`, inline: false },
+          { name: '🪪 | ID:', value: `${ctx.user.id}`, inline: false },
+          { name: '\n', value: '\n', inline: false },
+          { name: '🔑 | Joined:', value: `<t:${Math.floor(ctx.joinedAt / 1000)}:R>`, inline: true },
+          { name: '🛑 | Left:', value: `<t:${Math.floor(Date.now() / 1000)}:R>`, inline: true },
+        );
+
+      await logChannel.send({ embeds: [logEmbed] });
+
+    } catch (error) {
+      console.error('Error sending goodbye message:', error);
+    }
   }
-})
+});
