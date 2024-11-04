@@ -30,32 +30,31 @@ new Command({
             // Check if command executor is married
             if (!disownerRelationshipDoc.Children?.length) return ctx.reply({ content: "You don't have any children!", ephemeral: true })
 
-            // ? DIVORCE THE COUPLE
+            if (!disownerRelationshipDoc.Children.includes(childUser.id)) {
+                return ctx.reply({ content: "This user is not your child!", ephemeral: true });
+            }
 
-            // Get spouse's relationship doc
-            const childRelationshipDoc = await relationshipsSchema.findOne({ Guild: ctx.guild.id, User: disownerRelationshipDoc.Spouse });
-
-            // Get spouse's dicord profile // ! May cause errors if the user is not in the server
-            const childDiscordProfile = await ctx.guild.members.fetch(disownerRelationshipDoc.Spouse);
-            
-            // Set 'spouse' field in documents to null
-            disownerRelationshipDoc.Spouse = null;
-            childRelationshipDoc.Parent = null;
-
+            disownerRelationshipDoc.Children = disownerRelationshipDoc.Children.filter(childId => childId !== childUser.id);
             await disownerRelationshipDoc.save();
-            await childRelationshipDoc.save();
 
-            // Reply with divorced embed
+            const childRelationshipDoc = await relationshipsSchema.findOne({ Guild: ctx.guild.id, User: childUser.id });
+            if (childRelationshipDoc) {
+                childRelationshipDoc.Parent = null;
+                await childRelationshipDoc.save();
+            }
+
+            // Reply with disowned embed
             const disownEmbed = new EmbedBuilder()
                 .setAuthor({ name: ctx.user.displayName, iconURL: ctx.user.displayAvatarURL({ format: 'gif' || 'png', size: 512 }) })
                 .setColor(0x8269c2)
                 .setTitle(`<:xannounce:1276188470250832014> 𝙳𝙸𝚂𝙾𝚆𝙽 <:xannounce:1276188470250832014>`)
-                .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n${ctx.user} has disowned ${childDiscordProfile}.`)
-                .setFooter({ text: childDiscordProfile.displayName, iconURL: childDiscordProfile.displayAvatarURL({ format: 'gif' || 'png', size: 512 }) });
+                .setDescription(`**«═══✧ ✦ ✧ ✦ ✧═══»**\n${ctx.user} has disowned ${childUser}.`)
+                .setFooter({ text: childUser.username, iconURL: childUser.displayAvatarURL({ format: 'gif' || 'png', size: 512 }) });
 
             ctx.reply({ embeds: [disownEmbed] });
         } catch (err) {
-            console.log(err);
+            console.error(err);
+            ctx.reply({ content: "An error occurred while trying to disown the user.", ephemeral: true });
         }
     }
 });
