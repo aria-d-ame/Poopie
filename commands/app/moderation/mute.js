@@ -1,10 +1,11 @@
 const { Command, CommandType, Argument, ArgumentType } = require('gcommands');
 const { EmbedBuilder } = require('discord.js');
+const caseSchema = require('../../../schemas/caseSchema.js')
 
 new Command({
   name: 'mute',
   description: 'Moderation: Mute',
-  type: [CommandType.SLASH],
+  type: [CommandType.CONTEXT_USER],
   arguments: [
     new Argument({
       name: 'user',
@@ -32,19 +33,49 @@ new Command({
       return ctx.reply({ content: "You do not have permission to use this command.", ephemeral: true });
     }
 
+    const modChannel = await ctx.guild.channels.fetch('1278877530635374675');
+
     const targetUser = ctx.arguments.getUser('user');
     const muteTime = ctx.arguments.getInteger('time') * 60 * 1000;
     const muteReason = ctx.arguments.getString('reason');
 
     const member = await ctx.guild.members.fetch(targetUser.id);
 
+    const cases = await caseSchema.findOne({ Guild: targetUser.id });
+
     await member.timeout(muteTime, muteReason);
 
     const muteEmbed = new EmbedBuilder()
-    .setColor('YELLOW')
-    .setDescription(`You have muted ${targetUser} for ${ctx.arguments.getInteger('time')} minutes. Reason: ${muteReason}`);
+    .setColor('Red')
+    .setTitle('[ 🔇 ] User Muted')
+    .setTimestamp()
+    .setThumbnail(targetUser.displayAvatarURL())
+    .setFooter({
+      text: `${ctx.guild.memberCount} Members`,
+      iconURL: ctx.guild.iconURL()
+    })
+    .addFields(
+      { name: '👤 | User:', value: `<@${targetUser.id}> (${targetUser.username})`, inline: false },
+      { name: '🪪 | ID:', value: `${targetUser.id}`, inline: false },
+      { name: '\n', value: '\n', inline: false },
+      { name: '⌛ | Time:', value: `<t:${Math.floor((Date.now() + muteTime) / 1000 )}:R>`, inline: false },
+      { name: `🛡️ | Moderator:`, value: `<@${ctx.user.id}>`, inline: true },
+      { name: `📁 | Case:`, value: `${caseId}`, inline: true },
+      { name: `❓ | Reason:`, value: `${muteReason}`, inline: false }
+    );
 
-  ctx.reply({ embeds: [muteEmbed], ephemeral: true });
+  modChannel.send({ embeds: [muteEmbed] });
+
+  const muteCase = await caseSchema.create({
+    Guild: ctx.guild.id,
+    User: targetUser.id,
+    Warn: userWarnings,
+    Type: 'Mute', 
+    _id: caseId, 
+    Reason: `${muteReason}`, 
+    Moderator: ctx.user.id, 
+    Time: Date.now()
+  });
 
   const notifyEmbed = new EmbedBuilder()
   .setColor('RED')

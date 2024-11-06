@@ -1,6 +1,6 @@
 const { Command, CommandType } = require('gcommands');
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, } = require('discord.js');
-const moneySchema = require('../../schemas/money.js');
+const moneySchema = require('../../../schemas/money.js');
 
 
 const shopButtons = (customId, label, emojiId) => {
