@@ -1,6 +1,6 @@
 const { Command, CommandType, Argument, ArgumentType } = require('gcommands');
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
-const relationshipsSchema = require('../../schemas/relationshipsSchema.js');
+const relationshipsSchema = require('../../../schemas/relationshipsSchema.js');
 const { customId } = require('gcommands/dist/index');
 
 new Command({

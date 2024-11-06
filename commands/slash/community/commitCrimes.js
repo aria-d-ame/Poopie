@@ -1,7 +1,7 @@
 const { Command, CommandType } = require ('gcommands');
 const { EmbedBuilder } = require('discord.js');
-const starSchema = require('../../schemas/money.js');
-const crimeSchema = require('../../schemas/crimeSchema.js');
+const starSchema = require('../../../schemas/money.js');
+const crimeSchema = require('../../../schemas/crimeSchema.js');
 
 // Allows users to commit a crime, with a chance to get a good or bad outcome.
 new Command({

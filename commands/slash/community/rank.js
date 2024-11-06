@@ -1,11 +1,11 @@
 const { Command, CommandType, Argument, ArgumentType } = require('gcommands');
 const { EmbedBuilder } = require('discord.js');
-const levelSchema = require('../../schemas/level.js');
-const moneySchema = require('../../schemas/money.js');
-const crimeSchema = require('../../schemas/crimeSchema.js');
-const xpRankPosition = require('../../utils/xpRankPosition.js')
-const starRankPosition = require('../../utils/starRankPosition.js');
-const crimeRankPosition = require('../../utils/crimeRankPosition.js');
+const levelSchema = require('../../../schemas/level.js');
+const moneySchema = require('../../../schemas/money.js');
+const crimeSchema = require('../../../schemas/crimeSchema.js');
+const xpRankPosition = require('../../../utils/xpRankPosition.js')
+const starRankPosition = require('../../../utils/starRankPosition.js');
+const crimeRankPosition = require('../../../utils/crimeRankPosition.js');
 
 new Command({
   name: 'rank',

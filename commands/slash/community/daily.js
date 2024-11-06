@@ -1,6 +1,6 @@
 const { Command, CommandType } = require ('gcommands');
 const { EmbedBuilder } = require('discord.js');
-const starSchema = require('../../schemas/money.js');
+const starSchema = require('../../../schemas/money.js');
 const dailyCooldown = 86400000;
 
 new Command({

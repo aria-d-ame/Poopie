@@ -1,6 +1,6 @@
 const { Command, CommandType } = require('gcommands');
 const { EmbedBuilder } = require('discord.js');
-const relationshipsSchema = require('../../schemas/relationshipsSchema.js');
+const relationshipsSchema = require('../../../schemas/relationshipsSchema.js');
 
 new Command({
     name: 'divorce',

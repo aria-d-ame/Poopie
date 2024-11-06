@@ -1,6 +1,6 @@
 const { Command, CommandType, Argument, ArgumentType } = require ('gcommands');
 const { EmbedBuilder } = require('discord.js');
-const starSchema = require('../../schemas/money.js');
+const starSchema = require('../../../schemas/money.js');
 
 // Allows users to bet on a coinflip.
 // Adds or deducts money based on whether they win or lose.

@@ -1,5 +1,5 @@
 const { Command, CommandType, Argument, ArgumentType } = require('gcommands');
-const levelSchema = require('../../schemas/level.js');
+const levelSchema = require('../../../schemas/level.js');
 const { PermissionsBitField } = require('discord.js');
 
 new Command({

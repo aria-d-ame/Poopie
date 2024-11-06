@@ -1,6 +1,6 @@
 const { Command, ArgumentType, Argument, CommandType } = require('gcommands');
 const { EmbedBuilder } = require('discord.js');
-const boostRoles = require('../../schemas/boostRoles.js');
+const boostRoles = require('../../../schemas/boostRoles.js');
 
 // Command to edit the color and name of a user's custom role for boosting.
 // Automatically creates and saves role ID in boostRoles DB.

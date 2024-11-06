@@ -1,8 +1,8 @@
 const { Command, CommandType, Argument, ArgumentType } = require('gcommands');
 const { EmbedBuilder } = require('discord.js');
-const tournamentStatus = require('../../utils/tournamentStatus.js');
-const config = require('../../schemas/config.js');
-const activityTournament = require('../../schemas/activityTournament.js');
+const tournamentStatus = require('../../../utils/tournamentStatus.js');
+const config = require('../../../schemas/config.js');
+const activityTournament = require('../../../schemas/activityTournament.js');
 
 new Command({
   name: 'tournament',

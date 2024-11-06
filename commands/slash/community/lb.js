@@ -1,9 +1,9 @@
 const { Command, CommandType, Argument, ArgumentType } = require('gcommands');
 const { EmbedBuilder } = require('discord.js');
-const levelSchema = require('../../schemas/level.js');
-const moneySchema = require('../../schemas/money.js');
-const crimeSchema = require('../../schemas/crimeSchema.js');
-const pointSchema = require('../../schemas/activityTournament.js');
+const levelSchema = require('../../../schemas/level.js');
+const moneySchema = require('../../../schemas/money.js');
+const crimeSchema = require('../../../schemas/crimeSchema.js');
+const pointSchema = require('../../../schemas/activityTournament.js');
 
 new Command({
   name: 'leaderboard',

@@ -1,6 +1,6 @@
 const { Command, CommandType, Argument, ArgumentType } = require ('gcommands');
 const { EmbedBuilder } = require('discord.js');
-const moneySchema = require('../../schemas/money.js');
+const moneySchema = require('../../../schemas/money.js');
 
 new Command({
   name: 'give',
