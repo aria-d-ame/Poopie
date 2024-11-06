@@ -8,9 +8,9 @@ new Command({
   arguments: [
     new Argument({
       name: 'user',
-      description: 'User! If not, it will use you!',
+      description: 'User!',
       type: ArgumentType.USER,
-      required: false
+      required: true
     })
   ],
 
