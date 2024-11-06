@@ -3,7 +3,7 @@ const { EmbedBuilder } = require('discord.js');
 const caseSchema = require('../../../schemas/caseSchema.js')
 
 new Command({
-  name: 'mute',
+  name: 'Mute User',
   description: 'Moderation: Mute',
   type: [CommandType.CONTEXT_USER],
   arguments: [

@@ -2,7 +2,7 @@ const { Command, CommandType, Argument, ArgumentType } = require('gcommands');
 const { EmbedBuilder } = require('discord.js');
 
 new Command({
-  name: 'userinfo',
+  name: 'User Info',
   description: 'Get info on a server user!',
   type: [CommandType.CONEXT_USER],
   arguments: [

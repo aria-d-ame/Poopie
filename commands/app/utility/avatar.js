@@ -2,7 +2,7 @@ const { Command, CommandType, Argument, ArgumentType } = require('gcommands');
 const { EmbedBuilder } = require('discord.js');
 
 new Command({
-  name: 'avatar',
+  name: 'User Avatar',
   description: 'Get a user\'s avatar',
   type: [CommandType.CONTEXT_USER],
 

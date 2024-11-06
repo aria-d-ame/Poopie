@@ -10,7 +10,7 @@ const warningThresholds = {
 };
 
 new Command({
-  name: 'warn',
+  name: 'Warn User',
   description: 'Moderation: Warn',
   type: [CommandType.CONTEXT_USER],
   arguments: [

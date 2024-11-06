@@ -3,7 +3,7 @@ const { EmbedBuilder } = require('discord.js');
 const caseSchema = require('../../../schemas/caseSchema.js')
 
 new Command({
-  name: 'kick',
+  name: 'Kick User',
   description: 'Moderation: Kick',
   type: [CommandType.CONTEXT_USER],
   arguments: [
