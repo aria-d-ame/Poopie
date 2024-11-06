@@ -58,13 +58,9 @@ new Command({
 
     const oneWarnEmbed = new EmbedBuilder()
       .setColor('Yellow')
-      .setTitle('[  ] User Warned')
+      .setTitle('[ ⚠️ ] User Warned')
       .setTimestamp()
       .setThumbnail(targetUser.displayAvatarURL())
-      .setFooter({
-        text: `${ctx.guild.memberCount} Members`,
-        iconURL: ctx.guild.iconURL()
-      })
       .addFields(
         { name: '👤 | User:', value: `<@${targetUser.id}> (${targetUser.username})`, inline: false },
         { name: '🪪 | ID:', value: `${targetUser.id}`, inline: false },
@@ -77,6 +73,27 @@ new Command({
 
     modChannel.send({ embeds: [oneWarnEmbed] });
 
+    const notifyEmbed = new EmbedBuilder()
+    .setColor('Yellow')
+    .setTitle('[ ⚠️ ] You have been warned')
+    .addFields(
+      { name: `🛡️ | Moderator:`, value: `<@${ctx.user.id}>`, inline: true },
+      { name: `📁 | Case:`, value: `${caseId}`, inline: true },
+      { name: `⚠️ | Warns:`, value: `${userWarnings}`, inline: true },
+      { name: `❓ | Reason:`, value: `${warnReason}`, inline: false }
+    )
+    .setFooter({
+      text: `${ctx.guild.name} • Members: ${ctx.guild.memberCount}`,
+      iconURL: ctx.guild.iconURL()
+    });
+  
+    // Send the notification to the muted user, if they share a server
+    try {
+      await member.send({ embeds: [notifyEmbed] });
+    } catch (err) {
+      console.log('Could not send message to the muted user:', err);
+    };
+
     if (userWarnings >= warningThresholds.banAfter) {
       try {
         await member.ban({ reason: `Banned due to ${userWarnings} warnings.` });
@@ -86,10 +103,6 @@ new Command({
           .setTitle('[ 🛑 ] User Banned')
           .setTimestamp()
           .setThumbnail(targetUser.displayAvatarURL())
-          .setFooter({
-            text: `${ctx.guild.memberCount} Members`,
-            iconURL: ctx.guild.iconURL()
-          })
           .addFields(
             { name: '👤 | User:', value: `<@${targetUser.id}> (${targetUser.username})`, inline: false },
             { name: '🪪 | ID:', value: `${targetUser.id}`, inline: false },
@@ -113,6 +126,27 @@ new Command({
           Time: Date.now()
         });
 
+        const notifyEmbed = new EmbedBuilder()
+        .setColor('Red')
+        .setTitle('[ 🛑 ] You have been banned')
+        .addFields(
+          { name: `🛡️ | Moderator:`, value: `<@${ctx.user.id}>`, inline: true },
+          { name: `📁 | Case:`, value: `${caseId}`, inline: true },
+          { name: `⚠️ | Warns:`, value: `${userWarnings}`, inline: true },
+          { name: `❓ | Reason:`, value: `${warnReason}`, inline: false }
+        )
+        .setFooter({
+          text: `${ctx.guild.name} • Members: ${ctx.guild.memberCount}`,
+          iconURL: ctx.guild.iconURL()
+        });
+      
+        // Send the notification to the muted user, if they share a server
+        try {
+          await member.send({ embeds: [notifyEmbed] });
+        } catch (err) {
+          console.log('Could not send message to the muted user:', err);
+        }
+
       } catch (err) {
         console.error(err);
         return ctx.reply({ content: "Failed to ban the user.", ephemeral: true });
@@ -125,10 +159,6 @@ new Command({
         .setTitle('[ 🔇 ] User Muted')
         .setTimestamp()
         .setThumbnail(targetUser.displayAvatarURL())
-        .setFooter({
-          text: `${ctx.guild.memberCount} Members`,
-          iconURL: ctx.guild.iconURL()
-        })
         .addFields(
           { name: '👤 | User:', value: `<@${targetUser.id}> (${targetUser.username})`, inline: false },
           { name: '🪪 | ID:', value: `${targetUser.id}`, inline: false },
@@ -151,6 +181,28 @@ new Command({
         Moderator: ctx.user.id, 
         Time: Date.now()
       });
+
+      const notifyEmbed = new EmbedBuilder()
+      .setColor('Red')
+      .setTitle('[ 🔇 ] You have been muted')
+      .addFields(
+        { name: `🛡️ | Moderator:`, value: `<@${ctx.user.id}>`, inline: true },
+        { name: `📁 | Case:`, value: `${caseId}`, inline: true },
+        { name: `⚠️ | Warns:`, value: `${userWarnings}`, inline: true },
+        { name: `❓ | Reason:`, value: `${warnReason}`, inline: false }
+      )
+      .setFooter({
+        text: `${ctx.guild.name} • Members: ${ctx.guild.memberCount}`,
+        iconURL: ctx.guild.iconURL()
+      });
+    
+      // Send the notification to the muted user, if they share a server
+      try {
+        await member.send({ embeds: [notifyEmbed] });
+      } catch (err) {
+        console.log('Could not send message to the muted user:', err);
+      }
+
     } else if (userWarnings >= warningThresholds.dayMute) {
       await member.timeout(86400000, warnReason);
 
@@ -159,10 +211,6 @@ new Command({
         .setTitle('[ 🔇 ] User Muted')
         .setTimestamp()
         .setThumbnail(targetUser.displayAvatarURL())
-        .setFooter({
-          text: `${ctx.guild.memberCount} Members`,
-          iconURL: ctx.guild.iconURL()
-        })
         .addFields(
           { name: '👤 | User:', value: `<@${targetUser.id}> (${targetUser.username})`, inline: false },
           { name: '🪪 | ID:', value: `${targetUser.id}`, inline: false },
@@ -185,6 +233,27 @@ new Command({
         Moderator: ctx.user.id, 
         Time: Date.now()
       });
+
+      const notifyEmbed = new EmbedBuilder()
+      .setColor('Red')
+      .setTitle('[ 🔇 ] You have been muted')
+      .addFields(
+        { name: `🛡️ | Moderator:`, value: `<@${ctx.user.id}>`, inline: true },
+        { name: `📁 | Case:`, value: `${caseId}`, inline: true },
+        { name: `⚠️ | Warns:`, value: `${userWarnings}`, inline: true },
+        { name: `❓ | Reason:`, value: `${warnReason}`, inline: false }
+      )
+      .setFooter({
+        text: `${ctx.guild.name} • Members: ${ctx.guild.memberCount}`,
+        iconURL: ctx.guild.iconURL()
+      });
+    
+      // Send the notification to the muted user, if they share a server
+      try {
+        await member.send({ embeds: [notifyEmbed] });
+      } catch (err) {
+        console.log('Could not send message to the muted user:', err);
+      }
 
     }
   }

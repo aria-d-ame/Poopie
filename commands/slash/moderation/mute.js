@@ -78,14 +78,24 @@ new Command({
   });
 
   const notifyEmbed = new EmbedBuilder()
-  .setColor('RED')
-  .setDescription(`You have been muted for ${ctx.arguments.getInteger('time')} minutes. Reason: ${muteReason}`);
+  .setColor('Red')
+  .setTitle('[ 🔇 ] You have been muted')
+  .addFields(
+    { name: `🛡️ | Moderator:`, value: `<@${ctx.user.id}>`, inline: true },
+    { name: `📁 | Case:`, value: `${caseId}`, inline: true },
+    { name: `⚠️ | Warns:`, value: `${userWarnings}`, inline: true },
+    { name: `❓ | Reason:`, value: `${muteReason}`, inline: false }
+  )
+  .setFooter({
+    text: `${ctx.guild.name} • Members: ${ctx.guild.memberCount}`,
+    iconURL: ctx.guild.iconURL()
+  });
 
   // Send the notification to the muted user, if they share a server
   try {
     await member.send({ embeds: [notifyEmbed] });
   } catch (err) {
     console.log('Could not send message to the muted user:', err);
-    }
+  }
   }
 })
