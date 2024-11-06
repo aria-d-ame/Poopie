@@ -3,7 +3,7 @@ const { EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('
 const stickySchema = require('../../schemas/stickyMessages')
 
 new Listener({
-  name: 'Rules Sticky',
+  name: 'Ticket Sticky',
   event: 'messageCreate',
 
   run: async (ctx) => {
