@@ -4,19 +4,11 @@ const { EmbedBuilder } = require('discord.js');
 new Command({
   name: 'User Info',
   description: 'Get info on a server user!',
-  type: [CommandType.CONEXT_USER],
-  arguments: [
-    new Argument({
-      name: 'user',
-      description: 'User!',
-      type: ArgumentType.USER,
-      required: true
-    })
-  ],
+  type: [CommandType.CONTEXT_USER],
 
   run: async (ctx) => {
     try{
-      const user = ctx.arguments.getUser(`user`) || ctx.user;
+      const user = ctx.arguments.getUser(ctx.user) 
       const member = await ctx.guild.members.fetch(user.id);
       const icon = user.displayAvatarURL({ format: 'gif' || 'png', size: 512 });
       const tag = user.tag;
