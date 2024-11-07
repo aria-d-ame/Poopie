@@ -46,7 +46,7 @@ new Command({
     await ctx.interaction.showModal(modal);
 		// Show the modal to the user
     const filter = (interaction) => interaction.customId === 'warnModal';
-    ctx.client.awaitModalSubmit({ filter, time: 15_000 })
+    ctx.client.once('modalSubmit', filter)
       .then(interaction => console.log(`${interaction.customId} was submitted!`))
       .catch(console.error);
 
