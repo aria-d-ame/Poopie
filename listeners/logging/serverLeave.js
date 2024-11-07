@@ -19,7 +19,7 @@ new Listener({
         .setColor(0x8269c2)
 				.setAuthor({
 					name: '',
-					iconURL: ctx.user.displayAvatarURL() || ' '
+					iconURL: ctx.user.displayAvatarURL() || ''
 				})
         .setTimestamp()
         .setFooter({
