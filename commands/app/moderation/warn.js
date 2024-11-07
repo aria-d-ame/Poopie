@@ -28,7 +28,7 @@ new Command({
       .setTitle('Warn Modal')
 
     const warnInput = new TextInputBuilder()
-			.setCustomId('warnReason')
+			.setCustomId('warnInput')
 		    // The label is the prompt the user sees for this input
 			.setLabel("Reason for warn")
 		    // Short means only a single line of text
