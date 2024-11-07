@@ -1,5 +1,5 @@
 const { Command, CommandType, Argument, ArgumentType } = require('gcommands');
-const { EmbedBuilder, ModalBuilder, TextInputBuilder, ActionRowBuilder } = require('discord.js');
+const { EmbedBuilder, ModalBuilder, TextInputBuilder, ActionRowBuilder, TextInputStyle } = require('discord.js');
 const caseSchema = require('../../../schemas/caseSchema');
 const crypto = require('crypto');
 
