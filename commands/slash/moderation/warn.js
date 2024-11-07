@@ -100,7 +100,7 @@ new Command({
 
         const fourWarnEmbed = new EmbedBuilder()
           .setColor('Red')
-          .setTitle('[ 🛑 ] User Banned')
+          .setTitle('[ 🔨 ] User Banned')
           .setTimestamp()
           .setThumbnail(targetUser.displayAvatarURL())
           .addFields(
@@ -128,7 +128,7 @@ new Command({
 
         const notifyEmbed = new EmbedBuilder()
         .setColor('Red')
-        .setTitle('[ 🛑 ] You have been banned')
+        .setTitle('[ 🔨 ] You have been banned')
         .addFields(
           { name: `🛡️ | Moderator:`, value: `<@${ctx.user.id}>`, inline: true },
           { name: `📁 | Case:`, value: `${caseId}`, inline: true },

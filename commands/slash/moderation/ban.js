@@ -3,19 +3,19 @@ const { EmbedBuilder } = require('discord.js');
 const caseSchema = require('../../../schemas/caseSchema.js')
 
 new Command({
-  name: 'kick',
-  description: 'Moderation: Kick',
+  name: 'ban',
+  description: 'Moderation: Ban',
   type: [CommandType.SLASH],
   arguments: [
     new Argument({
       name: 'user',
-      description: 'User for kick',
+      description: 'User for ban',
       type: ArgumentType.USER,
       required: true
     }),
     new Argument({
       name: 'reason',
-      description: 'Rule broken/reason for kick',
+      description: 'Rule broken/reason for ban',
       type: ArgumentType.STRING,
       required: true
     })
@@ -30,55 +30,51 @@ new Command({
     const modChannel = await ctx.guild.channels.fetch('1278877530635374675');
 
     const targetUser = ctx.arguments.getUser('user');
-    const kickReason = ctx.arguments.getString('reason');
+    const banReason = ctx.arguments.getString('reason');
 
     const member = await ctx.guild.members.fetch(targetUser.id);
 
     const cases = await caseSchema.findOne({ Guild: targetUser.id });
     const userWarnings = await caseSchema.find({ Guild: ctx.guild.id, User: targetUser.id }).countDocuments() + 1
 
-    await member.kick(kickReason);
+    await member.kick(banReason);
 
-    const muteEmbed = new EmbedBuilder()
-    .setColor('Red')
-    .setTitle('[ 👟 ] User Kicked')
-    .setTimestamp()
-    .setThumbnail(targetUser.displayAvatarURL())
-    .setFooter({
-      text: `${ctx.guild.memberCount} Members`,
-      iconURL: ctx.guild.iconURL()
-    })
-    .addFields(
-      { name: '👤 | User:', value: `<@${targetUser.id}> (${targetUser.username})`, inline: false },
-      { name: '🪪 | ID:', value: `${targetUser.id}`, inline: false },
-      { name: '\n', value: '\n', inline: false },
-      { name: '⌛ | Time:', value: `<t:${Math.floor(Date.now() / 1000 )}:R>`, inline: false },
-      { name: `🛡️ | Moderator:`, value: `<@${ctx.user.id}>`, inline: true },
-      { name: `📁 | Case:`, value: `${caseId}`, inline: true },
-      { name: `❓ | Reason:`, value: `${kickReason}`, inline: false }
-    );
+    const banEmbed = new EmbedBuilder()
+      .setColor('Red')
+      .setTitle('[ 🔨 ] User Banned')
+      .setTimestamp()
+      .setThumbnail(targetUser.displayAvatarURL())
+      .addFields(
+        { name: '👤 | User:', value: `<@${targetUser.id}> (${targetUser.username})`, inline: false },
+        { name: '🪪 | ID:', value: `${targetUser.id}`, inline: false },
+        { name: '\n', value: '\n', inline: false },
+        { name: '🛑 | Banned:', value: `<t:${Math.floor(Date.now() / 1000)}:R>`, inline: false },
+        { name: `🛡️ | Moderator:`, value: `<@${ctx.user.id}>`, inline: true },
+        { name: `📁 | Case:`, value: `${caseId}`, inline: true },
+        { name: `❓ | Reason:`, value: `${banReason}`, inline: false }
+      );
 
-  modChannel.send({ embeds: [muteEmbed] });
+  modChannel.send({ embeds: [banEmbed] });
 
-  const kickCase = await caseSchema.create({
+  const banCase = await caseSchema.create({
     Guild: ctx.guild.id,
     User: targetUser.id,
     Warn: userWarnings,
-    Type: 'Kick', 
+    Type: 'Ban', 
     _id: caseId, 
-    Reason: `${muteReason}`, 
+    Reason: `${banReason}`, 
     Moderator: ctx.user.id, 
     Time: Date.now()
   });
 
   const notifyEmbed = new EmbedBuilder()
   .setColor('Red')
-  .setTitle('[ 👟 ] You have been kicked')
+  .setTitle('[ 🔨 ] You have been banned')
   .addFields(
     { name: `🛡️ | Moderator:`, value: `<@${ctx.user.id}>`, inline: true },
     { name: `📁 | Case:`, value: `${caseId}`, inline: true },
     { name: `⚠️ | Warns:`, value: `${userWarnings}`, inline: true },
-    { name: `❓ | Reason:`, value: `${muteReason}`, inline: false }
+    { name: `❓ | Reason:`, value: `${banReason}`, inline: false }
   )
   .setFooter({
     text: `${ctx.guild.name} • Members: ${ctx.guild.memberCount}`,

@@ -42,6 +42,7 @@ new Command({
     const member = await ctx.guild.members.fetch(targetUser.id);
 
     const cases = await caseSchema.findOne({ Guild: targetUser.id });
+    const userWarnings = await caseSchema.find({ Guild: ctx.guild.id, User: targetUser.id }).countDocuments() + 1
 
     await member.timeout(muteTime, muteReason);
 
