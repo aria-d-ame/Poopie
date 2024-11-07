@@ -12,7 +12,7 @@ const warningThresholds = {
 new Command({
   name: 'warn',
   description: 'Moderation: Warn',
-  type: [CommandType.SLASH],
+  type: [CommandType.BOTH],
   arguments: [
     new Argument({
       name: 'user',
