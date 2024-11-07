@@ -44,7 +44,7 @@ new Command({
 		modal.addComponents(warnRow);
 
 		// Show the modal to the user
-		await interaction.showModal(modal);
+		await ctx.showModal(modal);
 
     const warnReason = ctx.fields.getTextInputValue('warnInput');
 
