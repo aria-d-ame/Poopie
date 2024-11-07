@@ -44,7 +44,10 @@ new Command({
 		modal.addComponents(warnRow);
 
 		// Show the modal to the user
-		await ctx.interaction.showModal(modal);
+    const filter = (interaction) => interaction.customId === 'warnModal';
+    interaction.awaitModalSubmit({ filter, time: 15_000 })
+      .then(interaction => console.log(`${interaction.customId} was submitted!`))
+      .catch(console.error);
 
     const warnReason = ctx.fields.getTextInputValue('warnInput');
 
