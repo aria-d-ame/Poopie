@@ -44,7 +44,7 @@ new Command({
 		modal.addComponents(warnRow);
 
 		// Show the modal to the user
-		await ctx.showModal(modal);
+    await ctx.client.awaitModalSubmit({ filter, time: 30000 });
 
     const warnReason = ctx.fields.getTextInputValue('warnInput');
 
