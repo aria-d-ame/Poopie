@@ -18,7 +18,7 @@ new Listener({
 
       try {
         // Get the member who reacted (user who added the reaction)
-        const member = await ctx.guild.members.fetch(ctx.user.id);
+        const member = await ctx.guild.members.fetch(ctx.author.id);
 
         // Get the role from the guild
         const role = await ctx.guild.roles.fetch(roleId);
