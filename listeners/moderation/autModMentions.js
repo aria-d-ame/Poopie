@@ -3,7 +3,7 @@ const { EmbedBuilder } = require('discord.js');
 const caseSchema = require('../../schemas/caseSchema'); 
 const crypto = require('crypto');
 
-const spamThreshold = 6;
+const spamThreshold = 3;
 const timeWindow = 5000;
 
 const warningThresholds = {
