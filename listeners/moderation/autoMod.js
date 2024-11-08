@@ -15,7 +15,7 @@ new Listener({
   name: 'Auto Moderation',
   event: 'messageCreate',
 
-  run: async (ctx) => {
+  run: async (ctx, client) => {
     if (ctx.author.bot) return;
 
     const messageContent = ctx.content.toLowerCase(); // Get the message content in lowercase
