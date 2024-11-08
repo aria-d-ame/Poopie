@@ -72,6 +72,7 @@ new Command({
       );
 
     modChannel.send({ embeds: [oneWarnEmbed] });
+    interaction.reply({ content: `User warned.`, ephemeral: true })
 
     const notifyEmbed = new EmbedBuilder()
     .setColor('Yellow')

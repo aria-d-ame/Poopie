@@ -31,7 +31,7 @@ new Command({
 
         const caseEmbed = new EmbedBuilder()
         .setTitle(`Case Deletion`)
-        .setColor('red')
+        .setColor('Red')
         .setFooter({
           text: `${ctx.guild.name}`, // Footer text
           iconURL: ctx.guild.iconURL()
