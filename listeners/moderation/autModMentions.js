@@ -3,7 +3,7 @@ const { EmbedBuilder } = require('discord.js');
 const caseSchema = require('../../schemas/caseSchema'); 
 const crypto = require('crypto');
 
-const spamThreshold = 3;
+const mentionThreshold = 3;
 const timeWindow = 5000;
 
 const warningThresholds = {
@@ -12,7 +12,7 @@ const warningThresholds = {
   banAfter: 4,
 };
 
-let userMessageTimes = new Map(); // To store user messages and timestamps
+let userMentionTimes = new Map(); // To store user messages and timestamps
 
 new Listener({
   name: 'Auto Moderation: Mention Spam',
