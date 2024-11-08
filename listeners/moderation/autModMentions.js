@@ -34,9 +34,7 @@ new Listener({
       mentionTimes.push(currentTime);
 
       // Remove timestamps that are outside the time window (mention detection period)
-      while (mentionTimes.length > 0 && mentionTimes[0] < currentTime - timeWindow) {
-        mentionTimes.shift(); // Remove the oldest timestamp
-      }
+      mentionTimes = mentionTimes.filter(timestamp => timestamp > currentTime - timeWindow);
 
       // Update the user's mention timestamps
       userMentionTimes.set(targetUser.id, mentionTimes);
