@@ -25,7 +25,7 @@ new Listener({
     const currentTime = Date.now();
 
     // Retrieve the list of message timestamps for the user
-    const mentionTimes = userMentionTimes.get(targetUser.id) || [];
+    let mentionTimes = userMentionTimes.get(targetUser.id) || [];
 
     // Check if the message contains mentions
     const mentions = ctx.mentions.users.size + ctx.mentions.roles.size; // Count user mentions and role mentions
