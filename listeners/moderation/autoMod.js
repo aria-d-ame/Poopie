@@ -56,7 +56,7 @@ new Listener({
           .addFields(
             { name: '👤 | User:', value: `<@${targetUser.id}> (${targetUser.username})`, inline: false },
             { name: '🪪 | ID:', value: `${targetUser.id}`, inline: false },
-            { name: `🛡️ | Moderator:`, value: `<@${ctx.user.id}>`, inline: true },
+            { name: `🛡️ | Moderator:`, value: `<@1282026688011829270>`, inline: true },
             { name: `📁 | Case:`, value: `${caseId}`, inline: true },
             { name: `⚠️ | Warns:`, value: `${userWarnings}`, inline: true },
             { name: `❓ | Reason:`, value: `${warnReason}`, inline: false }
@@ -70,7 +70,7 @@ new Listener({
           .setColor('Yellow')
           .setTitle('[ ⚠️ ] You have been warned')
           .addFields(
-            { name: `🛡️ | Moderator:`, value: `<@${ctx.user.id}>`, inline: true },
+            { name: `🛡️ | Moderator:`, value: `<@1282026688011829270>`, inline: true },
             { name: `📁 | Case:`, value: `${caseId}`, inline: true },
             { name: `⚠️ | Warns:`, value: `${userWarnings}`, inline: true },
             { name: `❓ | Reason:`, value: `${warnReason}`, inline: false }
@@ -102,7 +102,7 @@ new Listener({
               .addFields(
                 { name: '👤 | User:', value: `<@${targetUser.id}> (${targetUser.username})`, inline: false },
                 { name: '🪪 | ID:', value: `${targetUser.id}`, inline: false },
-                { name: `🛡️ | Moderator:`, value: `<@${ctx.user.id}>`, inline: true },
+                { name: `🛡️ | Moderator:`, value: `<@1282026688011829270}>`, inline: true },
                 { name: `📁 | Case:`, value: `${caseId}`, inline: true },
                 { name: `❓ | Reason:`, value: `Exceeded warning threshold`, inline: false }
               );
@@ -116,9 +116,30 @@ new Listener({
               Type: 'Ban',
               _id: caseId,
               Reason: 'Exceeded warn limit.',
-              Moderator: ctx.user.id,
+              Moderator: '1282026688011829270',
               Time: Date.now(),
             });
+
+            const notifyEmbed = new EmbedBuilder()
+            .setColor('Red')
+            .setTitle('[ 🔨 ] You have been banned')
+            .addFields(
+              { name: `🛡️ | Moderator:`, value: `<@1282026688011829270>`, inline: true },
+              { name: `📁 | Case:`, value: `${caseId}`, inline: true },
+              { name: `⚠️ | Warns:`, value: `${userWarnings}`, inline: true },
+              { name: `❓ | Reason:`, value: `${warnReason}`, inline: false }
+            )
+            .setFooter({
+              text: `${ctx.guild.name} • Members: ${ctx.guild.memberCount}`,
+              iconURL: ctx.guild.iconURL()
+            });
+          
+            // Send the notification to the muted user, if they share a server
+            try {
+              await member.send({ embeds: [notifyEmbed] });
+            } catch (err) {
+              console.log('Could not send message to the muted user:', err);
+            }
 
           } catch (err) {
             console.error('Failed to ban user:', err);
@@ -138,7 +159,7 @@ new Listener({
               { name: '👤 | User:', value: `<@${targetUser.id}> (${targetUser.username})`, inline: false },
               { name: '🪪 | ID:', value: `${targetUser.id}`, inline: false },
               { name: '⌛ | Time:', value: `<t:${Math.floor((Date.now() + 259200000) / 1000)}:R>`, inline: false },
-              { name: `🛡️ | Moderator:`, value: `<@${ctx.user.id}>`, inline: true },
+              { name: `🛡️ | Moderator:`, value: `<@1282026688011829270>`, inline: true },
               { name: `📁 | Case:`, value: `${caseId}`, inline: true },
               { name: `❓ | Reason:`, value: `${warnReason}`, inline: false }
             );
@@ -152,9 +173,30 @@ new Listener({
             Type: 'Mute',
             _id: caseId,
             Reason: 'Exceeded warn limit.',
-            Moderator: ctx.user.id,
+            Moderator: '1282026688011829270',
             Time: Date.now(),
           });
+
+          const notifyEmbed = new EmbedBuilder()
+          .setColor('Red')
+          .setTitle('[ 🔇 ] You have been muted')
+          .addFields(
+            { name: `🛡️ | Moderator:`, value: `<@1282026688011829270>`, inline: true },
+            { name: `📁 | Case:`, value: `${caseId}`, inline: true },
+            { name: `⚠️ | Warns:`, value: `${userWarnings}`, inline: true },
+            { name: `❓ | Reason:`, value: `${warnReason}`, inline: false }
+          )
+          .setFooter({
+            text: `${ctx.guild.name} • Members: ${ctx.guild.memberCount}`,
+            iconURL: ctx.guild.iconURL()
+          });
+        
+          // Send the notification to the muted user, if they share a server
+          try {
+            await member.send({ embeds: [notifyEmbed] });
+          } catch (err) {
+            console.log('Could not send message to the muted user:', err);
+          }
 
         } else if (userWarnings >= warningThresholds.dayMute) {
           // Mute the user for 1 day if they exceed this threshold
@@ -169,7 +211,7 @@ new Listener({
               { name: '👤 | User:', value: `<@${targetUser.id}> (${targetUser.username})`, inline: false },
               { name: '🪪 | ID:', value: `${targetUser.id}`, inline: false },
               { name: '⌛ | Time:', value: `<t:${Math.floor((Date.now() + 86400000) / 1000)}:R>`, inline: false },
-              { name: `🛡️ | Moderator:`, value: `<@${ctx.user.id}>`, inline: true },
+              { name: `🛡️ | Moderator:`, value: `<@1282026688011829270>`, inline: true },
               { name: `📁 | Case:`, value: `${caseId}`, inline: true },
               { name: `❓ | Reason:`, value: `${warnReason}`, inline: false }
             );
@@ -183,9 +225,30 @@ new Listener({
             Type: 'Mute',
             _id: caseId,
             Reason: 'Exceeded warn limit.',
-            Moderator: ctx.user.id,
+            Moderator: '1282026688011829270',
             Time: Date.now(),
           });
+
+          const notifyEmbed = new EmbedBuilder()
+          .setColor('Red')
+          .setTitle('[ 🔇 ] You have been muted')
+          .addFields(
+            { name: `🛡️ | Moderator:`, value: `<@1282026688011829270>`, inline: true },
+            { name: `📁 | Case:`, value: `${caseId}`, inline: true },
+            { name: `⚠️ | Warns:`, value: `${userWarnings}`, inline: true },
+            { name: `❓ | Reason:`, value: `${warnReason}`, inline: false }
+          )
+          .setFooter({
+            text: `${ctx.guild.name} • Members: ${ctx.guild.memberCount}`,
+            iconURL: ctx.guild.iconURL()
+          });
+        
+          // Send the notification to the muted user, if they share a server
+          try {
+            await member.send({ embeds: [notifyEmbed] });
+          } catch (err) {
+            console.log('Could not send message to the muted user:', err);
+          }
         }
 
         return; 
