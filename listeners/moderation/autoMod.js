@@ -1,6 +1,6 @@
 const { Listener } = require('gcommands');
 const { EmbedBuilder } = require('discord.js');
-const { caseSchema } = require('../../schemas/caseSchema'); 
+const caseSchema = require('../../schemas/caseSchema'); 
 const crypto = require('crypto');
 
 const warningThresholds = {
@@ -33,7 +33,7 @@ new Listener({
         const warnReason = `Rule 1: Prohibited word detected: ${word}`;
 
         // Get current warning count from the database
-        let userWarnings = await caseSchema.countDocuments({ Guild: ctx.guild.id, User: targetUser.id }) + 1;
+        let userWarnings = await caseSchema.find({ Guild: ctx.guild.id, User: targetUser.id }).countDocuments() + 1;
 
         // Log this warning in the database
         await caseSchema.create({
