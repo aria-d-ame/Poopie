@@ -8,10 +8,10 @@ new Listener({
     if (ctx.message.id != '1269828108836405301') return;
 
     const roleEmojis = {
-      '🌹': '1269795741786836993', 
-      '🐞': '1269795891473158311', 
-      '🪱': '1269795964399652905',
-      '🍄': '1269796050806509588',
+      'rose': '1269795741786836993', 
+      'lady_beetle': '1269795891473158311', 
+      'worm': '1269795964399652905',
+      'mushroom': '1269796050806509588',
     };
     if (roleEmojis[ctx.emoji.name]) {
       const roleId = roleEmojis[ctx.emoji.name];
