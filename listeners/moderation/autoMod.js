@@ -43,7 +43,7 @@ new Listener({
           Type: 'Warn',
           _id: caseId,
           Reason: warnReason,
-          Moderator: ctx.client.user.id,
+          Moderator: client.user.id,
           Time: Date.now(),
         });
 
