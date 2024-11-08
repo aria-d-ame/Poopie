@@ -3,8 +3,8 @@ const { EmbedBuilder } = require('discord.js');
 const caseSchema = require('../../../schemas/caseSchema');
 
 new Command({
-  name: 'view-cases',
-  description: 'Moderation: Cases',
+  name: 'delete-case',
+  description: 'Moderation: Delete case',
   type: [CommandType.SLASH],
   arguments: [
     new Argument({
