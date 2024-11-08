@@ -15,7 +15,7 @@ const warningThresholds = {
 let userMessageTimes = new Map(); // To store user messages and timestamps
 
 new Listener({
-  name: 'Auto Moderation: Spam',
+  name: 'Auto Moderation: Mention Spam',
   event: 'messageCreate',
 
   run: async (ctx) => {
