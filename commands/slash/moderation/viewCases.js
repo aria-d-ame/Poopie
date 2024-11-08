@@ -29,6 +29,7 @@ new Command({
 
   run: async (ctx) => {
     const { guild, client } = ctx;
+    await ctx.interaction.deferReply();
     const moderatorRole = ctx.guild.roles.cache.get('1269757597301604423');
     if (!moderatorRole || !ctx.member.roles.cache.has(moderatorRole.id)) {
       return ctx.reply({ content: "You do not have permission to use this command.", ephemeral: true });
