@@ -12,7 +12,7 @@ const warningThresholds = {
 const blacklistedWords = ['tranny', 'faggot', 'fag', 'nigga', 'nigg', 'nigger'];
 
 new Listener({
-  name: 'Auto Moderation',
+  name: 'Auto Moderation: Words',
   event: 'messageCreate',
 
   run: async (ctx) => {
@@ -30,7 +30,7 @@ new Listener({
         
         // Fetch the target user
         const targetUser = ctx.author;
-        const warnReason = `Rule 1: Blacklisted word: ${word}`;
+        const warnReason = `Automod Rule 1: Detected blacklisted word: ${word}`;
 
         // Get current warning count from the database
         let userWarnings = await caseSchema.find({ Guild: ctx.guild.id, User: targetUser.id }).countDocuments() + 1;
