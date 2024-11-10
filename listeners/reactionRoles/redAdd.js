@@ -5,7 +5,7 @@ new Listener({
   event: 'messageReactionAdd',
 
   run: async (ctx) => {
-    if (ctx.message.id != '1269828108836405301') return;
+    if (ctx.message.id !== '1269828108836405301') return;
 
     const roleEmojis = [
       { emoji: '🌹',
@@ -17,10 +17,12 @@ new Listener({
       { emoji: '🍄', 
         roleId: '1269796050806509588'},
     ];
-      const emoji = ctx.emoji.name;
-      const reactRole = roleEmojis.find(item => item.emoji === emoji)
 
-      if (!reactRole) return;
+    const reactRole = roleEmojis.find(item => item.emoji === ctx.emoji.name);
+    if (!reactRole) return;
+
+    console.log(ctx.emoji.name);
+    console.log(reactRole);
 
       try {
         // Get the member who reacted (user who added the reaction)
