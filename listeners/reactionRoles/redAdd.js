@@ -8,13 +8,13 @@ new Listener({
     if (ctx.message.id != '1269828108836405301') return;
 
     const roleEmojis = [
-      { emoji: ':rose:',
+      { emoji: 'rose',
         roleId: '1269795741786836993'}, 
-      { emoji: ':lady_beetle:', 
+      { emoji: 'lady_beetle', 
         roleId: '1269795891473158311'}, 
-      { emoji: ':worm:', 
+      { emoji: 'worm', 
         roleId: '1269795964399652905'},
-      { emoji: ':mushroom:', 
+      { emoji: 'mushroom', 
         roleId: '1269796050806509588'},
     ];
     if (roleEmojis[ctx.emoji.name]) {
