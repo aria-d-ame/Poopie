@@ -7,24 +7,31 @@ new Listener({
   run: async (ctx) => {
     if (ctx.message.id != '1269828108836405301') return;
 
-    const roleEmojis = {
-      'rose': '1269795741786836993', 
-      'lady_beetle': '1269795891473158311', 
-      'worm': '1269795964399652905',
-      'mushroom': '1269796050806509588',
-    };
+    const roleEmojis = [
+      { emoji: '🌹',
+        roleId: '1269795741786836993'}, 
+      { emoji: '🐞', 
+        roleId: '1269795891473158311'}, 
+      { emoji: '🪱', 
+        roleId: '1269795964399652905'},
+      { emoji: '🍄', 
+        roleId: '1269796050806509588'},
+    ];
     if (roleEmojis[ctx.emoji.name]) {
-      const roleId = roleEmojis[ctx.emoji.name];
+      const emoji = ctx.emoji.name;
+      const reactRole = roleEmojis.find(item => item.emoji === emoji)
+
+      if (!reactRole) return;
 
       try {
         // Get the member who reacted (user who added the reaction)
         const member = await ctx.guild.members.fetch(ctx.author.id);
 
         // Get the role from the guild
-        const role = await ctx.guild.roles.fetch(roleId);
+        const role = await ctx.guild.roles.fetch(reactRole.roleId);
 
         // Check if the member already has the role
-        if (!member.roles.cache.has(roleId)) {
+        if (!member.roles.cache.has(reactRole.roleId)) {
           await member.roles.add(role);
           console.log(`Assigned ${role.name} to ${member.user.tag}`);
         } else {
