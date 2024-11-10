@@ -5,6 +5,7 @@ new Listener({
   event: 'messageReactionAdd',
 
   run: async (ctx) => {
+    console.log(ctx);
     if (ctx.message.id !== '1269828108836405301') return;
 
     const roleEmojis = [
