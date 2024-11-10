@@ -33,7 +33,13 @@ const client = new GClient({
     // Set the guild where you will be developing your bot. This is useful because guild slash commands update instantly.
     devGuildId: process.env.devGuildId,
     // Set the intents you will be using (https://discordjs.guide/popular-topics/intents.html#gateway-intents)
-    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildMessageReactions],
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent, 
+        GatewayIntentBits.GuildMembers,      
+        GatewayIntentBits.GuildMessageReactions,
+      ],
     partials: ["MESSAGE", "CHANNEL", "REACTION"],
 });
 
