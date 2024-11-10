@@ -1,5 +1,5 @@
 const { GClient, Plugins, Command, Component } = require('gcommands');
-const { GatewayIntentBits } = require('discord.js');
+const { GatewayIntentBits, Partials } = require('discord.js');
 const { join } = require('path');
 require('dotenv').config();
 import("mongoose");
@@ -40,7 +40,7 @@ const client = new GClient({
         GatewayIntentBits.GuildMembers,      
         GatewayIntentBits.GuildMessageReactions,
       ],
-    partials: ["MESSAGE", "CHANNEL", "REACTION"],
+    partials: [Partials.Message, Partials.Channel, Partials.GuildMember, Partials.User, Partials.Reaction]
 });
 
 //Connects mongoDB
