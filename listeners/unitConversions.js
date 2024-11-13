@@ -105,7 +105,8 @@ new Listener({
     const conversion = conversions.find(conversion => conversion.type === type && conversion.from === unit);
     
     if (conversion) {
-        const convertedValue = conversion.conversion(value);
+        let convertedValue = conversion.conversion(value);
+        convertedValue = parseFloat(convertedValue.toFixed(2)); 
         return { convertedValue, conversion }; 
     }
 
