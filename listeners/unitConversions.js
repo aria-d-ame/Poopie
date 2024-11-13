@@ -106,27 +106,29 @@ new Listener({
     
     if (conversion) {
         const convertedValue = conversion.conversion(value);
-        return `${value} ${unit} is ${convertedValue} ${conversion.to}`;
+        return { convertedValue, conversion }; 
     }
-    return `Whoopsie.`;
+
+    return null; 
   };
 
   const detectedUnit = detectUnit(ctx.content);
 
   if (detectedUnit) {
     const { value, unit, type } = detectedUnit;
-    const result = convertUnit(value, unit, type);
+    const conversionResult = convertUnit(value, unit, type);
 
-    const embed = new EmbedBuilder()
-    .setColor(0x8269c2)  // You can change this to any color you like
-    .addFields(
-      { name: `${value} ${unit}`, value: `${convertedValue} ${conversion.to}`, inline: true },
-    )
+    if (conversionResult) {
+      const { convertedValue, conversion } = conversionResult;
 
-  // Send the embed as a reply
-  await ctx.reply({ embeds: [embed] });
+      const embed = new EmbedBuilder()
+        .setColor(0x8269c2)  
+        .addFields(
+          { name: `${value} ${unit}`, value: `${convertedValue} ${conversion.to}`, inline: true },
+        );
+
+      await ctx.reply({ embeds: [embed] });
+    }
   }
-
-
-  }
-})
+}
+});
