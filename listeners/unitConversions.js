@@ -94,7 +94,7 @@ new Listener({
     for (const { unitFor, type } of unitPatterns) {
         const unitPresent = content.match(unitFor);
         if (unitPresent) {
-            return { value: parseFloat(match[1]), unit: match[3], type };
+            return { value: parseFloat(unitPresent[1]), unit: unitPresent[3], type };
         }
     }
 
