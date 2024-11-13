@@ -120,8 +120,7 @@ new Listener({
     const embed = new EmbedBuilder()
     .setColor(0x8269c2)  // You can change this to any color you like
     .addFields(
-      { name: 'Input', value: `${value} ${unit}`, inline: true },
-      { name: 'Converted', value: result, inline: true },
+      { name: `${value} ${unit}`, value: `${convertedValue} ${conversion.to}`, inline: true },
     )
 
   // Send the embed as a reply
