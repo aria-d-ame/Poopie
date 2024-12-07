@@ -18,8 +18,8 @@ new Listener({
         .setTitle(`<:xtriangle_medium:1276262944836947999> ${ctx.user.username} 𝚑𝚊𝚜 𝚚𝚞𝚒𝚝 ${ctx.guild.name}!`)
         .setColor(0x8269c2)
 				.setAuthor({
-					name: '',
-					iconURL: ctx.user.displayAvatarURL() || ''
+					name: ' ',
+					iconURL: ctx.user.displayAvatarURL() || ' '
 				})
         .setTimestamp()
         .setFooter({
