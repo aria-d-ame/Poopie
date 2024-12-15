@@ -38,7 +38,7 @@ new Command({
 
       const response = await ctx.interaction.channel.send({
         embeds: [ventEmbed],
-        components: [reportRow],
+        // components: [reportRow],
         ephemeral: false,
         fetchReply: true
       });
