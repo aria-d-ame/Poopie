@@ -15,7 +15,7 @@ new Listener({
     const oldSticky = await stickySchema.findOne({ channelId: eventsChannel.id });
 
     if (oldSticky) {
-      const messageToDelete = await eventsChannel.messages.fetch(oldSticky.MessageId);
+      const messageToDelete = await eventsChannel.messages.fetch(oldSticky.messageId);
       if (messageToDelete) {
         await messageToDelete.delete();
       }
