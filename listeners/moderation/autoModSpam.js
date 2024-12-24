@@ -5,6 +5,7 @@ const crypto = require('crypto');
 
 const spamThreshold = 6;
 const timeWindow = 5000;
+const warningCooldown = 300000; // 5 minutes in milliseconds
 
 const warningThresholds = {
   dayMute: 2, 
@@ -13,6 +14,7 @@ const warningThresholds = {
 };
 
 let userMessageTimes = new Map(); // To store user messages and timestamps
+let userCooldowns = new Map(); // To track cooldowns for warnings
 
 new Listener({
   name: 'Auto Moderation: Spam',
@@ -40,6 +42,13 @@ new Listener({
 
     // Check if the user has sent too many messages within the time window
     if (messageTimes.length >= spamThreshold) {
+      // Check if the user has already been warned recently
+      const lastWarningTime = userCooldowns.get(targetUser.id);
+      if (lastWarningTime && currentTime - lastWarningTime < warningCooldown) {
+        // If within the cooldown period, do not warn again
+        return;
+      }
+
       // Delete the user's last message (or any other spam messages as necessary)
       await ctx.delete();
 
@@ -101,9 +110,13 @@ new Listener({
         console.log('Could not send message to the warned user:', err);
       }
 
+      // Update the cooldown timestamp
+      userCooldowns.set(targetUser.id, currentTime);
+
       // Take action based on the user's warning count
       const member = await ctx.guild.members.fetch(targetUser.id);
-      
+
+      // Handle ban, mute actions based on the warning count
       if (userWarnings >= warningThresholds.banAfter) {
         // Ban the user if they have too many warnings
         try {
@@ -117,7 +130,7 @@ new Listener({
             .addFields(
               { name: '👤 | User:', value: `<@${targetUser.id}> (${targetUser.username})`, inline: false },
               { name: '🪪 | ID:', value: `${targetUser.id}`, inline: false },
-              { name: `🛡️ | Moderator:`, value: `<@1282026688011829270}>`, inline: true },
+              { name: `🛡️ | Moderator:`, value: `<@1282026688011829270>`, inline: true },
               { name: `📁 | Case:`, value: `${caseId}`, inline: true },
               { name: `❓ | Reason:`, value: `Exceeded warning threshold`, inline: false }
             );
@@ -136,20 +149,19 @@ new Listener({
           });
 
           const notifyEmbed = new EmbedBuilder()
-          .setColor('Red')
-          .setTitle('[ 🔨 ] You have been banned')
-          .addFields(
-            { name: `🛡️ | Moderator:`, value: `<@1282026688011829270>`, inline: true },
-            { name: `📁 | Case:`, value: `${caseId}`, inline: true },
-            { name: `⚠️ | Warns:`, value: `${userWarnings}`, inline: true },
-            { name: `❓ | Reason:`, value: `${warnReason}`, inline: false }
-          )
-          .setFooter({
-            text: `${ctx.guild.name} • Members: ${ctx.guild.memberCount}`,
-            iconURL: ctx.guild.iconURL()
-          });
-        
-          // Send the notification to the muted user, if they share a server
+            .setColor('Red')
+            .setTitle('[ 🔨 ] You have been banned')
+            .addFields(
+              { name: `🛡️ | Moderator:`, value: `<@1282026688011829270>`, inline: true },
+              { name: `📁 | Case:`, value: `${caseId}`, inline: true },
+              { name: `⚠️ | Warns:`, value: `${userWarnings}`, inline: true },
+              { name: `❓ | Reason:`, value: `${warnReason}`, inline: false }
+            )
+            .setFooter({
+              text: `${ctx.guild.name} • Members: ${ctx.guild.memberCount}`,
+              iconURL: ctx.guild.iconURL()
+            });
+
           try {
             await member.send({ embeds: [notifyEmbed] });
           } catch (err) {
@@ -193,72 +205,19 @@ new Listener({
         });
 
         const notifyEmbed = new EmbedBuilder()
-        .setColor('Red')
-        .setTitle('[ 🔇 ] You have been muted')
-        .addFields(
-          { name: `🛡️ | Moderator:`, value: `<@1282026688011829270>`, inline: true },
-          { name: `📁 | Case:`, value: `${caseId}`, inline: true },
-          { name: `⚠️ | Warns:`, value: `${userWarnings}`, inline: true },
-          { name: `❓ | Reason:`, value: `${warnReason}`, inline: false }
-        )
-        .setFooter({
-          text: `${ctx.guild.name} • Members: ${ctx.guild.memberCount}`,
-          iconURL: ctx.guild.iconURL()
-        });
-      
-        // Send the notification to the muted user, if they share a server
-        try {
-          await member.send({ embeds: [notifyEmbed] });
-        } catch (err) {
-          console.log('Could not send message to the muted user:', err);
-        }
-
-      } else if (userWarnings >= warningThresholds.dayMute) {
-        // Mute the user for 1 day if they exceed this threshold
-        await member.timeout(86400000, 'Excessive warnings');
-
-        const muteEmbed = new EmbedBuilder()
           .setColor('Red')
-          .setTitle('[ 🔇 ] User Muted')
-          .setTimestamp()
-          .setThumbnail(targetUser.displayAvatarURL())
+          .setTitle('[ 🔇 ] You have been muted')
           .addFields(
-            { name: '👤 | User:', value: `<@${targetUser.id}> (${targetUser.username})`, inline: false },
-            { name: '🪪 | ID:', value: `${targetUser.id}`, inline: false },
-            { name: '⌛ | Time:', value: `<t:${Math.floor((Date.now() + 86400000) / 1000)}:R>`, inline: false },
             { name: `🛡️ | Moderator:`, value: `<@1282026688011829270>`, inline: true },
             { name: `📁 | Case:`, value: `${caseId}`, inline: true },
+            { name: `⚠️ | Warns:`, value: `${userWarnings}`, inline: true },
             { name: `❓ | Reason:`, value: `${warnReason}`, inline: false }
-          );
+          )
+          .setFooter({
+            text: `${ctx.guild.name} • Members: ${ctx.guild.memberCount}`,
+            iconURL: ctx.guild.iconURL()
+          });
 
-        modChannel.send({ embeds: [muteEmbed] });
-
-        await caseSchema.create({
-          Guild: ctx.guild.id,
-          User: targetUser.id,
-          Warn: userWarnings,
-          Type: 'Mute',
-          _id: caseId,
-          Reason: 'Exceeded warn limit.',
-          Moderator: '1282026688011829270',
-          Time: Date.now(),
-        });
-
-        const notifyEmbed = new EmbedBuilder()
-        .setColor('Red')
-        .setTitle('[ 🔇 ] You have been muted')
-        .addFields(
-          { name: `🛡️ | Moderator:`, value: `<@1282026688011829270>`, inline: true },
-          { name: `📁 | Case:`, value: `${caseId}`, inline: true },
-          { name: `⚠️ | Warns:`, value: `${userWarnings}`, inline: true },
-          { name: `❓ | Reason:`, value: `${warnReason}`, inline: false }
-        )
-        .setFooter({
-          text: `${ctx.guild.name} • Members: ${ctx.guild.memberCount}`,
-          iconURL: ctx.guild.iconURL()
-        });
-      
-        // Send the notification to the muted user, if they share a server
         try {
           await member.send({ embeds: [notifyEmbed] });
         } catch (err) {
@@ -266,7 +225,7 @@ new Listener({
         }
       }
 
-      return; 
+      return;
     }
   }
 });
