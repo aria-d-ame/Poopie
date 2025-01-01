@@ -9,29 +9,29 @@ new Listener({
     const conversions = [
       // Temperature conversions
       {
-          from: 'C',
-          to: 'F',
+          from: 'Celsius',
+          to: 'Fahrenheit',
           conversion: (value) => (value * 9 / 5) + 32,
           type: 'temperature',
           description: 'Celsius to Fahrenheit'
       },
       {
-          from: 'F',
-          to: 'C',
+          from: 'Fahrenheit',
+          to: 'Celsius',
           conversion: (value) => (value - 32) * 5 / 9,
           type: 'temperature',
           description: 'Fahrenheit to Celsius'
       },
       {
-          from: 'C',
-          to: 'K',
+          from: 'Celsius',
+          to: 'Kelvin',
           conversion: (value) => value + 273.15,
           type: 'temperature',
           description: 'Celsius to Kelvin'
       },
       {
-          from: 'K',
-          to: 'C',
+          from: 'Kelvin',
+          to: 'Celsius',
           conversion: (value) => value - 273.15,
           type: 'temperature',
           description: 'Kelvin to Celsius'
@@ -39,15 +39,15 @@ new Listener({
   
       // Length conversions
       {
-          from: 'm',
-          to: 'ft',
+          from: 'meter',
+          to: 'feet',
           conversion: (value) => value * 3.28084,
           type: 'length',
           description: 'Meters to Feet'
       },
       {
-          from: 'ft',
-          to: 'm',
+          from: 'feet',
+          to: 'meter',
           conversion: (value) => value / 3.28084,
           type: 'length',
           description: 'Feet to Meters'
