@@ -86,9 +86,9 @@ new Listener({
 
   const detectUnit = (content) => {
     const unitPatterns = [
-        { unitFor: /(-?\d+(\.\d+)?)\s*(°?\s?C|°?\s?F|°?\s?K)/, type: 'temperature' },
-        { unitFor: /(-?\d+(\.\d+)?)\s*(m|ft|km)/, type: 'length' },
-        { unitFor: /(-?\d+(\.\d+)?)\s*(kg|lbs)/, type: 'mass' },
+        { unitFor: /(-?\d+(\.\d+)?)\s*(Celsius|Fahrenheit|Kelvin|°C|°F|°K|C|F|K)/i, type: 'temperature' },
+        { unitFor: /(-?\d+(\.\d+)?)\s*(meters?|feet|km|m|ft)/i, type: 'length' },
+        { unitFor: /(-?\d+(\.\d+)?)\s*(kilograms?|pounds?|kg|lbs)/i, type: 'mass' }
     ];
 
     for (const { unitFor, type } of unitPatterns) {
