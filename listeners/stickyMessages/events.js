@@ -54,9 +54,10 @@ new Listener({
       .addComponents(birthdaysButton, scheduleButton, mcServerButton)
 
     async function sendStickyMessage(){
+      
       if (previousStickyMessage) {
         try {
-          await previousSitckyMessage.delete();
+          await previousStickyMessage.delete();
           
         } catch (error){
           console.error("Error deleting sticky message:", error);
@@ -68,8 +69,9 @@ new Listener({
         components: [eventsRow],
       });
     
-      previousSitckyMessage = newSticky;
+      previousStickyMessage = newSticky;
     }
+      const newSticky = await sendStickyMessage();
     
 
     await stickySchema.create({
