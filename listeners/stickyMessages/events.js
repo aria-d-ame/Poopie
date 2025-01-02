@@ -1,6 +1,7 @@
 const { Listener, customId } = require('gcommands');
 const { EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js');
 const stickySchema = require('../../schemas/stickyMessages')
+let previousStickyMessage = null;
 
 new Listener({
   name: 'Events Sticky',
@@ -50,12 +51,26 @@ new Listener({
       .setEmoji('1276262944836947999');
 
     const eventsRow = new ActionRowBuilder()
-      .addComponents(birthdaysButton, scheduleButton, mcServerButton);
+      .addComponents(birthdaysButton, scheduleButton, mcServerButton)
 
-    const newSticky = await eventsChannel.send({
-      embeds: [eventsStickyEmbed],
-      components: [eventsRow],
-    });
+    async function sendStickyMessage(){
+      if (previousStickyMessage) {
+        try {
+          await previousSitckyMessage.delete();
+          
+        } catch (error){
+          console.error("Error deleting sticky message:", error);
+        }
+      }
+
+      const newSticky = await eventsChannel.send({
+        embeds: [eventsStickyEmbed],
+        components: [eventsRow],
+      });
+    
+      previousSitckyMessage = newSticky;
+    }
+    
 
     await stickySchema.create({
       channelId: eventsChannel.id,
