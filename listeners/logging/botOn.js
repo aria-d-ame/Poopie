@@ -64,35 +64,47 @@ const setupRoleAssignments = async (ctx) => {
         });
     });
 }
-
+// this is the start of the leaderboard roles
+//
+//
 const rankingRoles = async (ctx) => {
     const guilds = ctx.guilds.cache;
-    let lastAssignedUsers = {
-        mostActive: null,
-        richest: null,
-        crimeLord: null,
-    };
+    const lastAssignedUsers = new Map(); // Use a Map to track users per guild
 
     for (const guild of guilds.values()) {
         const ownerId = guild.ownerId;
 
-        // Get the top user excluding the server owner
+        // Ensure the guild has an entry in `lastAssignedUsers`
+        if (!lastAssignedUsers.has(guild.id)) {
+            lastAssignedUsers.set(guild.id, {
+                mostActive: null,
+                richest: null,
+                crimeLord: null,
+            });
+        }
+
+        const guildAssignedUsers = lastAssignedUsers.get(guild.id);
+
+        // Fetch the top users
         const topXPUser = await levelSchema.findOne({ Guild: guild.id, User: { $ne: ownerId } })
             .sort({ XP: -1 });
         const topStarsUser = await moneySchema.findOne({ Guild: guild.id, User: { $ne: ownerId } })
             .sort({ Money: -1 });
         const topCrimeUser = await crimeSchema.findOne({ Guild: guild.id, User: { $ne: ownerId } })
-         .sort({ Crime: -1 });
+            .sort({ Crime: -1 });
 
         if (topXPUser) {
             const { User } = topXPUser;
-            if (User !== lastAssignedUsers.mostActive) {
+            if (User !== guildAssignedUsers.mostActive) {
                 try {
                     const member = await guild.members.fetch(User);
-                    const oldMemberId = lastAssignedUsers.mostActive;
-                    // Assign the leaderboard role
+                    const oldMemberId = guildAssignedUsers.mostActive;
+
+                    // Assign the role
                     await member.roles.add(mostActiveRole);
                     console.log(`Assigned Most Active role to ${member.user.tag}`);
+
+                    // Remove the role from the previous top user
                     if (oldMemberId) {
                         try {
                             const oldMember = await guild.members.fetch(oldMemberId);
@@ -101,24 +113,25 @@ const rankingRoles = async (ctx) => {
                         } catch (oldMemberError) {
                             console.log(`Failed to remove Most Active role from old member (ID: ${oldMemberId}):`, oldMemberError);
                         }
-                    } else {
-                        console.log(`No old member found for removal in guild ${guild.id}`);
                     }
-                    lastAssignedUsers.mostActive = User;
+
+                    guildAssignedUsers.mostActive = User;
                 } catch (error) {
-                    console.log(`Failed to assign ${mostActiveRole} to user ${User}`, error);
+                    console.log(`Failed to assign Most Active role to user ${User}`, error);
                 }
             }
         }
 
         if (topStarsUser) {
             const { User } = topStarsUser;
-            if (User !== lastAssignedUsers.richest) {
-                try{
+            if (User !== guildAssignedUsers.richest) {
+                try {
                     const member = await guild.members.fetch(User);
-                    const oldMemberId = lastAssignedUsers.richest;
+                    const oldMemberId = guildAssignedUsers.richest;
+
                     await member.roles.add(richestRole);
                     console.log(`Assigned Richest role to ${member.user.tag}`);
+
                     if (oldMemberId) {
                         try {
                             const oldMember = await guild.members.fetch(oldMemberId);
@@ -127,24 +140,25 @@ const rankingRoles = async (ctx) => {
                         } catch (oldMemberError) {
                             console.log(`Failed to remove Richest role from old member (ID: ${oldMemberId}):`, oldMemberError);
                         }
-                    } else {
-                        console.log(`No old member found for removal in guild ${guild.id}`);
                     }
-                    lastAssignedUsers.richest = User;
+
+                    guildAssignedUsers.richest = User;
                 } catch (error) {
-                    console.log(`Failed to assign ${richestRole} to user ${User}`, error);
+                    console.log(`Failed to assign Richest role to user ${User}`, error);
                 }
             }
         }
 
         if (topCrimeUser) {
             const { User } = topCrimeUser;
-            if (User !== lastAssignedUsers.crimeLord) {
-                try{
+            if (User !== guildAssignedUsers.crimeLord) {
+                try {
                     const member = await guild.members.fetch(User);
-                    const oldMemberId = lastAssignedUsers.crimeLord;
+                    const oldMemberId = guildAssignedUsers.crimeLord;
+
                     await member.roles.add(crimeLordRole);
                     console.log(`Assigned Crime Lord role to ${member.user.tag}`);
+
                     if (oldMemberId) {
                         try {
                             const oldMember = await guild.members.fetch(oldMemberId);
@@ -153,17 +167,18 @@ const rankingRoles = async (ctx) => {
                         } catch (oldMemberError) {
                             console.log(`Failed to remove Crime Lord role from old member (ID: ${oldMemberId}):`, oldMemberError);
                         }
-                    } else {
-                        console.log(`No old member found for removal in guild ${guild.id}`);
                     }
-                    lastAssignedUsers.crimeLord = User;
+
+                    guildAssignedUsers.crimeLord = User;
                 } catch (error) {
-                    console.log(`Failed to assign ${crimeLordRole} to user ${User}`, error);
+                    console.log(`Failed to assign Crime Lord role to user ${User}`, error);
                 }
             }
         }
     }
-}
+};
+ // this is the end of the leaderboard roles, im doing this so i can make sense of this shit
+
 
 new Listener({
   name: 'Bot Start',
